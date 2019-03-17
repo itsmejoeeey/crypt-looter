@@ -87,7 +87,7 @@ public class SwingControlDemo {
         displayArea = new JTextArea();
         displayArea.setEditable(false);
         displayArea.addKeyListener(new InputDemo());
-        p.add(textField);
+        p.add(displayArea);
         // setLayout(null);
         f.setDefaultCloseOperation(3);
         f.setSize(2880, 1800);
