@@ -1,21 +1,22 @@
 import javax.swing.*;
 
 public class SwingControlDemo {
-    public double deltaTime = 0;
 
-    private float x = 0;
-    private float y = 0;
+
+    public double deltaTime = 0;
 
     JFrame frame = new JFrame();
     JButton button = new JButton("Button");
     JPanel panel = new JPanel();
 
-    public float speed = 0.05f;
+    WorldController world;
 
-    public void showEventDemo() {
+    public SwingControlDemo() {
+        world = new WorldController();
         frame.setDefaultCloseOperation(3);
         frame.setSize(2880, 1800);
         frame.setVisible(true);
+        frame.setLayout(null);
 
         button.setBounds(40, 100, 100, 60);
         button.setEnabled(false);
@@ -25,21 +26,18 @@ public class SwingControlDemo {
         panel.addKeyListener(new KeyController());
 
         panel.add(button);
-        frame.add(panel);
+
+
+
+        frame.add(world.getView());
+        //frame.add(panel);
     }
 
-    public void Update() {
-        // Check for changes in key states
-        if (KeyStates.moveRightKey.keyState())
-            x += deltaTime * speed;
-        if (KeyStates.moveLeftKey.keyState())
-            x -= deltaTime * speed;
-        if (KeyStates.moveForwardKey.keyState())
-            y -= deltaTime * speed;
-        if (KeyStates.moveBackwardsKey.keyState())
-            y += deltaTime * speed;
+    //public float speed = 0.05f;
 
-        // Set new button position
-        button.setBounds(40 + (int) x, 100 + (int) y, 100, 60);
+
+    public void update() {
+        world.deltaTime = this.deltaTime;
+        world.update();
     }
 }
