@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class SwingControlDemo {
+public class MainController {
 
 
     public double deltaTime = 0;
@@ -11,7 +11,7 @@ public class SwingControlDemo {
 
     WorldController world;
 
-    public SwingControlDemo() {
+    public MainController() {
         world = new WorldController();
         frame.setDefaultCloseOperation(3);
         frame.setSize(2880, 1800);
