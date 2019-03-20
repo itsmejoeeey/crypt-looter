@@ -6,38 +6,32 @@ public class MainController {
     public double deltaTime = 0;
 
     JFrame frame = new JFrame();
-    JButton button = new JButton("Button");
     JPanel panel = new JPanel();
 
     WorldController world;
+    CharacterController character;
 
     public MainController() {
         world = new WorldController();
+        character = new CharacterController();
+
         frame.setDefaultCloseOperation(3);
         frame.setSize(2880, 1800);
         frame.setVisible(true);
         frame.setLayout(null);
 
-        button.setBounds(40, 100, 100, 60);
-        button.setEnabled(false);
-
         panel.setLayout(null);
         panel.setFocusable(true);
         panel.addKeyListener(new KeyController());
 
-        panel.add(button);
-
-
-
         frame.add(world.getView());
-        //frame.add(panel);
+        world.getView().add(character.getView());
     }
-
-    //public float speed = 0.05f;
-
 
     public void update() {
         world.deltaTime = this.deltaTime;
+        character.deltaTime = this.deltaTime;
+        character.update();
         world.update();
     }
 }
