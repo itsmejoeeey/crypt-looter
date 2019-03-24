@@ -7,8 +7,10 @@ public class SwingControlDemo {
     private float y = 0;
 
     JFrame frame = new JFrame();
-    JButton button = new JButton("Button");
+    JButton player = new JButton("player");
+    JButton box = new JButton("box");
     JPanel panel = new JPanel();
+    BoxController boxController = new BoxController();
 
     public float speed = 0.05f;
 
@@ -17,14 +19,18 @@ public class SwingControlDemo {
         frame.setSize(2880, 1800);
         frame.setVisible(true);
 
-        button.setBounds(40, 100, 100, 60);
-        button.setEnabled(false);
+        player.setBounds(40, 100, 100, 60);
+        player.setEnabled(false);
+
+        box.setBounds(250, 100, 100, 60);
+        box.setEnabled(false);
 
         panel.setLayout(null);
         panel.setFocusable(true);
         panel.addKeyListener(new KeyController());
 
-        panel.add(button);
+        panel.add(player);
+        panel.add(box);
         frame.add(panel);
     }
 
@@ -39,7 +45,12 @@ public class SwingControlDemo {
         if (KeyStates.moveBackwardsKey.keyState())
             y += deltaTime * speed;
 
+        boxController.player = player.getBounds();
+        boxController.box = box.getBounds();
+
+        Vector2 move = boxController.Collisions(new Vector2(x,y), (float) deltaTime * speed);
+        System.out.println(x + " : " + y);
         // Set new button position
-        button.setBounds(40 + (int) x, 100 + (int) y, 100, 60);
+        player.setBounds(40 + (int) move.x, 100 + (int) move.y, 100, 60);
     }
 }
