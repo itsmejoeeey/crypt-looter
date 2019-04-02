@@ -16,6 +16,7 @@ public class MainController {
         world = new WorldController();
         character = new CharacterController();
         box = new BoxController();
+        character.controller = box;
 
         frame.setDefaultCloseOperation(3);
         frame.setSize(2880, 1800);

@@ -15,12 +15,12 @@ public class BoxController {
         view.moveWorld(0, 0);
     }
 
-    public Vector2 move(Vector2 x, Vector2 old, Rectangle player){
+    public Vector2 move(Vector2 v, Rectangle player){
         Rectangle projRect = new Rectangle(player);
-        projRect.setLocation((int) (player.x + x.x), (int) (player.y + x.y));
+        projRect.setLocation((int) (player.x + v.x), (int) (player.y + v.y));
         if (projRect.intersects(box)){
-            return old;
+            return new Vector2(0,0);
         }
-        return x;
+        return v;
     }
 }

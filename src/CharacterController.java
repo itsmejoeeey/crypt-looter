@@ -9,25 +9,25 @@ public class CharacterController {
     public float speed = 0.2f;
 
     CharacterView view;
-    //public BoxController controller;
+    public BoxController controller;
 
     public CharacterController() {
         view = new CharacterView(new Rectangle(1500,1500, 50, 50));
     }
 
     public void update() {
-        //float oldx = (float) x;
-        //float oldy = (float) y;
-
+        double deltaX = 0, deltaY = 0;
         if (KeyStates.moveRightKey.keyState())
-            x += deltaTime * speed;
+            deltaX = deltaTime * speed;
         if (KeyStates.moveLeftKey.keyState())
-            x -= deltaTime * speed;
+            deltaX = -deltaTime * speed;
         if (KeyStates.moveForwardKey.keyState())
-            y -= deltaTime * speed;
+            deltaY = -deltaTime * speed;
         if (KeyStates.moveBackwardsKey.keyState())
-            y += deltaTime * speed;
-        //Vector2 v = controller.move(new Vector2(x,y), new Vector2(oldx, oldy), view.baseTranform);
+            deltaY = deltaTime * speed;
+        Vector2 v = controller.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
+        x += v.x;
+        y += v.y;
         view.moveWorld((int)x, (int)y);
     }
 
