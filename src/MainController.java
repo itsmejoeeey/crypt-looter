@@ -10,10 +10,12 @@ public class MainController {
 
     WorldController world;
     CharacterController character;
+    BoxController box;
 
     public MainController() {
         world = new WorldController();
         character = new CharacterController();
+        box = new BoxController();
 
         frame.setDefaultCloseOperation(3);
         frame.setSize(2880, 1800);
@@ -26,6 +28,7 @@ public class MainController {
 
         frame.add(world.getView());
         world.getView().add(character.getView());
+        world.getView().add(box.view); //TODO getview
     }
 
     public void update() {
@@ -33,5 +36,6 @@ public class MainController {
         character.deltaTime = this.deltaTime;
         character.update();
         world.update();
+        box.update();
     }
 }

@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CharacterView extends JPanel {
-    public CharacterView() {
+    Rectangle baseTranform;
+    public CharacterView(Rectangle transform) {
         System.out.println("Init");
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
-        this.setPreferredSize(new Dimension(50,50));
+        this.setPreferredSize(new Dimension(transform.width,transform.height));
+        this.baseTranform = transform;
     }
 
     @Override
@@ -19,13 +21,10 @@ public class CharacterView extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.setColor(Color.black);
-        g2.fillRect(0,0,50,50);
+        g2.fillRect(baseTranform.x, baseTranform.y, baseTranform.width, baseTranform.height);
     }
 
     public void moveWorld(int newX, int newY) {
-        System.out.println(this.getBounds());
-        System.out.println(this.getWidth());
-        this.setLocation(1500 + newX, 1500 + newY);
-
+        this.setLocation(baseTranform.x + newX, baseTranform.y + newY);
     }
 }
