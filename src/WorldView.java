@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class WorldView extends JPanel {
     public WorldView() {
-        this.setBounds(0,0,10000,10000);
+        this.setBounds(-1000,-1000,10000,10000);
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());

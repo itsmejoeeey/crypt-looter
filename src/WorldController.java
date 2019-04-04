@@ -14,6 +14,7 @@ public class WorldController {
     }
 
     public void update() {
+        /*
         if (KeyStates.moveRightKey.keyState())
             x += deltaTime * speed;
         if (KeyStates.moveLeftKey.keyState())
@@ -24,6 +25,8 @@ public class WorldController {
             y += deltaTime * speed;
 
         view.moveWorld((int)x, (int)y);
+        */
+        // Parallax code no longer needed
     }
 
     public JPanel getView() {
