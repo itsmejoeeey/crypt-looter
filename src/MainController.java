@@ -10,13 +10,16 @@ public class MainController {
 
     WorldController world;
     CharacterController character;
+    BoxManager boxManager;
     BoxController box;
 
     public MainController() {
         world = new WorldController();
         character = new CharacterController();
         box = new BoxController();
-        character.controller = box;
+        boxManager = new BoxManager();
+        character.boxManager = boxManager;
+        boxManager.box = box.box;
 
         frame.setDefaultCloseOperation(3);
         frame.setSize(2880, 1800);

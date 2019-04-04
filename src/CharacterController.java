@@ -9,7 +9,7 @@ public class CharacterController {
     public float speed = 0.2f;
 
     CharacterView view;
-    public BoxController controller;
+    public BoxManager boxManager;
 
     public CharacterController() {
         view = new CharacterView(new Rectangle(1500,1500, 50, 50));
@@ -25,7 +25,7 @@ public class CharacterController {
             deltaY = -deltaTime * speed;
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
-        Vector2 v = controller.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
         x += v.x;
         y += v.y;
         view.moveWorld((int)x, (int)y);
