@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
+//Simple class with a Character view
+//TODO add BoxModel
 public class BoxController {
     public Rectangle box;
 
