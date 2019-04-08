@@ -5,11 +5,10 @@ import java.awt.*;
 //TODO add BoxModel
 public class BoxController {
     public Rectangle box;
-
     CharacterView view;
 
-    public BoxController() {
-        box = new Rectangle(1650, 1500, 50, 50);
+    public BoxController(int x, int y, int width, int height) {
+        box =  new Rectangle(x,y,width,height);
         view = new CharacterView(box);
     }
 
