@@ -8,8 +8,6 @@ public class BoxManager {
 
     public static ArrayList<BoxController> colliders = new ArrayList<BoxController>();
 
-
-
     //Calculates if the delta movement of the player will collide with box
     public static Vector2 move(Vector2 v, Rectangle player) {
         for (int i= 0; i < colliders.size(); i++) {

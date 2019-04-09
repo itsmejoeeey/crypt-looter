@@ -14,14 +14,17 @@ public class MainController {
     BoxManager boxManager;
     BoxController box;
     BoxController box1;
+    EnemyController enemy;
 
     public MainController() {
         world = new WorldController();
         character = new CharacterController();
-        box = new BoxController(1650, 1500, 50, 50);
-        box1 = new BoxController(1750, 1500, 50, 100);
+        box = new BoxController(1650, 1500, 50, 50, true);
+        box1 = new BoxController(1800, 1500, 150, 100, true);
         boxManager = new BoxManager();
+        enemy = new EnemyController();
         character.boxManager = boxManager;
+        boxManager.colliders.add(enemy.collider);
         boxManager.colliders.add(box);
         boxManager.colliders.add(box1);
 
@@ -35,14 +38,17 @@ public class MainController {
         world.getView().add(character.getView());
         world.getView().add(box.view); //TODO getview
         world.getView().add(box1.view);
+        world.getView().add(enemy.view);
     }
 
     public void update() {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
+        enemy.deltaTime = this.deltaTime;
         character.update();
         world.update();
         box.update();
         box1.update();
+        enemy.update();
     }
 }
