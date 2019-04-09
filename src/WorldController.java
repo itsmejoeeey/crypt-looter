@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class WorldController {
     private float x = 0;
@@ -32,4 +33,13 @@ public class WorldController {
     public JPanel getView() {
         return view;
     }
+
+    public Point getPos() {
+        return view.getPos();
+    }
+
+    public void moveWorld(int deltaX, int deltaY) {
+        view.moveWorld(deltaX, deltaY);
+    }
+
 }

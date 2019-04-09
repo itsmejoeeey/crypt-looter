@@ -12,11 +12,16 @@ public class MainController {
     CharacterController character;
     BoxManager boxManager;
     BoxController box;
+    CameraController camera;
+
 
     public MainController() {
         world = new WorldController();
         character = new CharacterController();
         box = new BoxController();
+
+
+
         boxManager = new BoxManager();
         character.boxManager = boxManager;
         boxManager.box = box.box;
@@ -27,6 +32,8 @@ public class MainController {
         frame.setLayout(null);
         frame.addKeyListener(new KeyController());
 
+        camera = new CameraController(world, character, frame.getSize());
+
         frame.add(world.getView());
         world.getView().add(character.getView());
         world.getView().add(box.view); //TODO getview
@@ -35,8 +42,10 @@ public class MainController {
     public void update() {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
+        camera.deltaTime = this.deltaTime;
         character.update();
         world.update();
         box.update();
+        camera.update();
     }
 }
