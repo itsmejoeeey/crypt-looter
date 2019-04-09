@@ -26,4 +26,9 @@ public class CharacterView extends JPanel {
     public void moveWorld(int newX, int newY) {
         this.setLocation(baseTranform.x + newX, baseTranform.y + newY);
     }
+
+    public Point getPos() {
+        return new Point(this.getX(), this.getY());
+    }
+
 }

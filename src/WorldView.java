@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class WorldView extends JPanel {
     public WorldView() {
-        this.setBounds(-1000,-1000,10000,10000);
+        this.setBounds(-773,-1061,10000,10000);
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
@@ -26,6 +26,17 @@ public class WorldView extends JPanel {
     }
 
     public void moveWorld(int newX, int newY) {
-        this.setBounds(-1000 + newX, -1000 + newY, this.getWidth(), this.getHeight());
+        //this.setBounds(-1000 + newX, -1000 + newY, this.getWidth(), this.getHeight());
+        this.setLocation(getPos().x + newX, getPos().y + newY);
     }
+
+    public void moveWorldAbs2(int newX, int newY) {
+        //this.setBounds(-1000 + newX, -1000 + newY, this.getWidth(), this.getHeight());
+        this.setLocation(newX, newY);
+    }
+
+    public Point getPos() {
+        return new Point(this.getX(), this.getY());
+    }
+
 }

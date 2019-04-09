@@ -37,4 +37,8 @@ public class CharacterController {
     public JPanel getView() {
         return view;
     }
+
+    public Point getPos() {
+        return view.getPos();
+    };
 }
