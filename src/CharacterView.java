@@ -4,7 +4,6 @@ import java.awt.*;
 public class CharacterView extends JPanel {
     Rectangle baseTranform;
     public CharacterView(Rectangle transform) {
-        System.out.println("Init");
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
