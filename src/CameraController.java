@@ -37,8 +37,17 @@ public class CameraController {
                 charPos.y - (abs(worldPos.y) + (screenSize.height/2) - character.getView().getHeight())
         );
 
-        x += lerp(-charOffset.x, 0, 0.25f) * deltaTime * 0.005;
-        y += lerp(-charOffset.y, 0, 0.25f) * deltaTime * 0.005;
+        if(!(worldPos.x <= 0)) {
+            x = 0;
+        } else {
+            x += lerp(-charOffset.x, 0, 0.25f) * deltaTime * 0.005;
+        }
+
+        if(!(worldPos.y <= 0)) {
+            y = 0;
+        } else {
+            y += lerp(-charOffset.y, 0, 0.25f) * deltaTime * 0.005;
+        }
 
         move((int) x, (int) y);
     }
