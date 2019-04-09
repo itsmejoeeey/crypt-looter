@@ -23,9 +23,7 @@ public class CameraController {
     // Linear Interpolation
     // Used for smooth camera movement along a path
     private float lerp(int beginPos, int endPos, double percentStep) {
-        //return (float) ((endPos - beginPos) * percentStep * deltaTime);
-        double step = percentStep;
-        return (float) ((beginPos * (1 - step) + endPos * step));
+        return (float) ((beginPos * (1 - percentStep) + endPos * percentStep));
     }
 
     public void update() {
@@ -37,12 +35,14 @@ public class CameraController {
                 charPos.y - (abs(worldPos.y) + (screenSize.height/2) - character.getView().getHeight())
         );
 
+        // Ensure camera can't move past the left-edge of the world (x-plane)
         if(!(worldPos.x <= 0)) {
             x = 0;
         } else {
             x += lerp(-charOffset.x, 0, 0.25f) * deltaTime * 0.005;
         }
 
+        // Ensure camera can't move past the top-edge of the world (y-plane)
         if(!(worldPos.y <= 0)) {
             y = 0;
         } else {

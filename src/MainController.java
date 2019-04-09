@@ -2,12 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainController {
-
-
     public double deltaTime = 0;
 
     JFrame frame = new JFrame();
-    JPanel panel = new JPanel();
 
     WorldController world;
     CameraController camera;
@@ -28,7 +25,8 @@ public class MainController {
         boxManager.colliders.add(box1);
 
         frame.setDefaultCloseOperation(3);
-        frame.setSize(2880, 1800);
+        frame.setSize(1440, 900);
+        frame.setResizable(false);
         frame.setVisible(true);
         frame.setLayout(null);
         frame.addKeyListener(new KeyController());
