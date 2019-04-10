@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class MainController {
     public double deltaTime = 0;
@@ -37,6 +38,10 @@ public class MainController {
         world.getView().add(character.getView());
         world.getView().add(box.view); //TODO getview
         world.getView().add(box1.view);
+
+        // Hide cursor
+        Cursor blankCursor = frame.getToolkit().createCustomCursor(new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB), new Point(0,0), null);
+        frame.setCursor(blankCursor);
     }
 
     public void update() {
