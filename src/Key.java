@@ -1,5 +1,6 @@
 public class Key {
-    public boolean pressed;
+    private boolean pressed = false;
+    private boolean lastState = pressed;
 
     public void keyPressed() {
         pressed = true;
@@ -10,6 +11,11 @@ public class Key {
     }
 
     public boolean keyState() {
+        lastState = pressed;
         return pressed;
+    }
+
+    public boolean changedSinceLastChecked() {
+        return (lastState != pressed);
     }
 }

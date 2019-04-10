@@ -4,9 +4,8 @@ import java.awt.*;
 public class WorldView extends JPanel {
     public WorldView() {
         this.setBounds(-773,-1061,10000,10000);
-        this.setBackground(Color.black);
+        this.setBackground(Color.BLACK);
         this.setFocusable(true);
-        this.addKeyListener(new KeyController());
     }
 
     @Override

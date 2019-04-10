@@ -8,26 +8,19 @@ public class WorldController {
     public double deltaTime = 0;
     public float speed = 0.2f;
 
+    MainController parent;
     WorldView view;
 
-    public WorldController() {
+    public WorldController(MainController parent) {
+        this.parent = parent;
         view = new WorldView();
     }
 
     public void update() {
-        /*
-        if (KeyStates.moveRightKey.keyState())
-            x += deltaTime * speed;
-        if (KeyStates.moveLeftKey.keyState())
-            x -= deltaTime * speed;
-        if (KeyStates.moveForwardKey.keyState())
-            y -= deltaTime * speed;
-        if (KeyStates.moveBackwardsKey.keyState())
-            y += deltaTime * speed;
-
-        view.moveWorld((int)x, (int)y);
-        */
-        // Parallax code no longer needed
+        if(KeyStates.pauseKey.changedSinceLastChecked() && KeyStates.pauseKey.keyState()){
+            parent.updateState(MainController.GameState_t.PAUSED);
+            return;
+        }
     }
 
     public JPanel getView() {

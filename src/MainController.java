@@ -14,8 +14,17 @@ public class MainController {
     BoxController box;
     BoxController box1;
 
+    MenuPauseController pauseMenu;
+
+    enum GameState_t {
+        PAUSED, MAIN_MENU, NORMAL_GAME, GAME_EXIT_CONFIRMATION
+    }
+
+    GameState_t state = GameState_t.NORMAL_GAME;
+    GameState_t prevState = GameState_t.NORMAL_GAME;
+
     public MainController() {
-        world = new WorldController();
+        world = new WorldController(this);
         character = new CharacterController();
 
         box = new BoxController(1650, 1500, 50, 50, true);
@@ -32,6 +41,11 @@ public class MainController {
         frame.setLayout(null);
         frame.addKeyListener(new KeyController());
 
+        ImageIcon icon = new ImageIcon("src/res/icon.png");
+        frame.setIconImage(icon.getImage());
+
+        frame.setTitle("Crypt Looter");
+
         camera = new CameraController(world, character, frame.getSize());
 
         frame.add(world.getView());
@@ -45,13 +59,46 @@ public class MainController {
     }
 
     public void update() {
+        switch(state) {
+            case NORMAL_GAME:
+                update_normalgame();
+                break;
+            case PAUSED:
+                update_paused();
+                break;
+        }
+    }
+
+    public void updateState(GameState_t newState) {
+
+        prevState = state;
+        state = newState;
+        switch(newState) {
+            case NORMAL_GAME:
+                if(prevState == GameState_t.PAUSED) {
+                    frame.getLayeredPane().remove(pauseMenu.getView());
+                }
+                break;
+            case PAUSED:
+                pauseMenu = new MenuPauseController(this);
+                frame.getLayeredPane().add(pauseMenu.getView(), new Integer(1));
+                break;
+        }
+    }
+
+    private void update_normalgame() {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
+
         character.update();
         world.update();
         box.update();
         box1.update();
         camera.update();
+    }
+
+    private void update_paused() {
+        pauseMenu.update();
     }
 }

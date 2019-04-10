@@ -20,6 +20,12 @@ public class KeyController implements KeyListener {
             case KeyEvent.VK_D:
                 KeyStates.moveRightKey.keyPressed();
                 break;
+            case KeyEvent.VK_ESCAPE:
+                KeyStates.escapeKey.keyPressed();
+                break;
+            case KeyEvent.VK_P:
+                KeyStates.pauseKey.keyPressed();
+                break;
         }
     }
 
@@ -39,6 +45,12 @@ public class KeyController implements KeyListener {
                 break;
             case KeyEvent.VK_D:
                 KeyStates.moveRightKey.keyReleased();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                KeyStates.escapeKey.keyReleased();
+                break;
+            case KeyEvent.VK_P:
+                KeyStates.pauseKey.keyReleased();
                 break;
         }
     }
