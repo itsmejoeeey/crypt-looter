@@ -24,6 +24,9 @@ public class MainController {
     GameState_t prevState = GameState_t.NORMAL_GAME;
 
     public MainController() {
+        ImageIcon icon = new ImageIcon("src/res/icon.png");
+        frame.setIconImage(icon.getImage());
+
         world = new WorldController(this);
         character = new CharacterController();
 
@@ -41,8 +44,7 @@ public class MainController {
         frame.setLayout(null);
         frame.addKeyListener(new KeyController());
 
-        ImageIcon icon = new ImageIcon("src/res/icon.png");
-        frame.setIconImage(icon.getImage());
+
 
         frame.setTitle("Crypt Looter");
 
