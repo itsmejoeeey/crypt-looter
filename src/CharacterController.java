@@ -12,7 +12,16 @@ public class CharacterController {
     public BoxManager boxManager;
 
     public CharacterController() {
-        view = new CharacterView(new Rectangle(1500,1500, 50, 50));
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    view = new CharacterView(new Rectangle(1500,1500, 50, 50));
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
     }
 
     //Moves player based on key inputs
@@ -31,7 +40,17 @@ public class CharacterController {
         Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
         x += v.x;
         y += v.y;
-        view.moveWorld((int)x, (int)y);
+
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    view.moveWorld((int) x, (int) y);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
     }
 
     public JPanel getView() {

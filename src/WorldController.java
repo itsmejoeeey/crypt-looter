@@ -9,8 +9,17 @@ public class WorldController {
     WorldView view;
 
     public WorldController(MainController parent) {
-        this.parent = parent;
-        view = new WorldView();
+
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    view = new WorldView();
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
     }
 
     public void update() {
@@ -35,6 +44,16 @@ public class WorldController {
     public void moveWorldABS(int x, int y) {
         view.x = x;
         view.y = y;
-        view.moveWorldAbs2(x, y);
+
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    view.moveWorldAbs2(x, y);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
     }
 }
