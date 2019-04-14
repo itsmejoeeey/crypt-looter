@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class MainController {
+    // EXPERIMENTAL SHOULD NOT STAY
+    // TODO FIX AND REMOVE
+    // ENABLE THIS FLAG IF RUNNING ON WINDOWS - FIXES MOVEMENT
+    boolean runningOnWindows = false;
+
     public double deltaTime = 0;
 
     JFrame frame = new JFrame();
@@ -24,8 +29,10 @@ public class MainController {
     GameState_t prevState = GameState_t.NORMAL_GAME;
 
     public MainController() {
-        ImageIcon icon = new ImageIcon("src/res/icon.png");
-        frame.setIconImage(icon.getImage());
+        if(runningOnWindows) {
+            ImageIcon icon = new ImageIcon("src/res/icon.png");
+            frame.setIconImage(icon.getImage());
+        }
 
         world = new WorldController(this);
         character = new CharacterController();
@@ -44,7 +51,10 @@ public class MainController {
         frame.setLayout(null);
         frame.addKeyListener(new KeyController());
 
-
+        if(!runningOnWindows) {
+            ImageIcon icon = new ImageIcon("src/res/icon.png");
+            frame.setIconImage(icon.getImage());
+        }
 
         frame.setTitle("Crypt Looter");
 
