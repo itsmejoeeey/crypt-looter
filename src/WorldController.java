@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WorldController {
-    private float x = 0;
-    private float y = 0;
-
     public double deltaTime = 0;
     public float speed = 0.2f;
 
@@ -36,6 +33,8 @@ public class WorldController {
     }
 
     public void moveWorldABS(int x, int y) {
+        view.x = x;
+        view.y = y;
         view.moveWorldAbs2(x, y);
     }
 }

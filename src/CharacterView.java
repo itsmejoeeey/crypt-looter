@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CharacterView extends JPanel {
-    Rectangle baseTranform;
+    private Rectangle baseTranform;
     public CharacterView(Rectangle transform) {
         this.setBackground(Color.black);
         this.setFocusable(true);
