@@ -10,10 +10,12 @@ public class CharacterModel {
 
     CharacterModel(Rectangle transform){
         baseTranform = transform;
+        /*
         try {
             bufferedImage = ImageIO.read(getClass().getResourceAsStream("/enemy.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
+        */
     }
 }
