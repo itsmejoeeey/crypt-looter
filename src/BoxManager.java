@@ -12,6 +12,16 @@ public class BoxManager {
     public static Vector2 move(Vector2 v, Rectangle player) {
         for (int i= 0; i < colliders.size(); i++) {
             BoxController box = colliders.get(i);
+
+            //Projects a squished version of the player. If still collides then can't move. Fixes Diagonal Movement
+            Rectangle projRect = new Rectangle(player);
+            projRect.setSize((int) (player.width * 0.97), (int) (player.height * 0.97));
+            projRect.setLocation((int) (player.x +  v.x), (int) (player.y + v.y));
+            if (projRect.intersects(box.box)) {
+                v.y = 0;
+                v.x = 0;
+            }
+
             if (v.x != 0){
                 //Projects a squished version of the player vertically. If still collides then can't move horizontally
                 Rectangle projRectUp = new Rectangle(player);
