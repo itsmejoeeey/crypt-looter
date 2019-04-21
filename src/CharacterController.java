@@ -30,6 +30,21 @@ public class CharacterController {
     //Moves player based on key inputs
     //delta is equal to newPosition - oldPosition so if 0 the player will stand still
     public void update() {
+        groundMovement();
+
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    view.moveWorld((int) x, (int) y);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
+    }
+
+    public void groundMovement(){
         double deltaX = 0, deltaY = 0;
         if (KeyStates.moveRightKey.keyState())
             deltaX = deltaTime * speed;
@@ -43,17 +58,6 @@ public class CharacterController {
         Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
         x += v.x;
         y += v.y;
-
-        try {
-            SwingUtilities.invokeAndWait(new Runnable() {
-                @Override
-                public void run() {
-                    view.moveWorld((int) x, (int) y);
-                }
-            });
-        } catch (Exception e) {
-            // Required to catch potential exception
-        }
     }
 
     public JPanel getView() {

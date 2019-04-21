@@ -8,8 +8,8 @@ public class CharacterModel {
     public Rectangle baseTranform;
     public BufferedImage bufferedImage;
 
-    CharacterModel(Rectangle trasform){
-        baseTranform = trasform;
+    CharacterModel(Rectangle transform){
+        baseTranform = transform;
         try {
             bufferedImage = ImageIO.read(getClass().getResourceAsStream("/enemy.png"));
         } catch (IOException e){
