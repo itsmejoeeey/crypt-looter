@@ -9,12 +9,23 @@ public class EnemyController {
     public float speed = 0.2f;
 
     CharacterView view;
+    CharacterModel model;
     public BoxManager boxManager;
     public BoxController collider;
 
     public EnemyController() {
-        view = new CharacterView(new Rectangle(1500,1550, 50, 50));
-        collider = new BoxController(1500,1550, 50, 50, false);
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    view = new CharacterView(new Rectangle(1500,1500, 50, 50));
+                    model = new CharacterModel(new Rectangle(1500,1500, 50, 50));
+                    view.model = model;
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
     }
 
     public void update() {

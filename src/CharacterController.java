@@ -9,6 +9,7 @@ public class CharacterController {
     public float speed = 0.2f;
 
     CharacterView view;
+    CharacterModel model;
     public BoxManager boxManager;
 
     public CharacterController() {
@@ -17,6 +18,8 @@ public class CharacterController {
                 @Override
                 public void run() {
                     view = new CharacterView(new Rectangle(1500,1500, 50, 50));
+                    model = new CharacterModel(new Rectangle(1500,1500, 50, 50));
+                    view.model = model;
                 }
             });
         } catch (Exception e) {

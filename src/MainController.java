@@ -6,7 +6,7 @@ public class MainController {
     // EXPERIMENTAL SHOULD NOT STAY
     // TODO FIX AND REMOVE
     // ENABLE THIS FLAG IF RUNNING ON WINDOWS - FIXES MOVEMENT
-    boolean runningOnWindows = false;
+    boolean runningOnWindows = true;
 
     public double deltaTime = 0;
 

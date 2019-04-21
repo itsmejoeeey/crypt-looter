@@ -1,14 +1,17 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class CharacterView extends JPanel {
-    private Rectangle baseTranform;
+    public CharacterModel model;
     public CharacterView(Rectangle transform) {
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
         this.setPreferredSize(new Dimension(transform.width,transform.height));
-        this.baseTranform = transform;
     }
 
     @Override
@@ -20,15 +23,15 @@ public class CharacterView extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.setColor(Color.black);
-        g2.fillRect(baseTranform.x, baseTranform.y, baseTranform.width, baseTranform.height);
+        g2.fillRect(model.baseTranform.x, model.baseTranform.y, model.baseTranform.width, model.baseTranform.height);
     }
 
     public void moveWorld(int newX, int newY) {
-        this.setLocation(baseTranform.x + newX, baseTranform.y + newY);
+        if(model != null)
+            this.setLocation(model.baseTranform.x + newX, model.baseTranform.y + newY);
     }
 
     public Point getPos() {
         return new Point(this.getX(), this.getY());
     }
-
 }
