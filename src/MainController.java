@@ -59,7 +59,7 @@ public class MainController {
 
         frame.addKeyListener(new KeyController());
 
-        world = new WorldController(this);
+        world = new WorldController(this, mapReader.getWorld());
         character = new CharacterController(new Point(500,500));
 
         box = new BoxController(1650, 1500, 50, 50, true);

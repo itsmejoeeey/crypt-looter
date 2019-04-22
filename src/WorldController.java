@@ -7,14 +7,15 @@ public class WorldController {
 
     MainController parent;
     WorldView view;
+    World world;
 
-    public WorldController(MainController parent) {
-
+    public WorldController(MainController parent, World world) {
+        this.world = world;
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new WorldView(parent.screenSize);
+                    view = new WorldView(world, parent.screenSize);
                 }
             });
         } catch (Exception e) {

@@ -50,8 +50,7 @@ public class CameraController {
                 x = 0;
             }
             // Ensure the camera can't move past the right-edge of the world (x-plane)
-            //int maxCameraX = (world.mapSize.width * world.tileSize) - screenSize.width;
-            int maxCameraX = 5000 - screenSize.width;
+            int maxCameraX = (world.mapSize.width * world.tileSize) - screenSize.width;
             if (!(x >= -maxCameraX)) {
                 x = -maxCameraX;
             }
@@ -70,8 +69,7 @@ public class CameraController {
                 y = 0;
             }
             // Ensure camera can't move past the bottom-edge of the world (y-plane)
-            //int maxCameraY = (world.mapSize.height * world.tileSize) - screenSize.height;
-            int maxCameraY = 5000 - screenSize.height;
+            int maxCameraY = (world.mapSize.height * world.tileSize) - screenSize.height;
             if (!(y > -maxCameraY)) {
                 y = -maxCameraY;
             }
