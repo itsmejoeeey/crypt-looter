@@ -86,6 +86,9 @@ public class MainController {
         // Hide cursor
         Cursor blankCursor = frame.getToolkit().createCustomCursor(new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB), new Point(0,0), null);
         frame.setCursor(blankCursor);
+
+        // Needed after adding components to frame
+        frame.revalidate();
     }
 
     public void update() {
