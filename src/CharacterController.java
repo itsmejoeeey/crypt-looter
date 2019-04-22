@@ -12,13 +12,13 @@ public class CharacterController {
     CharacterModel model;
     public BoxManager boxManager;
 
-    public CharacterController() {
+    public CharacterController(Point spawnPos) {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new CharacterView(new Rectangle(1500,1500, 50, 50));
-                    model = new CharacterModel(new Rectangle(1500,1500, 50, 50));
+                    view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50));
+                    model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50));
                     view.model = model;
                 }
             });

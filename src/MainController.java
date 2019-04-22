@@ -20,6 +20,8 @@ public class MainController {
     BoxController box;
     BoxController box1;
 
+    public Dimension screenSize = new Dimension(1440, 900);
+
     MenuPauseController pauseMenu;
 
     enum GameState_t {
@@ -43,8 +45,22 @@ public class MainController {
             return;
         }
 
+        frame.setDefaultCloseOperation(3);
+
+        // Add some extra pixels to account for titlebar and window border
+        frame.setSize(screenSize.width + 10, screenSize.height + 37);
+
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setLayout(null);
+
+        // Set frame background (visible when using maps smaller than screen size)
+        frame.getContentPane().setBackground(Color.BLACK);
+
+        frame.addKeyListener(new KeyController());
+
         world = new WorldController(this);
-        character = new CharacterController();
+        character = new CharacterController(new Point(500,500));
 
         box = new BoxController(1650, 1500, 50, 50, true);
         box1 = new BoxController(1750, 1500, 50, 100, true);
@@ -53,13 +69,6 @@ public class MainController {
         boxManager.colliders.add(box);
         boxManager.colliders.add(box1);
 
-        frame.setDefaultCloseOperation(3);
-        frame.setSize(1440, 900);
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setLayout(null);
-        frame.addKeyListener(new KeyController());
-
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
             frame.setIconImage(icon.getImage());
@@ -67,7 +76,7 @@ public class MainController {
 
         frame.setTitle("Crypt Looter");
 
-        camera = new CameraController(mapReader.getWorld(), world, character, frame.getSize());
+        camera = new CameraController(mapReader.getWorld(), world, character, screenSize);
 
         frame.add(world.getView());
         world.getView().add(character.getView());

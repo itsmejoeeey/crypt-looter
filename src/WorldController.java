@@ -14,7 +14,7 @@ public class WorldController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new WorldView();
+                    view = new WorldView(parent.screenSize);
                 }
             });
         } catch (Exception e) {
@@ -37,23 +37,50 @@ public class WorldController {
         return view.getPos();
     }
 
-    public void moveWorld(int deltaX, int deltaY) {
-        view.moveWorld(deltaX, deltaY);
-    }
-
     public void moveWorldABS(int x, int y) {
-        view.x = x;
-        view.y = y;
-
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
-                public void run() {
-                    view.moveWorldAbs2(x, y);
+                public void run(){
+                    view.moveWorldAbs(x, y);
                 }
             });
         } catch (Exception e) {
             // Required to catch potential exception
         }
+    }
+
+    public void moveWorldABSX(int x) {
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run(){
+                    view.moveWorldAbsX(x);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
+    }
+
+    public void moveWorldABSY(int y) {
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run(){
+                    view.moveWorldAbsY(y);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
+    }
+
+    public boolean isCameraEnabledX() {
+        return view.cameraEnabledX;
+    }
+
+    public boolean isCameraEnabledY() {
+        return view.cameraEnabledY;
     }
 }
