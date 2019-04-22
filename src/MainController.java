@@ -111,11 +111,14 @@ public class MainController {
             case NORMAL_GAME:
                 if(prevState == GameState_t.PAUSED) {
                     frame.getLayeredPane().remove(pauseMenu.getView());
+                    frame.repaint();
+                    frame.revalidate();
                 }
                 break;
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
                 frame.getLayeredPane().add(pauseMenu.getView(), new Integer(1));
+                frame.repaint();
                 break;
         }
     }
