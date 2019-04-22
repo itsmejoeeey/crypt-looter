@@ -23,6 +23,7 @@ public class MapReader {
     private boolean[][] death;
     private int[][] mapFloor;
     private int[][] mapCosmetic;
+    // TODO Consider how necessary mapFloated is - could be overkill for our small game
     private int[][] mapFloated;
 
     MapReader() throws IOException, InvalidMapException {
@@ -248,31 +249,16 @@ public class MapReader {
         GETTERS
     */
 
-    public Dimension getMapSize() {
-        return new Dimension(mapWidth, mapHeight);
-    }
+    public World getWorld() {
+        World world = new World();
+        world.mapSize = new Dimension(mapWidth, mapHeight);
+        world.mapTileSize = mapTileSize;
+        world.collisions = collisions;
+        world.death = death;
+        world.mapFloor = mapFloor;
+        world.mapCosmetic = mapCosmetic;
+        world.mapFloated = mapFloated;
 
-    public int getMapTileSize() {
-        return mapTileSize;
-    }
-
-    public boolean[][] getCollisions() {
-        return collisions;
-    }
-
-    public boolean[][] getDeath() {
-        return death;
-    }
-
-    public int[][] getMapFloor() {
-        return mapFloor;
-    }
-
-    public int[][] getMapCosmetic() {
-        return mapCosmetic;
-    }
-
-    public int[][] getMapFloated() {
-        return mapFloated;
+        return world;
     }
 }
