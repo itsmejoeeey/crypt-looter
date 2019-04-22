@@ -20,6 +20,10 @@ public class WorldView extends JPanel {
     int tilesetColumns;
     int tilesetRows;
 
+    BufferedImage[] sprites;
+
+    boolean gridEnabled = false;
+
     public WorldView(World world, Dimension screenSize) {
         this.world = world;
 
@@ -60,6 +64,17 @@ public class WorldView extends JPanel {
         tilesetRows = tileset.getHeight()/world.mapTileSize;
         System.out.println(tilesetColumns);
         System.out.println(tilesetRows);
+
+        sprites = new BufferedImage[tilesetColumns * tilesetRows];
+
+        int count = 0;
+        for(int mapY = 0; mapY < tilesetRows; mapY++) {
+            for(int mapX = 0; mapX < tilesetColumns; mapX++) {
+                BufferedImage tile = tileset.getSubimage(mapX * world.mapTileSize, mapY * world.mapTileSize, world.mapTileSize, world.mapTileSize);
+                sprites[count] = tile;
+                count++;
+            }
+        }
     }
 
     private int roundDownNearest(int num, int round) {
@@ -80,15 +95,15 @@ public class WorldView extends JPanel {
             for(int y = yMin; y <= yMax; y++) {
                 if(y < world.mapSize.height && x < world.mapSize.width) {
                     int tileValue = world.mapFloor[y][x] - 1;
-                    BufferedImage tile = tileset.getSubimage(tileValue % tilesetColumns * world.mapTileSize, tileValue / tilesetColumns * world.mapTileSize, world.mapTileSize, world.mapTileSize);
+//                    BufferedImage tile = tileset.getSubimage(tileValue % tilesetColumns * world.mapTileSize, tileValue / tilesetColumns * world.mapTileSize, world.mapTileSize, world.mapTileSize);
+                    BufferedImage tile = sprites[tileValue];
                     g2.drawImage(tile, x * 50, y * 50, 50, 50, null);
 
-                    g2.setStroke(new BasicStroke(2));
-                    g2.setColor(Color.white);
-                    g2.drawRect(x * 50, y * 50, 50, 50);
-//
-//                g2.setColor(Color.blue);
-//                g2.fillRect(x*50,y*50,50,50);
+                    if(gridEnabled) {
+                        g2.setStroke(new BasicStroke(2));
+                        g2.setColor(Color.white);
+                        g2.drawRect(x * 50, y * 50, 50, 50);
+                    }
                 }
             }
         }

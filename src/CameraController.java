@@ -41,6 +41,9 @@ public class CameraController {
                 charPos.y - (abs(worldPos.y) + (screenSize.height/2) - characterController.getView().getHeight())
         );
 
+        // TODO Kinda want to implement smooth movement when hitting the end of the world
+        // (instead of just jolting to a stop)
+
         // Check the world allows camera movement in the x direction
         // (typically disabled if the world is smaller than the screen)
         if(worldController.isCameraEnabledX()) {

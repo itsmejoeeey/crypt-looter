@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static java.lang.Thread.sleep;
+
 public class MainController {
     // EXPERIMENTAL SHOULD NOT STAY
     // TODO FIX AND REMOVE
@@ -103,7 +105,6 @@ public class MainController {
     }
 
     public void updateState(GameState_t newState) {
-
         prevState = state;
         state = newState;
         switch(newState) {

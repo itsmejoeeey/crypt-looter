@@ -10,7 +10,9 @@ public class WorldController {
     World world;
 
     public WorldController(MainController parent, World world) {
+        this.parent = parent;
         this.world = world;
+
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
