@@ -5,8 +5,10 @@ import static java.lang.Math.abs;
 public class CameraController {
     private float x = 0;
     private float y = 0;
-    private WorldController world;
-    private CharacterController character;
+
+    private CharacterController characterController;
+    private World world;
+    private WorldController worldController;
 
     public double deltaTime = 0;
 
@@ -14,10 +16,11 @@ public class CameraController {
 
     private Point charOffset;
 
-    CameraController(WorldController world, CharacterController character, Dimension screenSize) {
-        this.character = character;
+    CameraController(World world, WorldController worldController, CharacterController characterController, Dimension screenSize) {
+        this.characterController = characterController;
         this.screenSize = screenSize;
         this.world = world;
+        this.worldController = worldController;
     }
 
     // Linear Interpolation
@@ -27,32 +30,40 @@ public class CameraController {
     }
 
     public void update() {
-        Point charPos = character.getPos();
-        Point worldPos = world.getPos();
+        Point charPos = characterController.getPos();
+        Point worldPos = worldController.getPos();
 
         charOffset = new Point(
-                charPos.x - (abs(worldPos.x) + (screenSize.width/2)) + character.getView().getWidth(),
-                charPos.y - (abs(worldPos.y) + (screenSize.height/2) - character.getView().getHeight())
+                charPos.x - (abs(worldPos.x) + (screenSize.width/2)) + characterController.getView().getWidth(),
+                charPos.y - (abs(worldPos.y) + (screenSize.height/2) - characterController.getView().getHeight())
         );
 
+        x += lerp(-charOffset.x, 0, 0.25f) * deltaTime * 0.005;
         // Ensure camera can't move past the left-edge of the world (x-plane)
-        if(!(worldPos.x <= 0)) {
+        if(!(x <= 0)) {
             x = 0;
-        } else {
-            x += lerp(-charOffset.x, 0, 0.25f) * deltaTime * 0.005;
+        }
+        // Ensure the camera can't move past the right-edge of the world (x-plane)
+        int maxCameraX = (world.mapSize.width * world.tileSize) - screenSize.width;
+        if(!(x >= -maxCameraX)) {
+            x = -maxCameraX;
         }
 
+        y += lerp(-charOffset.y, 0, 0.25f) * deltaTime * 0.005;
         // Ensure camera can't move past the top-edge of the world (y-plane)
-        if(!(worldPos.y <= 0)) {
+        if(!(y <= 0)) {
             y = 0;
-        } else {
-            y += lerp(-charOffset.y, 0, 0.25f) * deltaTime * 0.005;
+        }
+        // Ensure camera can't move past the bottom-edge of the world (y-plane)
+        int maxCameraY = (world.mapSize.height * world.tileSize) - screenSize.height;
+        if(!(y > -maxCameraY)) {
+            y = -maxCameraY;
         }
 
         move((int) x, (int) y);
     }
 
     public void move(int deltaX, int deltaY) {
-        world.moveWorldABS(deltaX, deltaY);
+        worldController.moveWorldABS(deltaX, deltaY);
     }
 }

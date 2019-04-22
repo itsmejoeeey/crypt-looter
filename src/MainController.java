@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MainController {
     // EXPERIMENTAL SHOULD NOT STAY
     // TODO FIX AND REMOVE
     // ENABLE THIS FLAG IF RUNNING ON WINDOWS - FIXES MOVEMENT
-    boolean runningOnWindows = true;
+    boolean runningOnWindows = false;
 
     public double deltaTime = 0;
 
@@ -34,6 +35,14 @@ public class MainController {
             frame.setIconImage(icon.getImage());
         }
 
+        MapReader mapReader;
+        try {
+            mapReader = new MapReader();
+        } catch (IOException | InvalidMapException ex) {
+            // Invalid (or incorrect path to) map
+            return;
+        }
+
         world = new WorldController(this);
         character = new CharacterController();
 
@@ -58,7 +67,7 @@ public class MainController {
 
         frame.setTitle("Crypt Looter");
 
-        camera = new CameraController(world, character, frame.getSize());
+        camera = new CameraController(mapReader.getWorld(), world, character, frame.getSize());
 
         frame.add(world.getView());
         world.getView().add(character.getView());
