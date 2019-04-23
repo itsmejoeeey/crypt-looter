@@ -26,8 +26,17 @@ public class WorldController {
     }
 
     public void update() {
+        // Check for pause key press
         if(KeyStates.pauseKey.changedSinceLastChecked() && KeyStates.pauseKey.keyState()){
+            // Change state to pause menu
             parent.updateState(MainController.GameState_t.PAUSED);
+            return;
+        }
+
+        // Check for escape key press
+        if(KeyStates.escapeKey.changedSinceLastChecked() && KeyStates.escapeKey.keyState()){
+            // Change state to escape menu
+            parent.updateState(MainController.GameState_t.ESCAPE);
             return;
         }
     }

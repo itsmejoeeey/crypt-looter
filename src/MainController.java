@@ -25,9 +25,10 @@ public class MainController {
     public Dimension screenSize = new Dimension(1440, 900);
 
     MenuPauseController pauseMenu;
+    MenuEscapeController escapeMenu;
 
     enum GameState_t {
-        PAUSED, MAIN_MENU, NORMAL_GAME, GAME_EXIT_CONFIRMATION
+        PAUSED, MAIN_MENU, NORMAL_GAME, ESCAPE
     }
 
     GameState_t state = GameState_t.NORMAL_GAME;
@@ -100,6 +101,8 @@ public class MainController {
             case PAUSED:
                 update_paused();
                 break;
+            case ESCAPE:
+                update_escape();
         }
     }
 
@@ -113,10 +116,22 @@ public class MainController {
                     frame.repaint();
                     frame.revalidate();
                 }
+                if(prevState == GameState_t.ESCAPE) {
+                    frame.getLayeredPane().remove(escapeMenu.getView());
+                    frame.repaint();
+                    frame.revalidate();
+                }
                 break;
+
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
                 frame.getLayeredPane().add(pauseMenu.getView(), new Integer(1));
+                frame.repaint();
+                break;
+
+            case ESCAPE:
+                escapeMenu = new MenuEscapeController(this);
+                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(1));
                 frame.repaint();
                 break;
         }
@@ -142,5 +157,12 @@ public class MainController {
         frame.setCursor(defaultCursor);
 
         pauseMenu.update();
+    }
+
+    private void update_escape() {
+        // Hide cursor
+        frame.setCursor(defaultCursor);
+
+        escapeMenu.update();
     }
 }

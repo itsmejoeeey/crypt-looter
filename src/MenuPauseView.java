@@ -8,15 +8,6 @@ public class MenuPauseView extends JPanel {
         this.setFocusable(true);
         this.setLayout(null);
 
-//        JButton button = new JButton("Resume");
-//        button.setFocusable(false);
-//        button.setOpaque(true);
-//        button.setContentAreaFilled(false);
-//        button.setForeground(Color.WHITE);
-//        button.setBounds(
-//                (parent.screenSize.width - 200)/2, (parent.screenSize.height - 100)/2, 200, 100);
-//        this.add(button);
-
         JLabel pausedText = new JLabel("paused", SwingConstants.CENTER);
         pausedText.setBounds(
                 (parent.screenSize.width - 200)/2, (parent.screenSize.height - 100)/2, 200, 100);
@@ -36,7 +27,7 @@ public class MenuPauseView extends JPanel {
         // https://tips4java.wordpress.com/2009/05/31/backgrounds-with-transparency/
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
-        g2.setComposite(AlphaComposite.SrcOver.derive(0.75f));
+        g2.setComposite(AlphaComposite.SrcOver.derive(0.70f));
         g2.fillRect(0,0,getWidth(), getHeight());
     }
 }
