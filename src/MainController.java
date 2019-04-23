@@ -33,6 +33,9 @@ public class MainController {
     GameState_t state = GameState_t.NORMAL_GAME;
     GameState_t prevState = GameState_t.NORMAL_GAME;
 
+    Cursor blankCursor = frame.getToolkit().createCustomCursor(new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB), new Point(0,0), null);
+    Cursor defaultCursor = Cursor.getDefaultCursor();
+
     public MainController() {
         if(runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -85,10 +88,6 @@ public class MainController {
         world.getView().add(box.view); //TODO getview
         world.getView().add(box1.view);
 
-        // Hide cursor
-        Cursor blankCursor = frame.getToolkit().createCustomCursor(new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB), new Point(0,0), null);
-        frame.setCursor(blankCursor);
-
         // Needed after adding components to frame
         frame.revalidate();
     }
@@ -124,6 +123,9 @@ public class MainController {
     }
 
     private void update_normalgame() {
+        // Hide cursor
+        frame.setCursor(blankCursor);
+
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
@@ -136,6 +138,9 @@ public class MainController {
     }
 
     private void update_paused() {
+        // Hide cursor
+        frame.setCursor(defaultCursor);
+
         pauseMenu.update();
     }
 }

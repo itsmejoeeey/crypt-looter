@@ -8,7 +8,7 @@ public class MenuPauseController {
 
     public MenuPauseController(MainController parent) {
         this.parent = parent;
-        view = new MenuPauseView();
+        view = new MenuPauseView(parent);
     }
 
     public void update() {

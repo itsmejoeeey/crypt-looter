@@ -2,10 +2,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuPauseView extends JPanel {
-    public MenuPauseView() {
-        this.setBounds(0,0,1440,900);
+    public MenuPauseView(MainController parent) {
+        this.setBounds(0,0,parent.screenSize.width,parent.screenSize.height);
         this.setOpaque(false);
         this.setFocusable(true);
+        this.setLayout(null);
+
+//        JButton button = new JButton("Resume");
+//        button.setFocusable(false);
+//        button.setOpaque(true);
+//        button.setContentAreaFilled(false);
+//        button.setForeground(Color.WHITE);
+//        button.setBounds(
+//                (parent.screenSize.width - 200)/2, (parent.screenSize.height - 100)/2, 200, 100);
+//        this.add(button);
+
+        JLabel pausedText = new JLabel("paused", SwingConstants.CENTER);
+        pausedText.setBounds(
+                (parent.screenSize.width - 200)/2, (parent.screenSize.height - 100)/2, 200, 100);
+        pausedText.setForeground(Color.WHITE);
+        Font textFont = new Font("serif", Font.BOLD + Font.ITALIC, 40);
+        pausedText.setFont(textFont);
+        this.add(pausedText);
+
+        this.repaint();
+        this.revalidate();
     }
 
     @Override
