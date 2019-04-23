@@ -13,21 +13,10 @@ public class BoxManager {
         for (int i= 0; i < colliders.size(); i++) {
             BoxController box = colliders.get(i);
 
-            //Projects a squished version of the player. If still collides then can't move. Fixes Diagonal Movement
-            if(v.x > 0) {
-                Rectangle projRect = new Rectangle(player);
-                projRect.setSize((int) (player.width * 0.951), (int) (player.height * 0.951));
-                projRect.setLocation((int) (player.x + v.x), (int) (player.y + v.y));
-                if (projRect.intersects(box.box)) {
-                    v.y = 0;
-                    v.x = 0;
-                }
-            }
-
             if (v.x != 0){
                 //Projects a squished version of the player vertically. If still collides then can't move horizontally
                 Rectangle projRectUp = new Rectangle(player);
-                projRectUp.setSize(player.width, (int) (player.height * 0.95));
+                projRectUp.setSize(player.width, (int) (player.height * 0.99));
                 projRectUp.setLocation((int) (player.x + v.x), (int) (player.y));
                 if (projRectUp.intersects(box.box)) {
                     v.x = 0;
@@ -37,9 +26,21 @@ public class BoxManager {
             if(v.y != 0) {
                 //Projects a squished version of the player horizontally. If still collides then can't move vertically
                 Rectangle projRectY = new Rectangle(player);
-                projRectY.setSize((int) (player.width * 0.95), player.height);
+                projRectY.setSize((int) (player.width * 0.99), player.height);
                 projRectY.setLocation((int) (player.x), (int) (player.y + v.y));
                 if (projRectY.intersects(box.box)) {
+                    v.y = 0;
+                }
+            }
+
+
+            if(v.x != 0 && v.y != 0) {
+                //Projects a squished version of the player. If still collides then can't move. Fixes Diagonal Movement
+                Rectangle projRect = new Rectangle(player);
+                projRect.setSize((int) (player.width), (int) (player.height));
+                projRect.setLocation((int) (player.x + v.x), (int) (player.y + v.y));
+                if (projRect.intersects(box.box)) {
+                    v.x = 0;
                     v.y = 0;
                 }
             }
