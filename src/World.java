@@ -6,6 +6,11 @@ public class World {
 
     public boolean[][] collisions;
     public boolean[][] death;
+
+    public boolean[][][] heightCollisions;
+
+    public int[][] heightMap;
+
     public int[][] mapFloor;
     public int[][] mapCosmetic;
     public int[][] mapFloated;

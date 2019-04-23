@@ -25,6 +25,8 @@ public class MapReader {
     private int[][] mapCosmetic;
     // TODO Consider how necessary mapFloated is - could be overkill for our small game
     private int[][] mapFloated;
+    private boolean[][][] heightCollisions;
+    private int[][] heightMap;
 
     MapReader() throws IOException, InvalidMapException {
         File mapFile = new File("src/maps/demomap.tmx");
@@ -67,6 +69,9 @@ public class MapReader {
         mapCosmetic = new int[mapWidth][mapHeight];
         mapFloated = new int[mapWidth][mapHeight];
 
+        heightCollisions = new boolean[5][mapWidth][mapHeight];
+        heightMap = new int[mapWidth][mapHeight];
+
         XPath xpath = XPathFactory.newInstance().newXPath();
 
         // >> Parse the 'world_floor_XX' levels
@@ -84,8 +89,23 @@ public class MapReader {
             if (worldLevelNode.getLength() != 1) {
                 throw new InvalidMapException();
             }
-            // There should only be one child in the NodeList, so we pass child index 0
+            // This updates mapFloor, the final "image" of the map that has the exact sprite values to be displayed
+            // (i.e. this only gets updated by the function if this height has a non-zero value for a tile)
+            // F.Y.I :: There should only be one child in the NodeList, which is why we pass child index 0 to first arg
             mapLevelExtractor(worldLevelNode.item(0), mapFloor);
+
+            // Pass a new 2D array in so we get the exact tilemap in the map file
+            int[][] tempMap = new int[mapWidth][mapHeight];
+            mapLevelExtractor(worldLevelNode.item(0), tempMap);
+            for(int y = 0; y < mapHeight; y++) {
+                for(int x = 0; x < mapWidth; x++) {
+                    if(tempMap[y][x] == 0) {
+                        heightCollisions[i][y][x] = true;
+                    } else {
+                        heightMap[y][x] = i;
+                    }
+                }
+            }
         }
 
 
@@ -105,6 +125,22 @@ public class MapReader {
         }
         // There should only be one child in the NodeList, so we pass child index 0
         mapLevelExtractor(worldAllLevelsNode.item(0), mapFloor);
+        //
+        // Pass a new 2D array in so we get the exact tilemap in the map file
+        // This is used to ensure tiles on world_floor_* are not collisions on any height level
+        int[][] tempMap = new int[mapWidth][mapHeight];
+        mapLevelExtractor(worldAllLevelsNode.item(0), tempMap);
+        for(int y = 0; y < mapHeight; y++) {
+            for(int x = 0; x < mapWidth; x++) {
+                if(tempMap[y][x] != 0) {
+                    int i = 0;
+                    while(i < 5) {
+                        heightCollisions[i][y][x] = false;
+                        i++;
+                    }
+                }
+            }
+        }
 
 
         // >> Parse the 'world_floor_cosmetic' layer
@@ -204,6 +240,12 @@ public class MapReader {
         System.out.println(Arrays.deepToString(mapFloated));
         System.out.println(Arrays.deepToString(collisions));
         System.out.println(Arrays.deepToString(death));
+        System.out.println(Arrays.deepToString(heightCollisions[0]));
+        System.out.println(Arrays.deepToString(heightCollisions[1]));
+        System.out.println(Arrays.deepToString(heightCollisions[2]));
+        System.out.println(Arrays.deepToString(heightCollisions[3]));
+        System.out.println(Arrays.deepToString(heightCollisions[4]));
+        System.out.println(Arrays.deepToString(heightMap));
     }
 
     // This takes care of extracting and cleaning all values before outputting back to the passed in 2D array
@@ -258,6 +300,9 @@ public class MapReader {
         world.mapFloor = mapFloor;
         world.mapCosmetic = mapCosmetic;
         world.mapFloated = mapFloated;
+
+        world.heightCollisions = heightCollisions;
+        world.heightMap = heightMap;
 
         return world;
     }
