@@ -9,7 +9,7 @@ public class EnemyController {
     public float speed = 0.05f;
 
     CharacterView view;
-    Character model;
+    CharacterModel model;
     public BoxManager boxManager;
     public BoxController boxController;
     private EnemyAIController aiController;
@@ -19,7 +19,7 @@ public class EnemyController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
+                    model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
                     boxController = new BoxController(model, view);
                     aiController = new EnemyAIController(boxController, player);

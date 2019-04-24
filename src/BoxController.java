@@ -1,14 +1,14 @@
 import java.awt.*;
 
-//Simple class with a Character view
+//Simple class with a CharacterModel view
 //TODO add BoxModel
 public class BoxController {
     private Rectangle rect;
-    private Character model;
+    private CharacterModel model;
     private CharacterView view;
     public boolean useView = true;
 
-    public BoxController(Character model, CharacterView view){
+    public BoxController(CharacterModel model, CharacterView view){
         this.model = model;
         this.view = view;
         useView = false;
@@ -16,7 +16,7 @@ public class BoxController {
 
     public BoxController(Rectangle rect, int height, boolean addView) {
         this.rect =  rect;
-        model = new Character(rect, height);
+        model = new CharacterModel(rect, height);
         useView = addView;
         if(addView) {
             view = new CharacterView(rect, model);

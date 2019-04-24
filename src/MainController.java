@@ -67,7 +67,7 @@ public class MainController {
 
         world = new WorldController(this, mapReader.getWorld());
         character = new CharacterController(new Point(800,500), boxManager);
-        enemy = new EnemyController(new Point(1100, 500), boxManager);
+        enemy = new EnemyController(new Point(1100, 500), character.boxController, boxManager);
 
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -84,7 +84,7 @@ public class MainController {
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
                 try {
-                    world.getView().add(boxManager.worldColliders[x][y].getView());
+                    world.getView().add(boxManager.colliders[x][y].getView());
                 } catch (NullPointerException e){
                     continue;
                 }
@@ -129,13 +129,13 @@ public class MainController {
 
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
-                frame.getLayeredPane().add(pauseMenu.getView(), new Integer(1));
+                frame.getLayeredPane().add(pauseMenu.getView(), 1);
                 frame.repaint();
                 break;
 
             case ESCAPE:
-                escapeMenu = new MenuEscapeController(this);
-                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(1));
+                escapeMenu = new MenuEscapeController(this, character.model);
+                frame.getLayeredPane().add(escapeMenu.getView(), 1);
                 frame.repaint();
                 break;
         }
