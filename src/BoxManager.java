@@ -8,6 +8,7 @@ public class BoxManager {
     public World world;
     public BoxController[][] colliders;
     int skinWidth = 2;
+    int playerHeightOffset = 20;
 
     public BoxManager(World world){
         colliders = new BoxController[world.mapSize.width][world.mapSize.height];
@@ -35,6 +36,7 @@ public class BoxManager {
         tileY = tileY < 0 ? 0 : tileY;
 
         int boxHeight = world.heightMap[tileY][tileX];
+        boolean onCollision = world.collisions[tileY][tileX];
 
         int minX =  (tileX - player.height / world.tileSize * 2) % world.mapSize.height;
         int maxX =  (tileX + player.height / world.tileSize * 2 + 1) % world.mapSize.height;
@@ -45,21 +47,21 @@ public class BoxManager {
         minY = minY < 0 ? 0 : minY;
 
         Origins playerOrigin = new Origins(player);
+        //System.out.println(tileY + "-" + tileX + " " + minY + ":" + maxY + " " + minX + ":" + maxX);
 
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
-
-                int tileHeight = world.heightMap[y][x];
-                if((!world.heightCollisions[height][y][x] || !world.heightCollisions[boxHeight + 1][tileY][tileX]) && !world.collisions[y][x]){
+                if(!world.heightCollisions[boxHeight][y][x] && !world.collisions[y][x]){
                     continue;
                 }
-
-                height = boxHeight;
+                if(!world.collisions[y][x] && !world.collisions[tileY][tileX]){
+                    continue;
+                }
                 BoxController box = colliders[y][x];
                 Vector2 horizontalOriginBot = (velocity.x < 0)?playerOrigin.botLeft:playerOrigin.botRight;
                 Vector2 horizontalOriginTop = (velocity.x < 0)?playerOrigin.topLeft:playerOrigin.topRight;
 
-                if(contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x), horizontalOriginBot.y, box.rect) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x), horizontalOriginTop.y, box.rect) ){
+                if(contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.rect) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x)* skinWidth, horizontalOriginTop.y, box.rect) ){
                     velocity.x = 0;
                 }
 
@@ -77,8 +79,8 @@ public class BoxManager {
     private class Origins{
         Vector2 topLeft, topRight, botLeft, botRight;
         public Origins(Rectangle rectangle) {
-            topLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + skinWidth);
-            topRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + skinWidth);
+            topLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + skinWidth + playerHeightOffset);
+            topRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + skinWidth + playerHeightOffset);
             botLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + rectangle.height - skinWidth);
             botRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + rectangle.height - skinWidth);
         }
@@ -88,7 +90,7 @@ public class BoxManager {
         return rectangle.x <= x && x <= rectangle.x + rectangle.width &&
                 rectangle.y <= y && y <= rectangle.y + rectangle.height;
     }
-    /*
+/*
     //Calculates if the delta movement of the player will collide with box
     public Vector2 move(Vector2 v, Rectangle player, int height) {
         int tileY = (int) ((player.y + player.width / 2) / world.tileSize);

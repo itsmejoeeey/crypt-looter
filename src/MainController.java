@@ -18,6 +18,7 @@ public class MainController {
     WorldController world;
     CameraController camera;
     CharacterController character;
+    EnemyController enemy;
     BoxManager boxManager;
     public Dimension screenSize = new Dimension(1440, 900);
 
@@ -62,13 +63,11 @@ public class MainController {
 
         frame.addKeyListener(new KeyController());
 
-        world = new WorldController(this, mapReader.getWorld());
-        character = new CharacterController(new Point(500,500));
-
-        //box = new BoxController(new Rectangle(650, 750, 50, 150), true);
-        //box1 = new BoxController(new Rectangle(800, 750, 50, 150), true);
         boxManager = new BoxManager(mapReader.getWorld());
-        character.boxManager = boxManager;
+
+        world = new WorldController(this, mapReader.getWorld());
+        character = new CharacterController(new Point(800,500), boxManager);
+        enemy = new EnemyController(new Point(900, 500), boxManager);
 
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -81,6 +80,7 @@ public class MainController {
 
         frame.add(world.getView());
         world.getView().add(character.getView());
+        world.getView().add(enemy.getView());
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
                 try {
@@ -153,6 +153,7 @@ public class MainController {
         boxManager.update();
         world.update();
         camera.update();
+        enemy.update();
     }
 
     private void update_paused() {

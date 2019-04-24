@@ -3,11 +3,12 @@ import java.awt.*;
 
 public class CharacterView extends JPanel {
     public Character model;
-    public CharacterView(Rectangle transform) {
+    public CharacterView(Rectangle transform, Character model) {
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
         this.setPreferredSize(new Dimension(transform.width,transform.height));
+        this.model = model;
     }
 
     @Override

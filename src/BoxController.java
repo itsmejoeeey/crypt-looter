@@ -11,7 +11,7 @@ public class BoxController {
         this.rect =  rect;
         model = new Character(rect, height);
         if(addView) {
-            view = new CharacterView(rect);
+            view = new CharacterView(rect, model);
             switch (height){
                 case 0:
                     view.setBackground(Color.BLACK);
@@ -33,6 +33,10 @@ public class BoxController {
 
     public CharacterView getView(){
         return view;
+    }
+
+    public void setViewEnable(boolean enable){
+        view.setEnabled(enable);
     }
 
     public int getHeight(){

@@ -11,16 +11,17 @@ public class EnemyController {
     CharacterView view;
     Character model;
     public BoxManager boxManager;
-    public BoxController collider;
+    public BoxController boxController;
 
-    public EnemyController() {
+    public EnemyController(Point spawnPos, BoxManager _boxManager) {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new CharacterView(new Rectangle(1500,1500, 50, 50));
-                    model = new Character(new Rectangle(1500,1500, 50, 50), 0);
-                    view.model = model;
+                    model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
+                    view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+                    boxManager = _boxManager;
+                    boxController = new BoxController(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2, false);
                 }
             });
         } catch (Exception e) {
@@ -29,10 +30,11 @@ public class EnemyController {
     }
 
     public void update() {
-        double delta = deltaTime * speed * 0.1;
-        x += delta;
-        boxManager.move(new Vector2(x,0), view.getBounds(), model.height);
-        view.moveWorld((int) x, 0);
+        //double delta = deltaTime * speed * 0.1;
+        //x += delta;
+        //boxManager.move(new Vector2(x,0), view.getBounds(), boxController);
+        System.out.println("131");
+        view.moveWorld(0, 0);
     }
 
     public JPanel getView() {
