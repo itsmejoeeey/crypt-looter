@@ -94,10 +94,22 @@ public class WorldView extends JPanel {
         for(int x = xMin; x <= xMax; x++) {
             for(int y = yMin; y <= yMax; y++) {
                 if(y < world.mapSize.height && x < world.mapSize.width) {
-                    int tileValue = world.mapFloor[y][x] - 1;
-//                    BufferedImage tile = tileset.getSubimage(tileValue % tilesetColumns * world.mapTileSize, tileValue / tilesetColumns * world.mapTileSize, world.mapTileSize, world.mapTileSize);
-                    BufferedImage tile = sprites[tileValue];
-                    g2.drawImage(tile, x * 50, y * 50, 50, 50, null);
+                    int tileFloorValue = world.mapFloor[y][x] - 1;
+                    if(tileFloorValue > 0) {
+                        BufferedImage tileFloor = sprites[tileFloorValue];
+                        g2.drawImage(tileFloor, x * 50, y * 50, 50, 50, null);
+                    } else {
+                        g2.setColor(Color.white);
+                        g2.drawRect(x * 50, y * 50, 50, 50);
+                    }
+
+                    // Secondary map texture to display ontop of the other map map texture
+                    // (used for displaying flowers, bushes, tree-trunks, etc
+                    int tileCosmeticValue = world.mapCosmetic[y][x] - 1;
+                    if(tileCosmeticValue > 0) {
+                        BufferedImage tileCosmetic = sprites[tileCosmeticValue];
+                        g2.drawImage(tileCosmetic, x * 50, y * 50, 50, 50, null);
+                    }
 
                     if(gridEnabled) {
                         g2.setStroke(new BasicStroke(2));
