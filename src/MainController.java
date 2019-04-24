@@ -27,6 +27,8 @@ public class MainController {
     MenuPauseController pauseMenu;
     MenuEscapeController escapeMenu;
 
+    HUDController hud;
+
     enum GameState_t {
         PAUSED, MAIN_MENU, NORMAL_GAME, ESCAPE
     }
@@ -75,6 +77,8 @@ public class MainController {
         boxManager.colliders.add(box);
         boxManager.colliders.add(box1);
 
+        hud = new HUDController(this, character.model);
+
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
             frame.setIconImage(icon.getImage());
@@ -88,6 +92,7 @@ public class MainController {
         world.getView().add(character.getView());
         world.getView().add(box.view); //TODO getview
         world.getView().add(box1.view);
+        frame.getLayeredPane().add(hud.getView(), new Integer(1));
 
         // Needed after adding components to frame
         frame.revalidate();
@@ -125,13 +130,13 @@ public class MainController {
 
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
-                frame.getLayeredPane().add(pauseMenu.getView(), new Integer(1));
+                frame.getLayeredPane().add(pauseMenu.getView(), new Integer(3));
                 frame.repaint();
                 break;
 
             case ESCAPE:
                 escapeMenu = new MenuEscapeController(this);
-                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(1));
+                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(3));
                 frame.repaint();
                 break;
         }

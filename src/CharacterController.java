@@ -9,7 +9,7 @@ public class CharacterController {
     public float speed = 0.2f;
 
     CharacterView view;
-    CharacterModel model;
+    public CharacterModel model;
     public BoxManager boxManager;
 
     public CharacterController(Point spawnPos) {
