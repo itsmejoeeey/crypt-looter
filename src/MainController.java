@@ -134,8 +134,8 @@ public class MainController {
                 break;
 
             case ESCAPE:
-                escapeMenu = new MenuEscapeController(this);
-                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(1));
+                escapeMenu = new MenuEscapeController(this, character.model);
+                frame.getLayeredPane().add(escapeMenu.getView(), 1);
                 frame.repaint();
                 break;
         }
