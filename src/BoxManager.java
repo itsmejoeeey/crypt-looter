@@ -33,17 +33,14 @@ public class BoxManager {
         tileX = tileX < 0 ? 0 : tileX;
         tileY = tileY < 0 ? 0 : tileY;
         int boxHeight = world.heightMap[tileY][tileX];
-        int playerWidth = player.width / world.tileSize;
-        int playerHeight = player.height / world.tileSize;
-        int minX =  (tileX - playerHeight * 4) % world.mapSize.height;
-        int maxX =  (tileX + playerHeight * 4 + 1) % world.mapSize.height;
-        int minY =  (tileY - playerWidth * 4) % world.mapSize.width;
-        int maxY =  (tileY + playerWidth * 4 + 1) % world.mapSize.width;
+        int minX =  (tileX - player.height / world.tileSize * 4) % world.mapSize.height;
+        int maxX =  (tileX + player.height / world.tileSize * 4 + 1) % world.mapSize.height;
+        int minY =  (tileY - player.width / world.tileSize * 4) % world.mapSize.width;
+        int maxY =  (tileY + player.width / world.tileSize * 4 + 1) % world.mapSize.width;
 
         minX = minX < 0 ? 0 : minX;
         minY = minY < 0 ? 0 : minY;
 
-        System.out.println(minX + "-" + maxX + ":" + minY + "-" + maxY);
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 BoxController box = colliders[y][x];
@@ -57,13 +54,13 @@ public class BoxManager {
 
                 if (v.x != 0) {
                     //Projects a squished version of the player vertically. If still collides then can't move horizontally
-                    if (projectRectangle(player, box, v.x, 0, 1, 0.9, 0)) {
+                    if (projectRectangle(player, box, v.x, 0, 0.96, 0.9, 0)) {
                         v.x = 0;
                     }
                 }
 
                 if (v.y != 0) {
-                    if (projectRectangle(player, box, 0, v.y, 0.9, 1, 0)) {
+                    if (projectRectangle(player, box, 0, v.y, 0.9, 0.96, 0)) {
                         v.y = 0;
                     }
                 }
@@ -71,6 +68,7 @@ public class BoxManager {
 
                 if (v.x != 0 && v.y != 0) {
                     if (projectRectangle(player, box, v.x, v.y, 0.9, 0.9, 1)) {
+                        System.out.println("Diagonal Collision" + v.x + "-" + v.y);
                         v.x = 0;
                         v.y = 0;
                     }
