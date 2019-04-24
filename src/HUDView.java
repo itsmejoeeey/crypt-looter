@@ -9,8 +9,15 @@ public class HUDView extends JPanel {
     private MainController parent;
     private CharacterModel character;
 
-    BufferedImage heartRedImage;
-    BufferedImage heartBlackImage;
+    ImageIcon heartRedIcon;
+    ImageIcon heartBlackIcon;
+
+    JLabel[] heartViews;
+    JLabel itemIcon1;
+    JLabel itemIcon2;
+    JLabel scoreText;
+
+    static int itemBoxInitialX = 120;
 
     public HUDView(MainController parent, CharacterModel character) {
         this.parent = parent;
@@ -21,8 +28,22 @@ public class HUDView extends JPanel {
         this.setFocusable(true);
         this.setLayout(null);
 
+        // Define fonts
         Font textFontSmall = new Font("sans", Font.BOLD, 25);
         Font textFontLarge = new Font("sans", Font.BOLD, 90);
+
+        // Load in images
+        BufferedImage heartRedImage;
+        BufferedImage heartBlackImage;
+        try {
+            heartRedImage = ImageIO.read(new File("src/res/heart_red.png"));
+            heartBlackImage = ImageIO.read(new File("src/res/heart_black.png"));
+        } catch (IOException ex) {
+            return;
+        }
+        // Resize images now to conserve performance for later on
+        heartRedIcon = new ImageIcon(heartRedImage.getScaledInstance(70,70, Image.SCALE_SMOOTH));
+        heartBlackIcon = new ImageIcon(heartBlackImage.getScaledInstance(70,70, Image.SCALE_SMOOTH));
 
         // Item 1 control text
         JLabel controlText1 = new JLabel("J", SwingConstants.CENTER);
@@ -32,6 +53,11 @@ public class HUDView extends JPanel {
         controlText1.setFont(textFontSmall);
         this.add(controlText1);
 
+        // Item 1 icon
+        itemIcon1 = new JLabel();
+        itemIcon1.setBounds(itemBoxInitialX + 7, parent.screenSize.height - 118, 60, 60);
+        this.add(itemIcon1);
+
         // Item 2 control text
         JLabel controlText2 = new JLabel("K", SwingConstants.CENTER);
         controlText2.setBounds(
@@ -40,26 +66,28 @@ public class HUDView extends JPanel {
         controlText2.setFont(textFontSmall);
         this.add(controlText2);
 
+        // Item 2 icon
+        itemIcon2 = new JLabel();
+        itemIcon2.setBounds(itemBoxInitialX + 77, parent.screenSize.height - 118, 60, 60);
+        this.add(itemIcon2);
+        
         // Game score text
-        JLabel scoreText = new JLabel("00000142", SwingConstants.CENTER);
+        scoreText = new JLabel("", SwingConstants.CENTER);
         scoreText.setBounds(
                 parent.screenSize.width - 625, parent.screenSize.height - 140, 600, 100);
         scoreText.setForeground(Color.WHITE);
         scoreText.setFont(textFontLarge);
         this.add(scoreText);
 
-        try {
-            heartRedImage = ImageIO.read(new File("src/res/heart_red.png"));
-            heartBlackImage = ImageIO.read(new File("src/res/heart_black.png"));
-        } catch (IOException ex) {
 
-        }
-
-        for(int i = 0; i < 3; i++) {
+        // Create heart images and add to the panel - we will set the image later in paintComponent()
+        heartViews = new JLabel[character.maxHealth];
+        for(int i = 0; i < character.maxHealth; i++) {
             JLabel heart = new JLabel();
             heart.setBounds(320 + (80*i), parent.screenSize.height - 123, 70, 70);
-            heart.setIcon(new ImageIcon(heartRedImage.getScaledInstance(70,70, Image.SCALE_SMOOTH)));
             this.add(heart);
+            // Add to an array so we can keep track of them and change the heart icons later
+            heartViews[i] = heart;
         }
 
         this.repaint();
@@ -77,7 +105,6 @@ public class HUDView extends JPanel {
         g2.fillRect(0,parent.screenSize.height - 100,getWidth(), 100);
         g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 
-        int itemBoxInitialX = 120;
         // Item 1 box
         g2.setColor(Color.BLACK);
         g2.fillRect(itemBoxInitialX,parent.screenSize.height - 125,75, 75);
@@ -89,5 +116,33 @@ public class HUDView extends JPanel {
         g2.fillRect(itemBoxInitialX + 70,parent.screenSize.height - 125,75, 75);
         g2.setColor(Color.WHITE);
         g2.fillRect(itemBoxInitialX + 75,parent.screenSize.height - 120,65, 65);
+
+        // Update display of the icons inside the item boxes
+        if(character.weapon1Available) {
+            itemIcon1.setIcon(heartRedIcon);
+        } else {
+            itemIcon1.setIcon(null);
+        }
+        if(character.weapon2Available) {
+            itemIcon2.setIcon(heartRedIcon);
+        } else {
+            itemIcon2.setIcon(null);
+        }
+
+        // Update the hearts on screen to convey the character health
+        for(int i = 0; i < character.health; i++) {
+            heartViews[i].setIcon(heartRedIcon);
+        }
+        for(int i = character.health; i < character.maxHealth; i++) {
+            heartViews[i].setIcon(heartBlackIcon);
+        }
+
+        // Update the score displayed on screen
+        String scoreString = String.format("%08d", character.score);
+        scoreText.setText(scoreString);
+    }
+
+    public void update() {
+
     }
 }
