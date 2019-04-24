@@ -19,9 +19,6 @@ public class MainController {
     CameraController camera;
     CharacterController character;
     BoxManager boxManager;
-    BoxController box;
-    BoxController box1;
-
     public Dimension screenSize = new Dimension(1440, 900);
 
     MenuPauseController pauseMenu;
@@ -68,12 +65,10 @@ public class MainController {
         world = new WorldController(this, mapReader.getWorld());
         character = new CharacterController(new Point(500,500));
 
-        box = new BoxController(1650, 1500, 50, 50, true);
-        box1 = new BoxController(1750, 1500, 50, 100, true);
-        boxManager = new BoxManager();
+        //box = new BoxController(new Rectangle(650, 750, 50, 150), true);
+        //box1 = new BoxController(new Rectangle(800, 750, 50, 150), true);
+        boxManager = new BoxManager(mapReader.getWorld());
         character.boxManager = boxManager;
-        boxManager.colliders.add(box);
-        boxManager.colliders.add(box1);
 
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -86,8 +81,17 @@ public class MainController {
 
         frame.add(world.getView());
         world.getView().add(character.getView());
-        world.getView().add(box.view); //TODO getview
-        world.getView().add(box1.view);
+        for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
+            for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
+                try {
+                    world.getView().add(boxManager.colliders[x][y].getView());
+                } catch (NullPointerException e){
+                    continue;
+                }
+            }
+        }
+        //world.getView().add(box.view); //TODO getview
+        //world.getView().add(box1.view);
 
         // Needed after adding components to frame
         frame.revalidate();
@@ -146,9 +150,8 @@ public class MainController {
         camera.deltaTime = this.deltaTime;
 
         character.update();
+        boxManager.update();
         world.update();
-        box.update();
-        box1.update();
         camera.update();
     }
 

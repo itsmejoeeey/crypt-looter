@@ -9,7 +9,7 @@ public class CharacterController {
     public float speed = 0.2f;
 
     CharacterView view;
-    CharacterModel model;
+    Character model;
     public BoxManager boxManager;
 
     public CharacterController(Point spawnPos) {
@@ -18,7 +18,7 @@ public class CharacterController {
                 @Override
                 public void run() {
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50));
-                    model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50));
+                    model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view.model = model;
                 }
             });
@@ -55,7 +55,7 @@ public class CharacterController {
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
-        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), model.height);
         x += v.x;
         y += v.y;
     }

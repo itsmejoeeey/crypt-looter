@@ -9,7 +9,7 @@ public class EnemyController {
     public float speed = 0.2f;
 
     CharacterView view;
-    CharacterModel model;
+    Character model;
     public BoxManager boxManager;
     public BoxController collider;
 
@@ -19,7 +19,7 @@ public class EnemyController {
                 @Override
                 public void run() {
                     view = new CharacterView(new Rectangle(1500,1500, 50, 50));
-                    model = new CharacterModel(new Rectangle(1500,1500, 50, 50));
+                    model = new Character(new Rectangle(1500,1500, 50, 50), 0);
                     view.model = model;
                 }
             });
@@ -31,7 +31,7 @@ public class EnemyController {
     public void update() {
         double delta = deltaTime * speed * 0.1;
         x += delta;
-        boxManager.move(new Vector2(x,0), view.getBounds());
+        boxManager.move(new Vector2(x,0), view.getBounds(), model.height);
         view.moveWorld((int) x, 0);
     }
 
