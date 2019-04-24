@@ -3,10 +3,10 @@ import java.awt.*;
 //Simple class with a Character view
 //TODO add BoxModel
 public class BoxController {
-    Rectangle rect;
+    private Rectangle rect;
     private Character model;
     private CharacterView view;
-    private boolean useView = true;
+    public boolean useView = true;
 
     public BoxController(Character model, CharacterView view){
         this.model = model;
@@ -15,8 +15,9 @@ public class BoxController {
     }
 
     public BoxController(Rectangle rect, int height, boolean addView) {
-        this.rect = rect;
+        this.rect =  rect;
         model = new Character(rect, height);
+        useView = addView;
         if(addView) {
             view = new CharacterView(rect, model);
             switch (height){
@@ -38,15 +39,15 @@ public class BoxController {
         }
     }
 
-    public CharacterView getView(){
-        return view;
+    public Rectangle getRect(){
+        if(view != null){
+            return view.getBounds();
+        }
+        return rect;
     }
 
-    public Rectangle getRect (){
-        if(rect != null){
-            return  rect;
-        }
-        return view.getBounds();
+    public CharacterView getView(){
+        return view;
     }
 
     public void setViewEnable(boolean enable){
@@ -58,8 +59,7 @@ public class BoxController {
     }
 
     public void update() {
-        if(view != null && useView) {
+        if(view != null && useView)
             view.moveWorld(0, 0);
-        }
     }
 }

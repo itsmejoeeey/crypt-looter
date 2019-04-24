@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class CharacterModel {
+public class Character {
     public Rectangle baseTranform;
+    public int height;
     public BufferedImage bufferedImage;
 
-    CharacterModel(Rectangle transform){
+    Character(Rectangle transform, int height){
         baseTranform = transform;
+        this.height = height;
         /*
         try {
             bufferedImage = ImageIO.read(getClass().getResourceAsStream("/enemy.png"));

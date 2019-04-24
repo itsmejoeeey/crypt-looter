@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public class BoxManager {
     public World world;
-    public BoxController[][] worldColliders;
-    public ArrayList<BoxController> colliders = new ArrayList<BoxController>();
+    public BoxController[][] colliders;
+    public  ArrayList<BoxController> entities = new ArrayList<>();
     int skinWidth = 2;
     int playerHeightOffset = 20;
 
     public BoxManager(World world){
-        worldColliders = new BoxController[world.mapSize.width][world.mapSize.height];
+        colliders = new BoxController[world.mapSize.width][world.mapSize.height];
         this.world = world;
         for(int x = 0; x < world.mapSize.width; x++){
             for (int y = 0; y < world.mapSize.height; y++){
-                worldColliders[y][x] = new BoxController(new Rectangle(x * world.tileSize, y * world.tileSize, 50, 50), world.heightMap[y][x], false);
+                colliders[y][x] = new BoxController(new Rectangle(x * world.tileSize, y * world.tileSize, 50, 50), world.heightMap[y][x] , false);
             }
         }
     }
@@ -24,30 +24,33 @@ public class BoxManager {
     public void update(){
         for(int x = 0; x < world.mapSize.width; x++){
             for (int y = 0; y < world.mapSize.height; y++) {
-                worldColliders[x][y].update();
+                colliders[x][y].update();
             }
         }
     }
 
-    public Vector2 move(Vector2 velocity, Rectangle player, BoxController exclude){
-        int tileY = ((player.y + player.width / 2) / world.tileSize) % world.mapSize.width;
-        int tileX = ((player.x + player.height / 2) / world.tileSize) % world.mapSize.height;
+    public  Vector2 move(Vector2 velocity, Rectangle character, BoxController exclude){
+        int tileY = ((character.y + character.width / 2) / world.tileSize) % world.mapSize.width;
+        int tileX = ((character.x + character.height / 2) / world.tileSize) % world.mapSize.height;
 
         tileX = tileX < 0 ? 0 : tileX;
         tileY = tileY < 0 ? 0 : tileY;
 
         int boxHeight = world.heightMap[tileY][tileX];
 
-        int minX =  (tileX - player.height / world.tileSize * 2) % world.mapSize.height;
-        int maxX =  (tileX + player.height / world.tileSize * 2 + 1) % world.mapSize.height;
-        int minY =  (tileY - player.width / world.tileSize * 2) % world.mapSize.width;
-        int maxY =  (tileY + player.width / world.tileSize * 2 + 1) % world.mapSize.width;
+        int minX =  (tileX - character.height / world.tileSize * 2) % world.mapSize.height;
+        int maxX =  (tileX + character.height / world.tileSize * 2 + 1) % world.mapSize.height;
+        int minY =  (tileY - character.width / world.tileSize * 2) % world.mapSize.width;
+        int maxY =  (tileY + character.width / world.tileSize * 2 + 1) % world.mapSize.width;
 
         minX = minX < 0 ? 0 : minX;
         minY = minY < 0 ? 0 : minY;
 
-        Origins origins = new Origins(player, playerHeightOffset);
-
+        Origins origins = new Origins(character, playerHeightOffset);
+        //System.out.println(tileY + "-" + tileX + " " + minY + ":" + maxY + " " + minX + ":" + maxX);
+        if(world.collisions[tileY][tileX]){
+            System.out.println("Wall");
+        }
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 if(boxHeight != -1){
@@ -58,20 +61,22 @@ public class BoxManager {
                 if(boxHeight == -1 && !world.collisions[y][x]){
                     continue;
                 }
-                BoxController box = worldColliders[y][x];
+                BoxController box = colliders[y][x];
                 velocity = collideBoxes(box, velocity, origins);
+
             }
         }
 
-        Origins originsCharacter = new Origins(player, 0);
-        for (int i =0; i < colliders.size(); i++){
-            if(colliders.get(i) != exclude)
-                velocity = collideBoxes(colliders.get(i), velocity, originsCharacter);
+        Origins characterOrigins = new Origins(character, 0);
+        for(int i= 0; i < entities.size(); i++){
+            if(entities.get(i) != exclude){
+                velocity = collideBoxes(entities.get(i), velocity, characterOrigins);
+            }
         }
         return velocity;
     }
 
-    public Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
+    private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
         Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;
         Vector2 horizontalOriginTop = (velocity.x < 0) ? origins.topLeft : origins.topRight;
 

@@ -18,10 +18,8 @@ public class MainController {
     WorldController world;
     CameraController camera;
     CharacterController character;
+    EnemyController enemy;
     BoxManager boxManager;
-    BoxController box;
-    BoxController box1;
-
     public Dimension screenSize = new Dimension(1440, 900);
 
     MenuPauseController pauseMenu;
@@ -65,15 +63,11 @@ public class MainController {
 
         frame.addKeyListener(new KeyController());
 
-        world = new WorldController(this, mapReader.getWorld());
-        character = new CharacterController(new Point(500,500));
+        boxManager = new BoxManager(mapReader.getWorld());
 
-        box = new BoxController(1650, 1500, 50, 50, true);
-        box1 = new BoxController(1750, 1500, 50, 100, true);
-        boxManager = new BoxManager();
-        character.boxManager = boxManager;
-        boxManager.colliders.add(box);
-        boxManager.colliders.add(box1);
+        world = new WorldController(this, mapReader.getWorld());
+        character = new CharacterController(new Point(800,500), boxManager);
+        enemy = new EnemyController(new Point(1100, 500), boxManager);
 
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -86,8 +80,18 @@ public class MainController {
 
         frame.add(world.getView());
         world.getView().add(character.getView());
-        world.getView().add(box.view); //TODO getview
-        world.getView().add(box1.view);
+        world.getView().add(enemy.getView());
+        for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
+            for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
+                try {
+                    world.getView().add(boxManager.worldColliders[x][y].getView());
+                } catch (NullPointerException e){
+                    continue;
+                }
+            }
+        }
+        //world.getView().add(box.view); //TODO getview
+        //world.getView().add(box1.view);
 
         // Needed after adding components to frame
         frame.revalidate();
@@ -144,12 +148,13 @@ public class MainController {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
+        enemy.deltaTime = this.deltaTime;
 
         character.update();
+        boxManager.update();
         world.update();
-        box.update();
-        box1.update();
         camera.update();
+        enemy.update();
     }
 
     private void update_paused() {

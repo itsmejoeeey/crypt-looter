@@ -9,17 +9,20 @@ public class CharacterController {
     public float speed = 0.2f;
 
     CharacterView view;
-    CharacterModel model;
+    Character model;
     public BoxManager boxManager;
+    private BoxController boxController;
 
-    public CharacterController(Point spawnPos) {
+    public CharacterController(Point spawnPos, BoxManager _boxManager) {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50));
-                    model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50));
-                    view.model = model;
+                    model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
+                    view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+                    boxController = new BoxController(model, view);
+                    boxManager = _boxManager;
+                    boxManager.colliders.add(boxController);
                 }
             });
         } catch (Exception e) {
@@ -55,7 +58,7 @@ public class CharacterController {
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
-        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds());
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController);
         x += v.x;
         y += v.y;
     }
