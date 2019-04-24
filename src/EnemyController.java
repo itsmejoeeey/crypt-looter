@@ -6,7 +6,7 @@ public class EnemyController {
     private float y = 0;
 
     public double deltaTime = 0;
-    public float speed = 0.02f;
+    public float speed = 0.2f;
 
     CharacterView view;
     Character model;
@@ -21,8 +21,7 @@ public class EnemyController {
                     model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
                     boxManager = _boxManager;
-                    boxController = new BoxController(model, view);
-                    boxManager.colliders.add(boxController);
+                    boxController = new BoxController(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2, false);
                 }
             });
         } catch (Exception e) {
@@ -31,11 +30,10 @@ public class EnemyController {
     }
 
     public void update() {
-        double delta = deltaTime * speed;
-        Vector2 moveVector = boxManager.move(new Vector2((float) delta,0), view.getBounds(), boxController);
-        System.out.println(delta);
-        x += moveVector.x;
-        view.moveWorld((int) x, 0);
+        //double delta = deltaTime * speed * 0.1;
+        //x += delta;
+        //boxManager.move(new Vector2(x,0), view.getBounds(), boxController);
+        view.moveWorld(0, 0);
     }
 
     public JPanel getView() {

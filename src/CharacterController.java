@@ -20,9 +20,7 @@ public class CharacterController {
                 public void run() {
                     model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
-                    boxController = new BoxController(model, view);
                     boxManager = _boxManager;
-                    boxManager.colliders.add(boxController);
                 }
             });
         } catch (Exception e) {
@@ -58,7 +56,7 @@ public class CharacterController {
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
-        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController);
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), 2);
         x += v.x;
         y += v.y;
     }
