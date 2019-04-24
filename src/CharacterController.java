@@ -11,7 +11,7 @@ public class CharacterController {
     CharacterView view;
     Character model;
     public BoxManager boxManager;
-    private BoxController boxController;
+    public BoxController boxController;
 
     public CharacterController(Point spawnPos, BoxManager _boxManager) {
         try {

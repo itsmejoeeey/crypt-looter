@@ -12,12 +12,5 @@ public class Character {
     Character(Rectangle transform, int height){
         baseTranform = transform;
         this.height = height;
-        /*
-        try {
-            bufferedImage = ImageIO.read(getClass().getResourceAsStream("/enemy.png"));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        */
     }
 }
