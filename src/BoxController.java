@@ -3,12 +3,19 @@ import java.awt.*;
 //Simple class with a Character view
 //TODO add BoxModel
 public class BoxController {
-    public Rectangle rect;
+    Rectangle rect;
     private Character model;
     private CharacterView view;
+    private boolean useView = true;
+
+    public BoxController(Character model, CharacterView view){
+        this.model = model;
+        this.view = view;
+        useView = false;
+    }
 
     public BoxController(Rectangle rect, int height, boolean addView) {
-        this.rect =  rect;
+        this.rect = rect;
         model = new Character(rect, height);
         if(addView) {
             view = new CharacterView(rect, model);
@@ -35,6 +42,13 @@ public class BoxController {
         return view;
     }
 
+    public Rectangle getRect (){
+        if(rect != null){
+            return  rect;
+        }
+        return view.getBounds();
+    }
+
     public void setViewEnable(boolean enable){
         view.setEnabled(enable);
     }
@@ -44,7 +58,8 @@ public class BoxController {
     }
 
     public void update() {
-        if(view != null)
+        if(view != null && useView) {
             view.moveWorld(0, 0);
+        }
     }
 }

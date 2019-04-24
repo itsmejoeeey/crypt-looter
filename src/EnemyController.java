@@ -22,6 +22,7 @@ public class EnemyController {
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
                     boxManager = _boxManager;
                     boxController = new BoxController(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2, false);
+                    boxManager.colliders.add(boxController);
                 }
             });
         } catch (Exception e) {

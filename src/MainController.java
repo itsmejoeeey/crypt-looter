@@ -84,7 +84,7 @@ public class MainController {
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
                 try {
-                    world.getView().add(boxManager.colliders[x][y].getView());
+                    world.getView().add(boxManager.worldColliders[x][y].getView());
                 } catch (NullPointerException e){
                     continue;
                 }
