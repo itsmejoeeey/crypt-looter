@@ -48,27 +48,31 @@ public class BoxManager {
 
         Origins playerOrigin = new Origins(player);
         //System.out.println(tileY + "-" + tileX + " " + minY + ":" + maxY + " " + minX + ":" + maxX);
-
+        if(world.collisions[tileY][tileX]){
+            System.out.println("Wall");
+        }
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
-                if(!world.heightCollisions[boxHeight][y][x] && !world.collisions[y][x]){
-                    continue;
+                if(boxHeight != -1){
+                    if (!world.heightCollisions[boxHeight][y][x] && !world.collisions[y][x]) {
+                        continue;
+                    }
                 }
-                if(!world.collisions[y][x] && !world.collisions[tileY][tileX]){
+                if(boxHeight == -1 && !world.collisions[y][x]){
                     continue;
                 }
                 BoxController box = colliders[y][x];
-                Vector2 horizontalOriginBot = (velocity.x < 0)?playerOrigin.botLeft:playerOrigin.botRight;
-                Vector2 horizontalOriginTop = (velocity.x < 0)?playerOrigin.topLeft:playerOrigin.topRight;
+                Vector2 horizontalOriginBot = (velocity.x < 0) ? playerOrigin.botLeft : playerOrigin.botRight;
+                Vector2 horizontalOriginTop = (velocity.x < 0) ? playerOrigin.topLeft : playerOrigin.topRight;
 
-                if(contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.rect) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x)* skinWidth, horizontalOriginTop.y, box.rect) ){
+                if (contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.rect) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginTop.y, box.rect)) {
                     velocity.x = 0;
                 }
 
-                Vector2 verticalOriginLeft = (velocity.y < 0)?playerOrigin.topLeft:playerOrigin.botLeft;
-                Vector2 verticalOriginRight = (velocity.y < 0)?playerOrigin.topRight:playerOrigin.botRight;
+                Vector2 verticalOriginLeft = (velocity.y < 0) ? playerOrigin.topLeft : playerOrigin.botLeft;
+                Vector2 verticalOriginRight = (velocity.y < 0) ? playerOrigin.topRight : playerOrigin.botRight;
 
-                if(contains(verticalOriginLeft.x, verticalOriginLeft.y + velocity.y + Math.signum(velocity.y), box.rect) || contains(verticalOriginRight.x, verticalOriginRight.y + velocity.y + Math.signum(velocity.y), box.rect) ){
+                if (contains(verticalOriginLeft.x, verticalOriginLeft.y + velocity.y + Math.signum(velocity.y), box.rect) || contains(verticalOriginRight.x, verticalOriginRight.y + velocity.y + Math.signum(velocity.y), box.rect)) {
                     velocity.y = 0;
                 }
             }
@@ -90,63 +94,63 @@ public class BoxManager {
         return rectangle.x <= x && x <= rectangle.x + rectangle.width &&
                 rectangle.y <= y && y <= rectangle.y + rectangle.height;
     }
-/*
-    //Calculates if the delta movement of the player will collide with box
-    public Vector2 move(Vector2 v, Rectangle player, int height) {
-        int tileY = (int) ((player.y + player.width / 2) / world.tileSize);
-        int tileX = (int) ((player.x + player.height / 2) / world.tileSize);
-        tileX = tileX < 0 ? 0 : tileX;
-        tileY = tileY < 0 ? 0 : tileY;
-        int boxHeight = world.heightMap[tileY][tileX];
-        int minX =  (tileX - player.height / world.tileSize * 4) % world.mapSize.height;
-        int maxX =  (tileX + player.height / world.tileSize * 4 + 1) % world.mapSize.height;
-        int minY =  (tileY - player.width / world.tileSize * 4) % world.mapSize.width;
-        int maxY =  (tileY + player.width / world.tileSize * 4 + 1) % world.mapSize.width;
+    /*
+        //Calculates if the delta movement of the player will collide with box
+        public Vector2 move(Vector2 v, Rectangle player, int height) {
+            int tileY = (int) ((player.y + player.width / 2) / world.tileSize);
+            int tileX = (int) ((player.x + player.height / 2) / world.tileSize);
+            tileX = tileX < 0 ? 0 : tileX;
+            tileY = tileY < 0 ? 0 : tileY;
+            int boxHeight = world.heightMap[tileY][tileX];
+            int minX =  (tileX - player.height / world.tileSize * 4) % world.mapSize.height;
+            int maxX =  (tileX + player.height / world.tileSize * 4 + 1) % world.mapSize.height;
+            int minY =  (tileY - player.width / world.tileSize * 4) % world.mapSize.width;
+            int maxY =  (tileY + player.width / world.tileSize * 4 + 1) % world.mapSize.width;
 
-        minX = minX < 0 ? 0 : minX;
-        minY = minY < 0 ? 0 : minY;
+            minX = minX < 0 ? 0 : minX;
+            minY = minY < 0 ? 0 : minY;
 
-        for(int x = minX; x < maxX; x++) {
-            for (int y = minY; y < maxY; y++) {
-                BoxController box = colliders[y][x];
-                int tileHeight = world.heightMap[y][x];
+            for(int x = minX; x < maxX; x++) {
+                for (int y = minY; y < maxY; y++) {
+                    BoxController box = colliders[y][x];
+                    int tileHeight = world.heightMap[y][x];
 
-                if((!world.heightCollisions[height][y][x] || !world.heightCollisions[boxHeight + 1][tileY][tileX]) && !world.collisions[y][x]){
-                    continue;
-                }
-
-                height = boxHeight;
-
-                if (v.x != 0) {
-                    //Projects a squished version of the player vertically. If still collides then can't move horizontally
-                    if (projectRectangle(player, box, v.x, 0, 0.96, 0.9, 0)) {
-                        v.x = 0;
+                    if((!world.heightCollisions[height][y][x] || !world.heightCollisions[boxHeight + 1][tileY][tileX]) && !world.collisions[y][x]){
+                        continue;
                     }
-                }
 
-                if (v.y != 0) {
-                    if (projectRectangle(player, box, 0, v.y, 0.9, 0.96, 0)) {
-                        v.y = 0;
+                    height = boxHeight;
+
+                    if (v.x != 0) {
+                        //Projects a squished version of the player vertically. If still collides then can't move horizontally
+                        if (projectRectangle(player, box, v.x, 0, 0.96, 0.9, 0)) {
+                            v.x = 0;
+                        }
                     }
-                }
+
+                    if (v.y != 0) {
+                        if (projectRectangle(player, box, 0, v.y, 0.9, 0.96, 0)) {
+                            v.y = 0;
+                        }
+                    }
 
 
-                if (v.x != 0 && v.y != 0) {
-                    if (projectRectangle(player, box, v.x, v.y, 0.9, 0.9, 1)) {
-                        System.out.println("Diagonal Collision" + v.x + "-" + v.y);
-                        v.x = 0;
-                        v.y = 0;
+                    if (v.x != 0 && v.y != 0) {
+                        if (projectRectangle(player, box, v.x, v.y, 0.9, 0.9, 1)) {
+                            System.out.println("Diagonal Collision" + v.x + "-" + v.y);
+                            v.x = 0;
+                            v.y = 0;
+                        }
                     }
                 }
             }
+            return v;
         }
-        return v;
-    }
 
-    private double distanceBetween(int x1, int y1, int x2, int y2){
-        return Math.sqrt(Math.abs(x1-x2) ^ 2 + Math.abs(y1-y2) ^ 2);
-    }
-    */
+        private double distanceBetween(int x1, int y1, int x2, int y2){
+            return Math.sqrt(Math.abs(x1-x2) ^ 2 + Math.abs(y1-y2) ^ 2);
+        }
+        */
     private boolean projectRectangle(Rectangle player, BoxController box, float horizontal, float vertical, double widthFactor, double heightFactor, int horizontalOffset){
         Rectangle projRect = new Rectangle(player);
         projRect.setSize((int) (player.width * widthFactor) , (int) (player.height * heightFactor));

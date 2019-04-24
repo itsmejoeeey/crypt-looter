@@ -33,7 +33,6 @@ public class EnemyController {
         //double delta = deltaTime * speed * 0.1;
         //x += delta;
         //boxManager.move(new Vector2(x,0), view.getBounds(), boxController);
-        System.out.println("131");
         view.moveWorld(0, 0);
     }
 
