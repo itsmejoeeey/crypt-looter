@@ -1,23 +1,65 @@
-import javax.swing.*;
 import java.awt.*;
 
 //Simple class with a Character view
 //TODO add BoxModel
 public class BoxController {
-    public Rectangle box;
-    CharacterModel model;
-    CharacterView view;
+    Rectangle rect;
+    private Character model;
+    private CharacterView view;
+    private boolean useView = true;
 
-    public BoxController(int x, int y, int width, int height, boolean addView) {
-        box =  new Rectangle(x,y,width,height);
+    public BoxController(Character model, CharacterView view){
+        this.model = model;
+        this.view = view;
+        useView = false;
+    }
+
+    public BoxController(Rectangle rect, int height, boolean addView) {
+        this.rect = rect;
+        model = new Character(rect, height);
         if(addView) {
-            model = new CharacterModel(box);
-            view = new CharacterView(box);
+            view = new CharacterView(rect, model);
+            switch (height){
+                case 0:
+                    view.setBackground(Color.BLACK);
+                    break;
+                case 1:
+                    view.setBackground(Color.RED);
+                    break;
+                case 2:
+                    view.setBackground(Color.WHITE);
+                    break;
+                default:
+                    view.setBackground(Color.GREEN);
+                    break;
+            }
+
             view.model = model;
         }
     }
 
+    public CharacterView getView(){
+        return view;
+    }
+
+    public Rectangle getRect (){
+        if(rect != null){
+            return  rect;
+        }
+        return view.getBounds();
+    }
+
+    public void setViewEnable(boolean enable){
+        view.setEnabled(enable);
+    }
+
+    public int getHeight(){
+        return model.height;
+    }
+
     public void update() {
-        view.moveWorld(0, 0);
+        if(view != null && useView) {
+            view.moveWorld(0, 0);
+        }
     }
 }

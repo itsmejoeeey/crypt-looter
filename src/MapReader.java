@@ -138,6 +138,9 @@ public class MapReader {
                         heightCollisions[i][y][x] = false;
                         i++;
                     }
+
+                    // Ensure tiles on all layers have a special heightMap value
+                    heightMap[y][x] = -1;
                 }
             }
         }

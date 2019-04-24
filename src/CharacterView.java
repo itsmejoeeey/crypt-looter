@@ -1,17 +1,14 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class CharacterView extends JPanel {
-    public CharacterModel model;
-    public CharacterView(Rectangle transform) {
+    public Character model;
+    public CharacterView(Rectangle transform, Character model) {
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
         this.setPreferredSize(new Dimension(transform.width,transform.height));
+        this.model = model;
     }
 
     @Override
