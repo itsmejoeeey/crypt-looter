@@ -6,6 +6,10 @@ public class CharacterController {
     private float y = 0;
 
     public double deltaTime = 0;
+
+    // Used to keep track of when a second has elapsed
+    private double deltaTimeElapsed = 0;
+
     public float speed = 0.2f;
 
     CharacterView view;
@@ -42,6 +46,14 @@ public class CharacterController {
         } catch (Exception e) {
             // Required to catch potential exception
         }
+
+        deltaTimeElapsed += deltaTime;
+        if(deltaTimeElapsed > 1000) {
+            deltaTimeElapsed-= 1000;
+            model.secondsElapsed++;
+        }
+
+
     }
 
     public void groundMovement(){

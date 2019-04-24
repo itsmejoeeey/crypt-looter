@@ -5,9 +5,9 @@ public class MenuEscapeController {
     MainController parent;
     MenuEscapeView view;
 
-    public MenuEscapeController(MainController parent) {
+    public MenuEscapeController(MainController parent, CharacterModel character) {
         this.parent = parent;
-        view = new MenuEscapeView(parent);
+        view = new MenuEscapeView(parent, character);
     }
 
     public void update() {

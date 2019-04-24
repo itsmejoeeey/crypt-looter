@@ -1,5 +1,5 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 
 public class CharacterModel {
     public Rectangle baseTranform;
@@ -11,6 +11,8 @@ public class CharacterModel {
 
     public boolean weapon1Available = false;
     public boolean weapon2Available = false;
+
+    public int secondsElapsed = 0;
 
     CharacterModel(Rectangle transform){
         baseTranform = transform;

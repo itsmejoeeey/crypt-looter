@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static java.lang.Thread.sleep;
 
@@ -135,7 +137,7 @@ public class MainController {
                 break;
 
             case ESCAPE:
-                escapeMenu = new MenuEscapeController(this);
+                escapeMenu = new MenuEscapeController(this, character.model);
                 frame.getLayeredPane().add(escapeMenu.getView(), new Integer(3));
                 frame.repaint();
                 break;

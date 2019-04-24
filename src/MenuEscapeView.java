@@ -4,11 +4,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 public class MenuEscapeView extends JPanel {
     MainController parent;
-    public MenuEscapeView(MainController parent) {
+
+    CharacterModel character;
+
+    JLabel runtimeString;
+
+    public MenuEscapeView(MainController parent, CharacterModel character) {
         this.parent = parent;
+        this.character = character;
+
         this.setBounds(0,0,parent.screenSize.width,parent.screenSize.height);
         this.setOpaque(false);
         this.setFocusable(true);
@@ -18,9 +30,15 @@ public class MenuEscapeView extends JPanel {
 
         JPanel buttonContainer = new JPanel();
         buttonContainer.setOpaque(false);
-        GridLayout buttonContainerLayout = new GridLayout(4,1);
+        GridLayout buttonContainerLayout = new GridLayout(5,1);
         buttonContainerLayout.setVgap(20);
         buttonContainer.setLayout(buttonContainerLayout);
+
+        // Game run time
+        runtimeString = new JLabel("TIME GOES HERE", SwingConstants.CENTER);
+        runtimeString.setForeground(Color.WHITE);
+        runtimeString.setFont(buttonTextFont);
+        buttonContainer.add(runtimeString);
 
         // Buttons
         JButton buttonResume = new JButton("Resume");
@@ -79,7 +97,7 @@ public class MenuEscapeView extends JPanel {
         });
         buttonContainer.add(buttonExitDesktop);
 
-        buttonContainer.setSize(new Dimension(400, 300));
+        buttonContainer.setSize(new Dimension(400, 400));
         buttonContainer.setLocation(
                 (parent.screenSize.width - buttonContainer.getWidth())/2,
                 (parent.screenSize.height - buttonContainer.getHeight())/2
@@ -99,6 +117,13 @@ public class MenuEscapeView extends JPanel {
         g2.setColor(Color.BLACK);
         g2.setComposite(AlphaComposite.SrcOver.derive(0.80f));
         g2.fillRect(0,0,getWidth(), getHeight());
+
+        // Update game time
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(0,0,0,0,0,character.secondsElapsed);
+        String runtime = new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
+        runtimeString.setText("Time elapsed: " + runtime);
+
     }
 
     private void buttonResumeAction() {
