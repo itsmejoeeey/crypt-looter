@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class BoxManager {
     public World world;
     public BoxController[][] colliders;
+    public  ArrayList<BoxController> entities = new ArrayList<>();
     int skinWidth = 2;
     int playerHeightOffset = 20;
 
@@ -28,25 +29,24 @@ public class BoxManager {
         }
     }
 
-    public  Vector2 move(Vector2 velocity, Rectangle player, int height){
-        int tileY = (int) ((player.y + player.width / 2) / world.tileSize);
-        int tileX = (int) ((player.x + player.height / 2) / world.tileSize);
+    public  Vector2 move(Vector2 velocity, Rectangle character, BoxController exclude){
+        int tileY = ((character.y + character.width / 2) / world.tileSize) % world.mapSize.width;
+        int tileX = ((character.x + character.height / 2) / world.tileSize) % world.mapSize.height;
 
         tileX = tileX < 0 ? 0 : tileX;
         tileY = tileY < 0 ? 0 : tileY;
 
         int boxHeight = world.heightMap[tileY][tileX];
-        boolean onCollision = world.collisions[tileY][tileX];
 
-        int minX =  (tileX - player.height / world.tileSize * 2) % world.mapSize.height;
-        int maxX =  (tileX + player.height / world.tileSize * 2 + 1) % world.mapSize.height;
-        int minY =  (tileY - player.width / world.tileSize * 2) % world.mapSize.width;
-        int maxY =  (tileY + player.width / world.tileSize * 2 + 1) % world.mapSize.width;
+        int minX =  (tileX - character.height / world.tileSize * 2) % world.mapSize.height;
+        int maxX =  (tileX + character.height / world.tileSize * 2 + 1) % world.mapSize.height;
+        int minY =  (tileY - character.width / world.tileSize * 2) % world.mapSize.width;
+        int maxY =  (tileY + character.width / world.tileSize * 2 + 1) % world.mapSize.width;
 
         minX = minX < 0 ? 0 : minX;
         minY = minY < 0 ? 0 : minY;
 
-        Origins playerOrigin = new Origins(player);
+        Origins origins = new Origins(character, playerHeightOffset);
         //System.out.println(tileY + "-" + tileX + " " + minY + ":" + maxY + " " + minX + ":" + maxX);
         if(world.collisions[tileY][tileX]){
             System.out.println("Wall");
@@ -62,29 +62,42 @@ public class BoxManager {
                     continue;
                 }
                 BoxController box = colliders[y][x];
-                Vector2 horizontalOriginBot = (velocity.x < 0) ? playerOrigin.botLeft : playerOrigin.botRight;
-                Vector2 horizontalOriginTop = (velocity.x < 0) ? playerOrigin.topLeft : playerOrigin.topRight;
+                velocity = collideBoxes(box, velocity, origins);
 
-                if (contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.rect) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginTop.y, box.rect)) {
-                    velocity.x = 0;
-                }
-
-                Vector2 verticalOriginLeft = (velocity.y < 0) ? playerOrigin.topLeft : playerOrigin.botLeft;
-                Vector2 verticalOriginRight = (velocity.y < 0) ? playerOrigin.topRight : playerOrigin.botRight;
-
-                if (contains(verticalOriginLeft.x, verticalOriginLeft.y + velocity.y + Math.signum(velocity.y), box.rect) || contains(verticalOriginRight.x, verticalOriginRight.y + velocity.y + Math.signum(velocity.y), box.rect)) {
-                    velocity.y = 0;
-                }
             }
+        }
+
+        Origins characterOrigins = new Origins(character, 0);
+        for(int i= 0; i < entities.size(); i++){
+            if(entities.get(i) != exclude){
+                velocity = collideBoxes(entities.get(i), velocity, characterOrigins);
+            }
+        }
+        return velocity;
+    }
+
+    private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
+        Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;
+        Vector2 horizontalOriginTop = (velocity.x < 0) ? origins.topLeft : origins.topRight;
+
+        if (contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.getRect()) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginTop.y, box.getRect())) {
+            velocity.x = 0;
+        }
+
+        Vector2 verticalOriginLeft = (velocity.y < 0) ? origins.topLeft : origins.botLeft;
+        Vector2 verticalOriginRight = (velocity.y < 0) ? origins.topRight : origins.botRight;
+
+        if (contains(verticalOriginLeft.x, verticalOriginLeft.y + velocity.y + Math.signum(velocity.y), box.getRect()) || contains(verticalOriginRight.x, verticalOriginRight.y + velocity.y + Math.signum(velocity.y), box.getRect())) {
+            velocity.y = 0;
         }
         return velocity;
     }
 
     private class Origins{
         Vector2 topLeft, topRight, botLeft, botRight;
-        public Origins(Rectangle rectangle) {
-            topLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + skinWidth + playerHeightOffset);
-            topRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + skinWidth + playerHeightOffset);
+        public Origins(Rectangle rectangle, int heightOffset) {
+            topLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + skinWidth + heightOffset);
+            topRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + skinWidth + heightOffset);
             botLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + rectangle.height - skinWidth);
             botRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + rectangle.height - skinWidth);
         }
@@ -155,7 +168,7 @@ public class BoxManager {
         Rectangle projRect = new Rectangle(player);
         projRect.setSize((int) (player.width * widthFactor) , (int) (player.height * heightFactor));
         projRect.setLocation((int) (player.x + horizontalOffset + horizontal), (int) (player.y + vertical));
-        if (projRect.intersects(box.rect)) {
+        if (projRect.intersects(box.getRect())) {
             return true;
         }
         return false;

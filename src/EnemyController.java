@@ -20,8 +20,9 @@ public class EnemyController {
                 public void run() {
                     model = new Character(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+                    boxController = new BoxController(model, view);
                     boxManager = _boxManager;
-                    boxController = new BoxController(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2, false);
+                    boxManager.entities.add(boxController);
                 }
             });
         } catch (Exception e) {
@@ -30,10 +31,10 @@ public class EnemyController {
     }
 
     public void update() {
-        //double delta = deltaTime * speed * 0.1;
-        //x += delta;
-        //boxManager.move(new Vector2(x,0), view.getBounds(), boxController);
-        view.moveWorld(0, 0);
+        double delta = deltaTime * speed * 0.1;
+        Vector2 moveVector =  boxManager.move(new Vector2((float) delta,0), view.getBounds(), boxController);
+        x += moveVector.x;
+        view.moveWorld((int) x, 0);
     }
 
     public JPanel getView() {

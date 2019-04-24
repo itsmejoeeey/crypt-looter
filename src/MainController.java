@@ -67,7 +67,7 @@ public class MainController {
 
         world = new WorldController(this, mapReader.getWorld());
         character = new CharacterController(new Point(800,500), boxManager);
-        enemy = new EnemyController(new Point(900, 500), boxManager);
+        enemy = new EnemyController(new Point(1100, 500), boxManager);
 
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -90,8 +90,6 @@ public class MainController {
                 }
             }
         }
-        //world.getView().add(box.view); //TODO getview
-        //world.getView().add(box1.view);
 
         // Needed after adding components to frame
         frame.revalidate();
@@ -129,13 +127,13 @@ public class MainController {
 
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
-                frame.getLayeredPane().add(pauseMenu.getView(), new Integer(1));
+                frame.getLayeredPane().add(pauseMenu.getView(), 1);
                 frame.repaint();
                 break;
 
             case ESCAPE:
                 escapeMenu = new MenuEscapeController(this);
-                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(1));
+                frame.getLayeredPane().add(escapeMenu.getView(), 1);
                 frame.repaint();
                 break;
         }
@@ -148,6 +146,7 @@ public class MainController {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
+        enemy.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
