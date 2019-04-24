@@ -30,8 +30,8 @@ public class BoxManager {
     }
 
     public Vector2 move(Vector2 velocity, Rectangle player, BoxController exclude){
-        int tileY = ((player.y + player.width / 2) / world.tileSize);
-        int tileX = ((player.x + player.height / 2) / world.tileSize);
+        int tileY = ((player.y + player.width / 2) / world.tileSize) % world.mapSize.width;
+        int tileX = ((player.x + player.height / 2) / world.tileSize) % world.mapSize.height;
 
         tileX = tileX < 0 ? 0 : tileX;
         tileY = tileY < 0 ? 0 : tileY;

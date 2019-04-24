@@ -67,7 +67,7 @@ public class MainController {
 
         world = new WorldController(this, mapReader.getWorld());
         character = new CharacterController(new Point(800,500), boxManager);
-        enemy = new EnemyController(new Point(900, 500), boxManager);
+        enemy = new EnemyController(new Point(1100, 500), boxManager);
 
         if(!runningOnWindows) {
             ImageIcon icon = new ImageIcon("src/res/icon.png");
@@ -148,6 +148,7 @@ public class MainController {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
+        enemy.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
