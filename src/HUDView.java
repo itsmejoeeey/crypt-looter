@@ -36,8 +36,8 @@ public class HUDView extends JPanel {
         BufferedImage heartRedImage;
         BufferedImage heartBlackImage;
         try {
-            heartRedImage = ImageIO.read(new File("src/res/heart_red.png"));
-            heartBlackImage = ImageIO.read(new File("src/res/heart_black.png"));
+            heartRedImage = ImageIO.read(new File("src/res/icons/heart_red.png"));
+            heartBlackImage = ImageIO.read(new File("src/res/icons/heart_black.png"));
         } catch (IOException ex) {
             return;
         }

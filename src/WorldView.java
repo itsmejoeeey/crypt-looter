@@ -54,7 +54,7 @@ public class WorldView extends JPanel {
         this.setFocusable(true);
 
         try {
-            tileset = ImageIO.read(new File("src/res/tileset.png"));
+            tileset = ImageIO.read(new File("src/res/textures/tileset.png"));
         } catch (IOException ex) {
             // Invalid image file path;
             return;

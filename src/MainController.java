@@ -41,7 +41,7 @@ public class MainController {
 
     public MainController() {
         if(runningOnWindows) {
-            ImageIcon icon = new ImageIcon("src/res/icon.png");
+            ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
             frame.setIconImage(icon.getImage());
         }
 
@@ -80,7 +80,7 @@ public class MainController {
         hud = new HUDController(this, character.model);
 
         if(!runningOnWindows) {
-            ImageIcon icon = new ImageIcon("src/res/icon.png");
+            ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
             frame.setIconImage(icon.getImage());
         }
 
