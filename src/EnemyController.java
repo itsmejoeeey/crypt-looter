@@ -6,7 +6,8 @@ public class EnemyController {
     private float y = 0;
 
     public double deltaTime = 0;
-    public float speed = 0.05f;
+    public double speed = 0.05;
+    private double hitTimer = 0;
 
     CharacterView view;
     CharacterModel model;
@@ -34,16 +35,20 @@ public class EnemyController {
     }
 
     public void update() {
-        double delta = deltaTime * speed;
-        Vector2 aiVector = aiController.move();
-        Vector2 moveVector =  boxManager.move(new Vector2(aiVector.x, aiVector.y) , view.getBounds(), boxController);
-        x += moveVector.x * delta;
-        y += moveVector.y * delta;
-        view.moveWorld(0, 0);
-        if(boxManager.detectCollision(boxController, true)){
-            System.out.println("Hit");
-
+        if(hitTimer <= 0) {
+            double delta = deltaTime * speed;
+            Vector2 aiVector = aiController.move();
+            Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
+            x += moveVector.x * delta;
+            y += moveVector.y * delta;
+            view.moveWorld((int) x, (int) y);
+        } else {
+            hitTimer = hitTimer - deltaTime / 1000;
         }
+        if(boxManager.detectCollision(boxController, true)){
+            hitTimer = 10;
+        }
+        //System.out.println(hitTimer);
     }
 
     public JPanel getView() {

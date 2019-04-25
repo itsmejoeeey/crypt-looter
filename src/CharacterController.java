@@ -84,31 +84,31 @@ public class CharacterController {
     int attackX;
     int attackY;
     public void attackDetection(){
+        model.walking = false;
         if(KeyStates.moveRightKey.keyState() ||
                 KeyStates.moveLeftKey.keyState() ||
                 KeyStates.moveForwardKey.keyState() ||
                 KeyStates.moveBackwardsKey.keyState()){
             attackX = 0;
             attackY = 0;
+            model.walking = true;
         }
 
         if (KeyStates.moveRightKey.keyState()) {
             attackX += 1;
             model.walking = true;
         }
-        else if (KeyStates.moveLeftKey.keyState()){
+        if (KeyStates.moveLeftKey.keyState()){
             attackX += -1;
             model.walking = true;
         }
-        else if (KeyStates.moveForwardKey.keyState()){
+        if (KeyStates.moveForwardKey.keyState()){
             attackY += 1;
             model.walking = true;
         }
-        else if (KeyStates.moveBackwardsKey.keyState()){
+        if (KeyStates.moveBackwardsKey.keyState()){
             attackY += -1;
             model.walking = true;
-        } else {
-            model.walking = false;
         }
 
         if(attackX == 0 && attackY == 1){
@@ -129,12 +129,13 @@ public class CharacterController {
             model.direction = 1;
         }
 
-        int[] centreAttackPosition = getMoveDirection(model.direction % 8);
-        int[] leftAttackPosition = getMoveDirection((model.direction + 1) % 8) ;
+        int[] centreAttackPosition = getMoveDirection(Math.floorMod((model.direction), 8));
+        int[] leftAttackPosition = getMoveDirection(Math.floorMod((model.direction + 1), 8));
         int[] rightAttackPosition = getMoveDirection(Math.floorMod((model.direction - 1), 8));
 
+        System.out.println(model.walking);
 
-        //System.out.println(attackX +"," +getMoveDirection(model.direction)[0] +"," + attackY +"," + getMoveDirection(model.direction)[1]);
+        //System.out.println(attackX +"," + getMoveDirection(model.direction)[0] +"," + attackY +"," + getMoveDirection(model.direction)[1]);
         //System.out.println(attackController[0].getWidth() + ":" + attackController[0].getHeight());
         //System.out.println(leftAttackPosition[0] + ":" + leftAttackPosition[1] + "_" + attackX + ":" + attackY + "_" + rightAttackPosition[0] + ":" + rightAttackPosition[1]);
 
