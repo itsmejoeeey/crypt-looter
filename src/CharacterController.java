@@ -27,12 +27,12 @@ public class CharacterController {
                     model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
                     attackController[0] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y, 40,40));
-                    attackController[1] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y - 40, 40,40));
+                    attackController[1] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y + 40, 40,40));
                     attackController[2] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y - 40, 40,40));
                     boxController = new BoxController(model, view);
                     boxManager = _boxManager;
                     boxManager.entities.add(boxController);
-                    boxManager.playerAttack = attackController;
+                    boxManager.playerAttacks = attackController;
                 }
             });
         } catch (Exception e) {
@@ -79,6 +79,7 @@ public class CharacterController {
         x += v.x;
         y += v.y;
     }
+
     int attackX;
     int attackY;
     public void attackDetection(){
@@ -112,26 +113,76 @@ public class CharacterController {
         if(attackX == 0 && attackY == 1){
             model.direction = 0;
         } else if(attackX == 1 && attackY == 1){
-            model.direction = 1;
+            model.direction = 7;
         } else if(attackX == 1 && attackY == 0){
-            model.direction = 2;
+            model.direction = 6;
         } else if(attackX == 1 && attackY == -1){
-            model.direction = 3;
+            model.direction = 5;
         } else if(attackX == 0 && attackY == -1){
             model.direction = 4;
         }else if(attackX == -1 && attackY == -1){
-            model.direction = 5;
+            model.direction = 3;
         }else if(attackX == -1 && attackY == 0){
-            model.direction = 6;
+            model.direction = 2;
         }else if(attackX == -1 && attackY == 1){
-            model.direction = 7;
+            model.direction = 1;
         }
 
+        int[] leftAttackPosition = getMoveDirection((model.direction - 1) % 7) ;
+        int[] rightAttackPosition = getMoveDirection((model.direction + 1)  % 7);
+
+        System.out.println(model.direction);
+
+        //System.out.println(leftAttackPosition[0] + ":" + leftAttackPosition[1] + "_" + attackX + ":" + attackY + "_" + rightAttackPosition[0] + ":" + rightAttackPosition[1]);
+
+        Rectangle centreRectangle = new Rectangle(view.getBounds().x + attackX * view.getBounds().height, view.getBounds().y - attackY * view.getBounds().height, 40, 40);
+        Rectangle leftRectangle = new Rectangle(view.getBounds().x + leftAttackPosition[0] * view.getBounds().height, view.getBounds().y - leftAttackPosition[1] * view.getBounds().height, 40, 40);
+        Rectangle rightRectangle = new Rectangle(view.getBounds().x + rightAttackPosition[0] * view.getBounds().height, view.getBounds().y - rightAttackPosition[1] * view.getBounds().height, 40, 40);
+
+        attackController[0].updateHitBox(centreRectangle, 0);
+        attackController[1].updateHitBox(leftRectangle, 0);
+        attackController[2].updateHitBox(rightRectangle, 0);
+
         //Origins playerOrigins = new Origins(view.getBounds(), 0, 0);
-        float x = view.getBounds().x + attackX * view.getBounds().height;
-        float y = view.getBounds().y - attackY * view.getBounds().height;
-        //attackController.updateHitBox(new Rectangle((int) x, (int) y, 40, 40), 0);
-        //attackController.active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+        for(int i =0; i < 3; i++)
+            attackController[i].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+    }
+
+    public int[] getMoveDirection(int direction){
+        int [] directions = new int[2];
+        switch (direction){
+            case 7:
+                directions[0] = 1;
+                directions[1] = 1;
+                return directions;
+            case 6:
+                directions[0] = 1;
+                directions[1] = 0;
+                return directions;
+            case 5:
+                directions[0] = 1;
+                directions[1] = -1;
+                return directions;
+            case 4:
+                directions[0] = 0;
+                directions[1] = -1;
+                return directions;
+            case 3:
+                directions[0] = -1;
+                directions[1] = -1;
+            case 2:
+                directions[0] = -1;
+                directions[1] = 0;
+            case 1:
+                directions[0] = -1;
+                directions[1] = 1;
+                return directions;
+            case 0:
+                directions[0] = 0;
+                directions[1] = 1;
+                return directions;
+        }
+        return directions;
     }
 
     public JPanel getView() {
