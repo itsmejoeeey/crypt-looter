@@ -9,7 +9,7 @@ public class BoxManager {
     public BoxController[][] colliders;
     public ArrayList<BoxController> entities = new ArrayList<>();
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
-    public AttackController playerAttack;
+    public AttackController[] playerAttacks;
 
     int skinWidth = 2;
     int playerHeightOffset = 20;
@@ -33,11 +33,9 @@ public class BoxManager {
     }
 
     public  Vector2 move(Vector2 velocity, Rectangle character, BoxController exclude){
-        int tileY = ((character.y + character.width / 2) / world.tileSize) % world.mapSize.width;
-        int tileX = ((character.x + character.height / 2) / world.tileSize) % world.mapSize.height;
+        int tileY = Math.floorMod(((character.y + character.width / 2) / world.tileSize) , world.mapSize.width);
+        int tileX = Math.floorMod(((character.x + character.height / 2) / world.tileSize), world.mapSize.height);
 
-        tileX = tileX < 0 ? 0 : tileX;
-        tileY = tileY < 0 ? 0 : tileY;
 
         int boxHeight = world.heightMap[tileY][tileX];
 
@@ -77,14 +75,14 @@ public class BoxManager {
     }
 
     public boolean detectCollision(BoxController entity, boolean checkPlayer){
-        if(checkPlayer){
-            if (!playerAttack.active){
-                return false;
-            }
-            Point[] points= playerAttack.getPoints();
-            for(int i= 0; i < points.length; i++){
-                if(contains(points[i].x, points[i].y, entity.getRect())){
-                    return true;
+        if(checkPlayer && playerAttacks[0].active){
+            for(int j= 0; j < 3; j++) {
+                AttackController playerAttack = playerAttacks[j];
+                Point[] points = playerAttack.getPoints();
+                for (int i = 0; i < points.length; i++) {
+                    if (contains(points[i].x, points[i].y, entity.getRect())) {
+                        return true;
+                    }
                 }
             }
         }

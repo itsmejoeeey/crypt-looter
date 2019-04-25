@@ -42,6 +42,7 @@ public class EnemyController {
         view.moveWorld(0, 0);
         if(boxManager.detectCollision(boxController, true)){
             System.out.println("Hit");
+
         }
     }
 

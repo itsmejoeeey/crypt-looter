@@ -8,6 +8,7 @@ public class AttackController extends JPanel {
 
     public AttackController(Rectangle rect){
         this.rect = rect;
+        setPreferredSize(new Dimension(rect.width, rect.height));
     }
     public void paint(Graphics g) {
         super.paintComponent(g);

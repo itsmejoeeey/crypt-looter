@@ -26,9 +26,10 @@ public class CharacterController {
                 public void run() {
                     model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
-                    attackController[0] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y, 40,40));
-                    attackController[1] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y + 40, 40,40));
-                    attackController[2] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y - 40, 40,40));
+                    attackController[0] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+                    attackController[1] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+                    attackController[2] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+                    model.direction = 4;
                     boxController = new BoxController(model, view);
                     boxManager = _boxManager;
                     boxManager.entities.add(boxController);
@@ -91,23 +92,23 @@ public class CharacterController {
             attackY = 0;
         }
 
-        model.walking = false;
-
         if (KeyStates.moveRightKey.keyState()) {
             attackX += 1;
             model.walking = true;
         }
-        if (KeyStates.moveLeftKey.keyState()){
+        else if (KeyStates.moveLeftKey.keyState()){
             attackX += -1;
             model.walking = true;
         }
-        if (KeyStates.moveForwardKey.keyState()){
+        else if (KeyStates.moveForwardKey.keyState()){
             attackY += 1;
             model.walking = true;
         }
-        if (KeyStates.moveBackwardsKey.keyState()){
+        else if (KeyStates.moveBackwardsKey.keyState()){
             attackY += -1;
             model.walking = true;
+        } else {
+            model.walking = false;
         }
 
         if(attackX == 0 && attackY == 1){
@@ -128,24 +129,25 @@ public class CharacterController {
             model.direction = 1;
         }
 
-        int[] leftAttackPosition = getMoveDirection((model.direction - 1) % 7) ;
-        int[] rightAttackPosition = getMoveDirection((model.direction + 1)  % 7);
+        int[] centreAttackPosition = getMoveDirection(model.direction % 8);
+        int[] leftAttackPosition = getMoveDirection((model.direction + 1) % 8) ;
+        int[] rightAttackPosition = getMoveDirection(Math.floorMod((model.direction - 1), 8));
 
-        System.out.println(model.direction);
 
+        //System.out.println(attackX +"," +getMoveDirection(model.direction)[0] +"," + attackY +"," + getMoveDirection(model.direction)[1]);
+        //System.out.println(attackController[0].getWidth() + ":" + attackController[0].getHeight());
         //System.out.println(leftAttackPosition[0] + ":" + leftAttackPosition[1] + "_" + attackX + ":" + attackY + "_" + rightAttackPosition[0] + ":" + rightAttackPosition[1]);
 
-        Rectangle centreRectangle = new Rectangle(view.getBounds().x + attackX * view.getBounds().height, view.getBounds().y - attackY * view.getBounds().height, 40, 40);
-        Rectangle leftRectangle = new Rectangle(view.getBounds().x + leftAttackPosition[0] * view.getBounds().height, view.getBounds().y - leftAttackPosition[1] * view.getBounds().height, 40, 40);
-        Rectangle rightRectangle = new Rectangle(view.getBounds().x + rightAttackPosition[0] * view.getBounds().height, view.getBounds().y - rightAttackPosition[1] * view.getBounds().height, 40, 40);
+        Rectangle centreRectangle = new Rectangle(view.getBounds().x + centreAttackPosition[0] * view.getBounds().height + (view.getBounds().height - attackController[0].getHeight())/2, view.getBounds().y - centreAttackPosition[1] * view.getBounds().width + (view.getBounds().width - attackController[0].getWidth())/2, attackController[0].getWidth(), attackController[0].getHeight());
+        Rectangle leftRectangle = new Rectangle(view.getBounds().x + leftAttackPosition[0] * view.getBounds().height + (view.getBounds().height - attackController[1].getHeight())/2, view.getBounds().y - leftAttackPosition[1] * view.getBounds().height + (view.getBounds().width - attackController[1].getWidth())/2, attackController[1].getWidth(), attackController[1].getHeight());
+        Rectangle rightRectangle = new Rectangle(view.getBounds().x + rightAttackPosition[0] * view.getBounds().height + (view.getBounds().height - attackController[2].getHeight())/2, view.getBounds().y - rightAttackPosition[1] * view.getBounds().height  + (view.getBounds().width - attackController[2].getWidth())/2, attackController[2].getWidth(), attackController[2].getHeight());
 
         attackController[0].updateHitBox(centreRectangle, 0);
         attackController[1].updateHitBox(leftRectangle, 0);
         attackController[2].updateHitBox(rightRectangle, 0);
 
         //Origins playerOrigins = new Origins(view.getBounds(), 0, 0);
-        for(int i =0; i < 3; i++)
-            attackController[i].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+        attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
     }
 
     public int[] getMoveDirection(int direction){
@@ -170,9 +172,11 @@ public class CharacterController {
             case 3:
                 directions[0] = -1;
                 directions[1] = -1;
+                return directions;
             case 2:
                 directions[0] = -1;
                 directions[1] = 0;
+                return directions;
             case 1:
                 directions[0] = -1;
                 directions[1] = 1;
