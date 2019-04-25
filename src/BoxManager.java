@@ -7,7 +7,10 @@ import java.util.ArrayList;
 public class BoxManager {
     public World world;
     public BoxController[][] colliders;
-    public  ArrayList<BoxController> entities = new ArrayList<>();
+    public ArrayList<BoxController> entities = new ArrayList<>();
+    public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
+    public AttackController playerAttack;
+
     int skinWidth = 2;
     int playerHeightOffset = 20;
 
@@ -46,11 +49,8 @@ public class BoxManager {
         minX = minX < 0 ? 0 : minX;
         minY = minY < 0 ? 0 : minY;
 
-        Origins origins = new Origins(character, playerHeightOffset);
+        Origins origins = new Origins(character, playerHeightOffset, skinWidth);
         //System.out.println(tileY + "-" + tileX + " " + minY + ":" + maxY + " " + minX + ":" + maxX);
-        if(world.collisions[tileY][tileX]){
-            System.out.println("Wall");
-        }
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 if(boxHeight != -1){
@@ -67,13 +67,28 @@ public class BoxManager {
             }
         }
 
-        Origins characterOrigins = new Origins(character, 0);
+        Origins characterOrigins = new Origins(character, 0, skinWidth);
         for(int i= 0; i < entities.size(); i++){
             if(entities.get(i) != exclude){
                 velocity = collideBoxes(entities.get(i), velocity, characterOrigins);
             }
         }
         return velocity;
+    }
+
+    public boolean detectCollision(BoxController entity, boolean checkPlayer){
+        if(checkPlayer){
+            if (!playerAttack.active){
+                return false;
+            }
+            Point[] points= playerAttack.getPoints();
+            for(int i= 0; i < points.length; i++){
+                if(contains(points[i].x, points[i].y, entity.getRect())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
@@ -91,16 +106,6 @@ public class BoxManager {
             velocity.y = 0;
         }
         return velocity;
-    }
-
-    private class Origins{
-        Vector2 topLeft, topRight, botLeft, botRight;
-        public Origins(Rectangle rectangle, int heightOffset) {
-            topLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + skinWidth + heightOffset);
-            topRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + skinWidth + heightOffset);
-            botLeft = new Vector2(rectangle.x + skinWidth, rectangle.y + rectangle.height - skinWidth);
-            botRight = new Vector2(rectangle.x + rectangle.width - skinWidth, rectangle.y + rectangle.height - skinWidth);
-        }
     }
 
     private boolean contains(float x, float y, Rectangle rectangle){

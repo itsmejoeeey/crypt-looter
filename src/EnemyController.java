@@ -13,6 +13,7 @@ public class EnemyController {
     public BoxManager boxManager;
     public BoxController boxController;
     private EnemyAIController aiController;
+    private AttackController attackController;
 
     public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager) {
         try {
@@ -34,12 +35,14 @@ public class EnemyController {
 
     public void update() {
         double delta = deltaTime * speed;
-        System.out.println(aiController.move().x + "-" + aiController.move().y);
         Vector2 aiVector = aiController.move();
-        Vector2 moveVector =  boxManager.move(new Vector2((float) (aiVector.x), (float) (aiVector.y)) , view.getBounds(), boxController);
+        Vector2 moveVector =  boxManager.move(new Vector2(aiVector.x, aiVector.y) , view.getBounds(), boxController);
         x += moveVector.x * delta;
         y += moveVector.y * delta;
-        view.moveWorld((int) x, (int) y);
+        view.moveWorld(0, 0);
+        if(boxManager.detectCollision(boxController, true)){
+            System.out.println("Hit");
+        }
     }
 
     public JPanel getView() {

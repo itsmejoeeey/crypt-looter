@@ -11,7 +11,6 @@ public class EnemyAIController {
     }
 
     public Vector2 move (){
-        System.out.println();
         float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
         float y = (player.getView().getBounds().y - enemy.getView().getBounds().y);
         x = x != 0?Math.signum(x) * 1f:0f;

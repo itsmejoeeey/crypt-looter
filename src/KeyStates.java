@@ -6,6 +6,8 @@ public class KeyStates {
     public static Key moveRightKey = new Key();
     public static Key moveBackwardsKey = new Key();
 
+    public static Key attackKey = new Key();
+
     public static Key escapeKey = new Key();
     public static Key pauseKey = new Key();
 }
