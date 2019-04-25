@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class CharacterView extends JPanel {
     public CharacterModel model;
+    public double deltaTime;
     public CharacterView(Rectangle transform, CharacterModel model) {
         this.setBackground(Color.black);
         this.setFocusable(true);
