@@ -3,6 +3,7 @@ import java.awt.*;
 public class EnemyAIController {
     public BoxController enemy;
     public BoxController player;
+    public World world;
 
     public EnemyAIController(BoxController enemy, BoxController player){
         this.enemy = enemy;
