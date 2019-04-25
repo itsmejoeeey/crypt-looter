@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class CharacterModel {
     public Rectangle baseTranform;
+    public int direction = 4;
+    public boolean attackDagger = false;
+    public boolean attackBow = false;
+    public boolean walking = false;
     int height;
 
     static int maxHealth = 3;

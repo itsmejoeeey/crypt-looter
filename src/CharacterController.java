@@ -17,7 +17,7 @@ public class CharacterController {
     CharacterModel model;
     public BoxManager boxManager;
     public BoxController boxController;
-    public AttackController attackController;
+    public AttackController[] attackController = new AttackController[3];
 
     public CharacterController(Point spawnPos, BoxManager _boxManager) {
         try {
@@ -26,7 +26,9 @@ public class CharacterController {
                 public void run() {
                     model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
-                    attackController = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y, 40,40));
+                    attackController[0] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y, 40,40));
+                    attackController[1] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y - 40, 40,40));
+                    attackController[2] = new AttackController(new Rectangle(spawnPos.x + 60, spawnPos.y - 40, 40,40));
                     boxController = new BoxController(model, view);
                     boxManager = _boxManager;
                     boxManager.entities.add(boxController);
@@ -41,8 +43,9 @@ public class CharacterController {
     //Moves player based on key inputs
     //delta is equal to newPosition - oldPosition so if 0 the player will stand still
     public void update() {
+        view.deltaTime = deltaTime;
         groundMovement();
-        collisionDetection();
+        attackDetection();
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -78,7 +81,7 @@ public class CharacterController {
     }
     int attackX;
     int attackY;
-    public void collisionDetection(){
+    public void attackDetection(){
         if(KeyStates.moveRightKey.keyState() ||
                 KeyStates.moveLeftKey.keyState() ||
                 KeyStates.moveForwardKey.keyState() ||
@@ -87,19 +90,48 @@ public class CharacterController {
             attackY = 0;
         }
 
-        if (KeyStates.moveRightKey.keyState())
+        model.walking = false;
+
+        if (KeyStates.moveRightKey.keyState()) {
             attackX += 1;
-        if (KeyStates.moveLeftKey.keyState())
+            model.walking = true;
+        }
+        if (KeyStates.moveLeftKey.keyState()){
             attackX += -1;
-        if (KeyStates.moveForwardKey.keyState())
+            model.walking = true;
+        }
+        if (KeyStates.moveForwardKey.keyState()){
             attackY += 1;
-        if (KeyStates.moveBackwardsKey.keyState())
+            model.walking = true;
+        }
+        if (KeyStates.moveBackwardsKey.keyState()){
             attackY += -1;
+            model.walking = true;
+        }
+
+        if(attackX == 0 && attackY == 1){
+            model.direction = 0;
+        } else if(attackX == 1 && attackY == 1){
+            model.direction = 1;
+        } else if(attackX == 1 && attackY == 0){
+            model.direction = 2;
+        } else if(attackX == 1 && attackY == -1){
+            model.direction = 3;
+        } else if(attackX == 0 && attackY == -1){
+            model.direction = 4;
+        }else if(attackX == -1 && attackY == -1){
+            model.direction = 5;
+        }else if(attackX == -1 && attackY == 0){
+            model.direction = 6;
+        }else if(attackX == -1 && attackY == 1){
+            model.direction = 7;
+        }
+
         //Origins playerOrigins = new Origins(view.getBounds(), 0, 0);
         float x = view.getBounds().x + attackX * view.getBounds().height;
         float y = view.getBounds().y - attackY * view.getBounds().height;
-        attackController.updateHitBox(new Rectangle((int) x, (int) y, 40, 40), 0);
-        attackController.active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+        //attackController.updateHitBox(new Rectangle((int) x, (int) y, 40, 40), 0);
+        //attackController.active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
     }
 
     public JPanel getView() {
