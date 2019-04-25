@@ -120,13 +120,13 @@ public class MainController {
 
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
-                frame.getLayeredPane().add(pauseMenu.getView(), 2);
+                frame.getLayeredPane().add(pauseMenu.getView(), new Integer(3));
                 frame.repaint();
                 break;
 
             case ESCAPE:
                 escapeMenu = new MenuEscapeController(this, character.model);
-                frame.getLayeredPane().add(escapeMenu.getView(), 2);
+                frame.getLayeredPane().add(escapeMenu.getView(), new Integer(3));
                 frame.repaint();
                 break;
         }
