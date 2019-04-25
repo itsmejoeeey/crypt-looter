@@ -149,6 +149,7 @@ public class CharacterController {
 
         //Origins playerOrigins = new Origins(view.getBounds(), 0, 0);
         attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+        model.attackDagger = attackController[0].active;
     }
 
     public int[] getMoveDirection(int direction){
