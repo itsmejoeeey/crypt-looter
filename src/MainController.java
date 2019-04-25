@@ -6,11 +6,6 @@ import java.io.IOException;
 import static java.lang.Thread.sleep;
 
 public class MainController {
-    // EXPERIMENTAL SHOULD NOT STAY
-    // TODO FIX AND REMOVE
-    // ENABLE THIS FLAG IF RUNNING ON WINDOWS - FIXES MOVEMENT
-    boolean runningOnWindows = true;
-
     public double deltaTime = 0;
 
     JFrame frame = new JFrame();
@@ -20,6 +15,7 @@ public class MainController {
     CharacterController character;
     EnemyController enemy;
     BoxManager boxManager;
+    HUDController hud;
     public Dimension screenSize = new Dimension(1440, 900);
 
     MenuPauseController pauseMenu;
@@ -36,11 +32,6 @@ public class MainController {
     Cursor defaultCursor = Cursor.getDefaultCursor();
 
     public MainController() {
-        if(runningOnWindows) {
-            ImageIcon icon = new ImageIcon("src/res/icon.png");
-            frame.setIconImage(icon.getImage());
-        }
-
         MapReader mapReader;
         try {
             mapReader = new MapReader();
@@ -68,11 +59,10 @@ public class MainController {
         world = new WorldController(this, mapReader.getWorld());
         character = new CharacterController(new Point(800,500), boxManager);
         enemy = new EnemyController(new Point(1100, 500), character.boxController, boxManager);
+        hud = new HUDController(this, character.model);
 
-        if(!runningOnWindows) {
-            ImageIcon icon = new ImageIcon("src/res/icon.png");
-            frame.setIconImage(icon.getImage());
-        }
+        ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
+        frame.setIconImage(icon.getImage());
 
         frame.setTitle("Crypt Looter");
 
@@ -90,9 +80,10 @@ public class MainController {
                 }
             }
         }
-        //world.getView().add(box.view); //TODO getview
-        //world.getView().add(box1.view);
 
+        frame.getLayeredPane().add(hud.getView(), new Integer(1));
+
+        frame.repaint();
         // Needed after adding components to frame
         frame.revalidate();
     }
@@ -129,13 +120,13 @@ public class MainController {
 
             case PAUSED:
                 pauseMenu = new MenuPauseController(this);
-                frame.getLayeredPane().add(pauseMenu.getView(), 1);
+                frame.getLayeredPane().add(pauseMenu.getView(), 2);
                 frame.repaint();
                 break;
 
             case ESCAPE:
                 escapeMenu = new MenuEscapeController(this, character.model);
-                frame.getLayeredPane().add(escapeMenu.getView(), 1);
+                frame.getLayeredPane().add(escapeMenu.getView(), 2);
                 frame.repaint();
                 break;
         }
