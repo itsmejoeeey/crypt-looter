@@ -45,10 +45,10 @@ public class EnemyController {
         } else {
             hitTimer = hitTimer - deltaTime / 1000;
         }
-        if(boxManager.detectCollision(boxController, true)){
-            hitTimer = 10;
+        if(boxManager.detectAttackCollision(boxController, true)){
+            hitTimer = 2;
+            System.out.println("Hit!");
         }
-        //System.out.println(hitTimer);
     }
 
     public JPanel getView() {

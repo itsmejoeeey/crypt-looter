@@ -74,7 +74,7 @@ public class BoxManager {
         return velocity;
     }
 
-    public boolean detectCollision(BoxController entity, boolean checkPlayer){
+    public boolean detectAttackCollision(BoxController entity, boolean checkPlayer){
         if(checkPlayer && playerAttacks[0].active){
             for(int j= 0; j < 3; j++) {
                 AttackController playerAttack = playerAttacks[j];
@@ -88,6 +88,7 @@ public class BoxManager {
         }
         return false;
     }
+
 
     private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
         Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;

@@ -47,6 +47,7 @@ public class CharacterController {
         view.deltaTime = deltaTime;
         groundMovement();
         attackDetection();
+        view.update();
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -133,7 +134,7 @@ public class CharacterController {
         int[] leftAttackPosition = getMoveDirection(Math.floorMod((model.direction + 1), 8));
         int[] rightAttackPosition = getMoveDirection(Math.floorMod((model.direction - 1), 8));
 
-        System.out.println(model.walking);
+        //stem.out.println(model.walking);
 
         //System.out.println(attackX +"," + getMoveDirection(model.direction)[0] +"," + attackY +"," + getMoveDirection(model.direction)[1]);
         //System.out.println(attackController[0].getWidth() + ":" + attackController[0].getHeight());
@@ -149,6 +150,7 @@ public class CharacterController {
 
         //Origins playerOrigins = new Origins(view.getBounds(), 0, 0);
         attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+        //System.out.println(attackController[0].active);
         model.attackDagger = attackController[0].active;
     }
 
