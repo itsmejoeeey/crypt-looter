@@ -45,6 +45,7 @@ public class CharacterModel {
     public void decreaseHealth(int decreaseAmount) {
         if((health - decreaseAmount) < 0) {
             health = 0;
+            dead = true;
         } else {
             health -= decreaseAmount;
         }
