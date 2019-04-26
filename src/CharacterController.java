@@ -44,9 +44,13 @@ public class CharacterController {
     //Moves player based on key inputs
     //delta is equal to newPosition - oldPosition so if 0 the player will stand still
     public void update() {
-        view.deltaTime = deltaTime;
         groundMovement();
         attackDetection();
+
+        // Update the character animations
+        view.deltaTime = deltaTime;
+        view.update();
+
         if(model.dead){
             System.out.println("Player Dead");
         }
