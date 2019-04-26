@@ -17,6 +17,7 @@ public class MainController {
     CharacterController character;
     EnemyController enemy;
     BoxManager boxManager;
+    SoundController sound;
 
     // UI
     HUDController hud;
@@ -160,6 +161,7 @@ public class MainController {
         character = new CharacterController(new Point(800,500), boxManager);
         enemy = new EnemyController(new Point(1100, 500), character.boxController, boxManager);
         hud = new HUDController(this, character.model);
+	    sound = new SoundController(character.model);
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
@@ -173,7 +175,7 @@ public class MainController {
         world.getView().add(character.attackController[0]);
         world.getView().add(character.attackController[1]);
         world.getView().add(character.attackController[2]);
-        //world.getView().add(enemy.attackController); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< RE-ENABLE ME SOON
+        world.getView().add(enemy.attackController);
         world.getView().add(enemy.getView());
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
@@ -191,6 +193,8 @@ public class MainController {
         // Needed after adding components to frame
         frame.revalidate();
 
+	    sound.playBackgroundMusic();
+
         // Go to normal game state
         System.out.println("SHOULD BE CHANGING STATE???");
         updateState(GameState_t.NORMAL_GAME);
@@ -204,12 +208,14 @@ public class MainController {
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
         enemy.deltaTime = this.deltaTime;
+        sound.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
         world.update();
         camera.update();
         enemy.update();
+        sound.update();
     }
 
     private void update_paused() {

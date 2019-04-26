@@ -11,6 +11,7 @@ public class BoxManager {
     public ArrayList<BoxController> items = new ArrayList<>();
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
     public AttackController[] playerAttacks;
+    public BoxController player;
 
     int skinWidth = 2;
     int playerHeightOffset = 20;
@@ -76,12 +77,11 @@ public class BoxManager {
         return player.getRect().intersects(item.getRect());
     }
 
-    public boolean detectAttackCollision(BoxController entity, boolean checkPlayer){
-        System.out.println(entity.getHeight());
+    public boolean detectPlayerAttackCollision(BoxController entity){
         if((entity.getHeight() != playerAttacks[0].attackHeight) && !(playerAttacks[0].attackHeight == -1 || entity.getHeight() == -1)){
             return false;
         }
-        if(checkPlayer && playerAttacks[0].active){
+        if(playerAttacks[0].active){
             for(int j= 0; j < 3; j++) {
                 AttackController playerAttack = playerAttacks[j];
                 Point[] points = playerAttack.getPoints();
@@ -91,6 +91,25 @@ public class BoxManager {
                     }
                 }
             }
+        }
+        return false;
+    }
+
+    public boolean detectEnemyAttackCollision(BoxController player){
+        for(int j = 0; j < enemyAttacks.size(); j++) {
+            AttackController enemyAttack = enemyAttacks.get(j);
+            if ((player.getHeight() != enemyAttack.attackHeight) && !(player.getHeight() == -1 || enemyAttack.attackHeight == -1)) {
+                return false;
+            }
+            if(enemyAttack.active) {
+                Point[] points = enemyAttack.getPoints();
+                for (int i = 0; i < points.length; i++) {
+                    if (contains(points[i].x, points[i].y, player.getRect())) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         return false;
     }
@@ -173,8 +192,7 @@ public class BoxManager {
         private double distanceBetween(int x1, int y1, int x2, int y2){
             return Math.sqrt(Math.abs(x1-x2) ^ 2 + Math.abs(y1-y2) ^ 2);
         }
-        */
-    private boolean projectRectangle(Rectangle player, BoxController box, float horizontal, float vertical, double widthFactor, double heightFactor, int horizontalOffset){
+            private boolean projectRectangle(Rectangle player, BoxController box, float horizontal, float vertical, double widthFactor, double heightFactor, int horizontalOffset){
         Rectangle projRect = new Rectangle(player);
         projRect.setSize((int) (player.width * widthFactor) , (int) (player.height * heightFactor));
         projRect.setLocation((int) (player.x + horizontalOffset + horizontal), (int) (player.y + vertical));
@@ -183,4 +201,5 @@ public class BoxManager {
         }
         return false;
     }
+        */
 }

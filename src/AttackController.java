@@ -25,6 +25,9 @@ public class AttackController extends JPanel {
         g2.fillPolygon(xpoints, ypoints, 4);
     }
 
+    public Rectangle getRect(){
+        return rect;
+    }
 
     public Point[] getPoints(){
         Point[] points = new Point[4];
