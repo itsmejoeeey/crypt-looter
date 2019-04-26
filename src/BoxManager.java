@@ -8,10 +8,10 @@ public class BoxManager {
     public World world;
     public BoxController[][] colliders;
     public ArrayList<BoxController> entities = new ArrayList<>();
-    public ArrayList<BoxController> items = new ArrayList<>();
+    public ArrayList<ItemController> items = new ArrayList<>();
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
     public AttackController[] playerAttacks;
-    public BoxController player;
+    //public BoxController player;
 
     int skinWidth = 2;
     int playerHeightOffset = 20;
@@ -73,8 +73,12 @@ public class BoxManager {
         return velocity;
     }
 
-    public boolean detectItemCollision(BoxController player, BoxController item){
-        return player.getRect().intersects(item.getRect());
+    public void detectItemCollision(BoxController player){
+        for(int i = 0; i < items.size(); i++) {
+            if (player.getRect().intersects(items.get(i).getRect())) {
+                items.get(i).triggerItem();
+            }
+        }
     }
 
     public boolean detectPlayerAttackCollision(BoxController entity){
