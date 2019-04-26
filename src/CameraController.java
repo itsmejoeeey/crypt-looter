@@ -6,7 +6,7 @@ public class CameraController {
     private float x = 0;
     private float y = 0;
 
-    private CharacterController characterController;
+    private PlayerController playerController;
     private World world;
     private WorldController worldController;
 
@@ -16,8 +16,8 @@ public class CameraController {
 
     private Point charOffset;
 
-    CameraController(World world, WorldController worldController, CharacterController characterController, Dimension screenSize) {
-        this.characterController = characterController;
+    CameraController(World world, WorldController worldController, PlayerController playerController, Dimension screenSize) {
+        this.playerController = playerController;
         this.screenSize = screenSize;
         this.world = world;
         this.worldController = worldController;
@@ -33,12 +33,12 @@ public class CameraController {
     }
 
     public void update() {
-        Point charPos = characterController.getPos();
+        Point charPos = playerController.getPos();
         Point worldPos = worldController.getPos();
 
         charOffset = new Point(
-                charPos.x - (abs(worldPos.x) + (screenSize.width/2)) + characterController.getView().getWidth(),
-                charPos.y - (abs(worldPos.y) + (screenSize.height/2) - characterController.getView().getHeight())
+                charPos.x - (abs(worldPos.x) + (screenSize.width/2)) + playerController.getView().getWidth(),
+                charPos.y - (abs(worldPos.y) + (screenSize.height/2) - playerController.getView().getHeight())
         );
 
         // TODO Kinda want to implement smooth movement when hitting the end of the world
