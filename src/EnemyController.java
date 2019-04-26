@@ -30,7 +30,6 @@ public class EnemyController extends CharacterController {
         if(stunTimer <= 0) {
             groundMovement();
             attackDetection();
-
         } else {
             stunTimer = stunTimer - deltaTime / 1000;
         }

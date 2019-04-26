@@ -1,10 +1,10 @@
 import java.awt.*;
 
 public class EnemyAIController {
+    public static int attackDistance = 300;
     public BoxController enemy;
     public BoxController player;
     public World world;
-    public int attackDistance;
 
     public EnemyAIController(BoxController enemy, BoxController player){
         this.enemy = enemy;
@@ -12,6 +12,9 @@ public class EnemyAIController {
     }
 
     public Vector2 move (){
+        if(!canAttack()){
+            return new Vector2(0, 0);
+        }
         float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
         float y = (player.getView().getBounds().y - enemy.getView().getBounds().y);
         x = x != 0?Math.signum(x):0f;

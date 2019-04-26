@@ -161,7 +161,7 @@ public class MainController {
         boxManager = new BoxManager(mapReader.getWorld());
 
         world = new WorldController(this, mapReader.getWorld());
-        character = new PlayerController(new Point(800,500), boxManager, sound);
+        character = new PlayerController(new Point(1100,500), boxManager, sound);
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
         enamyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
