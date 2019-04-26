@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class SoundController {
-    Clip inGameBackground;
-    AudioInputStream footstepAudioStream;
-    Clip playerFootstep;
+    private Clip inGameBackground;
+    private Clip playerFootstep;
+    private Clip slashEffect;
+    private Clip enemyHit1;
+    private Clip enemyHit2;
+    private Clip enemyHit3;
     double deltaTime;
     double footstepTimer = 0;
-    CharacterModel playerModel;
+    private CharacterModel playerModel;
     public SoundController(CharacterModel playerModel){
         this.playerModel = playerModel;
         try {
@@ -21,9 +24,29 @@ public class SoundController {
 
 
             String footstepPath = "src/res/sounds/footstep01.wav";
-            footstepAudioStream = AudioSystem.getAudioInputStream(new File(footstepPath).getAbsoluteFile());
+            AudioInputStream footstepAudioStream = AudioSystem.getAudioInputStream(new File(footstepPath).getAbsoluteFile());
             playerFootstep = AudioSystem.getClip();
             playerFootstep.open(footstepAudioStream);
+
+            String swordSlashPath = "src/res/sounds/swordsound.wav";
+            AudioInputStream slashAudioStream = AudioSystem.getAudioInputStream(new File(swordSlashPath).getAbsoluteFile());
+            slashEffect = AudioSystem.getClip();
+            slashEffect.open(slashAudioStream);
+
+            String enemy1HitPath = "src/res/sounds/monster-2.wav";
+            AudioInputStream enemyHit1Stream = AudioSystem.getAudioInputStream(new File(enemy1HitPath).getAbsoluteFile());
+            enemyHit1 = AudioSystem.getClip();
+            enemyHit1.open(enemyHit1Stream);
+
+            String enemy2HitPath = "src/res/sounds/monster-7.wav";
+            AudioInputStream enemyHit2Stream = AudioSystem.getAudioInputStream(new File(enemy2HitPath).getAbsoluteFile());
+            enemyHit2 = AudioSystem.getClip();
+            enemyHit2.open(enemyHit2Stream);
+
+            String enemy3HitPath = "src/res/sounds/monster-10.wav";
+            AudioInputStream enemyHit3Stream = AudioSystem.getAudioInputStream(new File(enemy3HitPath).getAbsoluteFile());
+            enemyHit3 = AudioSystem.getClip();
+            enemyHit3.open(enemyHit3Stream);
 
         } catch (UnsupportedAudioFileException ue){
             System.out.println("Unsupported Audio File " + ue.getMessage());
@@ -35,12 +58,26 @@ public class SoundController {
     }
 
     public void update(){
-        if(playerModel.walking && footstepTimer < 0){
-            playerFootstep.start();
-            footstepTimer = 0.5;
+        walkingEffects();
+        playAttack();
+    }
+
+    public void walkingEffects(){
+        if(playerModel.walking){
+            playerFootstep.loop(-1);
+        }
+        if(!playerModel.walking){
+            playerFootstep.stop();
         }
         if(footstepTimer >= 0){
             footstepTimer -= deltaTime / 1000;
+        }
+    }
+
+    public void playAttack(){
+        if(playerModel.attackDagger) {
+            slashEffect.setFramePosition(0);
+            slashEffect.loop(0);
         }
     }
 
@@ -50,5 +87,21 @@ public class SoundController {
 
     public void stopBackgroundMusic(){
         inGameBackground.stop();
+    }
+
+    public void playEnemyHit(){
+        int hit = (int) (Math.random() * 3 + 1);
+        System.out.println(hit);
+        switch (hit) {
+            case 1:
+                enemyHit1.setFramePosition(0);
+                enemyHit1.loop(0);
+            case 2:
+                enemyHit2.setFramePosition(0);
+                enemyHit2.loop(0);
+            case 3:
+                enemyHit3.setFramePosition(0);
+                enemyHit3.loop(0);
+        }
     }
 }
