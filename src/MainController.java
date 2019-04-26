@@ -16,6 +16,7 @@ public class MainController {
     EnemyController enemy;
     BoxManager boxManager;
     HUDController hud;
+    SoundController soundController;
     public Dimension screenSize = new Dimension(1440, 900);
 
     MenuPauseController pauseMenu;
@@ -60,6 +61,7 @@ public class MainController {
         character = new CharacterController(new Point(800,500), boxManager);
         enemy = new EnemyController(new Point(1100, 500), character.boxController, boxManager);
         hud = new HUDController(this, character.model);
+        soundController = new SoundController(character.model);
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
@@ -70,10 +72,6 @@ public class MainController {
 
         frame.add(world.getView());
         world.getView().add(character.getView());
-        world.getView().add(character.attackController[0]);
-        world.getView().add(character.attackController[1]);
-        world.getView().add(character.attackController[2]);
-        world.getView().add(enemy.attackController);
         world.getView().add(enemy.getView());
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
@@ -90,6 +88,8 @@ public class MainController {
         frame.repaint();
         // Needed after adding components to frame
         frame.revalidate();
+
+        soundController.playBackgroundMusic();
     }
 
     public void update() {
@@ -144,12 +144,15 @@ public class MainController {
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
         enemy.deltaTime = this.deltaTime;
+        soundController.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
         world.update();
         camera.update();
         enemy.update();
+
+        soundController.update();
     }
 
     private void update_paused() {

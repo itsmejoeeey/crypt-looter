@@ -34,6 +34,7 @@ public class CharacterController {
                     boxManager = _boxManager;
                     boxManager.entities.add(boxController);
                     boxManager.playerAttacks = attackController;
+                    boxManager.player = boxController;
                 }
             });
         } catch (Exception e) {
@@ -51,8 +52,13 @@ public class CharacterController {
         view.deltaTime = deltaTime;
         view.update();
 
+        if(boxManager.detectEnemyAttackCollision(boxController)){
+            if(model.health > 0){
+                model.health--;
+            }
+        }
         if(model.dead){
-            System.out.println("Player Dead");
+            model.health = 0;
         }
         try {
             SwingUtilities.invokeAndWait(new Runnable() {

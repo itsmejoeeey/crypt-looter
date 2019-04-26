@@ -22,7 +22,7 @@ public class EnemyAIController {
     public Point attackDir(){
         float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
         float y = (player.getView().getBounds().y - enemy.getView().getBounds().y);
-        
+
         if(Math.abs(x) > Math.abs(y)){
             return new Point((int) Math.signum(x), 0);
         } else {
@@ -30,9 +30,10 @@ public class EnemyAIController {
         }
     }
 
-    public boolean attack(){
+    public boolean canAttack(){
         float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
         float y = (player.getView().getBounds().y - enemy.getView().getBounds().y);
+        System.out.println(Math.sqrt(x*x + y*y));
         if(Math.sqrt(x*x + y*y) < attackDistance){
             return true;
         }

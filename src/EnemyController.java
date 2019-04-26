@@ -31,6 +31,7 @@ public class EnemyController {
                     model.direction = 4;
                     boxManager = _boxManager;
                     boxManager.entities.add(boxController);
+                    boxManager.enemyAttacks.add(attackController);
                 }
             });
         } catch (Exception e) {
@@ -42,10 +43,11 @@ public class EnemyController {
         if(stunTimer <= 0) {
             groundMovement();
             attackDetection();
+
         } else {
             stunTimer = stunTimer - deltaTime / 1000;
         }
-        if(boxManager.detectAttackCollision(boxController, true)){
+        if(boxManager.detectPlayerAttackCollision(boxController)){
             stunTimer = 2;
             System.out.println("Hit!");
         }
@@ -89,10 +91,10 @@ public class EnemyController {
         attackController.updateHitBox(attackRectangle, 0);
 
         if(model.attackTimer <= 0) {
-            attackController.active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
-            model.attackDagger = attackController.active;
+            attackController.active = true;
+            model.attackDagger = true;
             if(model.attackDagger){
-                model.attackTimer = 1;
+                model.attackTimer = 2;
             }
         } else {
             model.attackDagger = false;
