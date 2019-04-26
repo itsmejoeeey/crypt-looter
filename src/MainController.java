@@ -15,7 +15,7 @@ public class MainController {
     WorldController world;
     CameraController camera;
     PlayerController character;
-    EnemyManager enamyManager;
+    EnemyManager enemyManager;
     BoxManager boxManager;
     SoundController sound;
     ItemManager itemManager;
@@ -165,8 +165,8 @@ public class MainController {
         character = new PlayerController(new Point(1100,500), boxManager, sound);
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
-        enamyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
         itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model);
+        enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
@@ -210,14 +210,15 @@ public class MainController {
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
         sound.deltaTime = this.deltaTime;
-        enamyManager.deltaTime = this.deltaTime;
+        enemyManager.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
         world.update();
         camera.update();
-        enamyManager.update();
+        enemyManager.update();
         itemManager.update();
+
         sound.update();
     }
 

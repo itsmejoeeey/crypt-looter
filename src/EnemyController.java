@@ -10,6 +10,8 @@ public class EnemyController extends CharacterController {
 
     public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController) {
         super(spawnPos, _soundController, _boxManager);
+        view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        boxController = new BoxController(model, view);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -27,6 +29,7 @@ public class EnemyController extends CharacterController {
     }
 
     public void update() {
+        view.deltaTime = deltaTime;
         if(stunTimer <= 0) {
             groundMovement();
             attackDetection();
@@ -37,6 +40,7 @@ public class EnemyController extends CharacterController {
             stunTimer = 2;
             soundController.playEnemyHit();
         }
+        view.update();
     }
 
     void groundMovement(){

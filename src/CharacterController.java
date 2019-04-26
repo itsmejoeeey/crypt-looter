@@ -14,8 +14,6 @@ public class CharacterController {
 
     public CharacterController(Point spawnPos, SoundController soundController, BoxManager boxManager){
         model = new CharacterModel(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), 2);
-        view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
-        boxController = new BoxController(model, view);
         this.soundController = soundController;
         this.boxManager = boxManager;
     }

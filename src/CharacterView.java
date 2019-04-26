@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class CharacterView extends JPanel {
     public CharacterModel model;
+    private Rectangle transform;
+
     public double deltaTime;
     public double deltaTimeElapsed;
 
@@ -20,21 +22,31 @@ public class CharacterView extends JPanel {
     private int g2d_imageDirection;
     private int g2d_imageFrame;
 
-    static int texRes = 64; // texture resolution
-    static int animationFPS = 100; // animation frame speed in milliseconds
-    static int movementAnimationFrames = 9;
-    static int slashAnimationFrames = 6;
-    static int bowAnimationFrames = 13;
-    static int hurtAnimationFrames = 6;
+    static int texRes; // texture resolution
+    static int animationFrameSpeed; // animation frame speed in milliseconds
+    static boolean fourDirectionsOnly;
+    static int movementAnimationFrames;
+    static int slashAnimationFrames;
+    static int bowAnimationFrames;
+    static int hurtAnimationFrames;
+
+    static String charTexNormalFilepath;
+    static String charTexSlashFilepath;
+    static String charTexBowFilepath;
+    static String charTexHurtFilepath;
 
     BufferedImage[][][] charTexFrames;
     public CharacterView(Rectangle transform, CharacterModel model) {
-        //this.setBackground(Color.black);
+        this.model = model;
+        this.transform = transform;
+
+    }
+
+    protected void initView() {
         this.setOpaque(false);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
         this.setPreferredSize(new Dimension(transform.width,transform.height));
-        this.model = model;
 
         /*
           Load animation images
@@ -45,25 +57,40 @@ public class CharacterView extends JPanel {
         BufferedImage charTexHurt;
         charTexFrames = new BufferedImage[4][8][13]; // 4 different tex map, 8 directions, up to 13 frames of animation
         try {
-            charTexNormal = ImageIO.read(new File("src/res/textures/man_walkcycle.png"));
-            charTexSlash = ImageIO.read(new File("src/res/textures/man_slash.png"));
-            charTexBow = ImageIO.read(new File("src/res/textures/man_bow.png"));
-            charTexHurt = ImageIO.read(new File("src/res/textures/man_hurt.png"));
+            charTexNormal = ImageIO.read(new File(charTexNormalFilepath));
+            charTexSlash = ImageIO.read(new File(charTexSlashFilepath));
+            charTexBow = ImageIO.read(new File(charTexBowFilepath));
+            charTexHurt = ImageIO.read(new File(charTexHurtFilepath));
         } catch (IOException ex) {
             return;
         }
-        // For each row (each row corresponds to a direction, hence 8 directions)
-        for(int d = 0; d < 8; d++) {
-            for(int a = 0; a < movementAnimationFrames; a++) {
-                charTexFrames[0][d][a] = charTexNormal.getSubimage(a*texRes, d*texRes, texRes, texRes);
+        if(fourDirectionsOnly) {
+            for(int d = 0; d < 8; d = d + 2) {
+                for(int a = 0; a < movementAnimationFrames; a++) {
+                    charTexFrames[0][d][a] = charTexNormal.getSubimage(a*texRes, (d/2)*texRes, texRes, texRes);
+                }
+                for(int a = 0; a < slashAnimationFrames; a++) {
+                    charTexFrames[1][d][a] = charTexSlash.getSubimage(a*texRes, (d/2)*texRes, texRes, texRes);
+                }
+                for(int a = 0; a < bowAnimationFrames; a++) {
+                    charTexFrames[2][d][a] = charTexBow.getSubimage(a*texRes, (d/2)*texRes, texRes, texRes);
+                }
             }
-            for(int a = 0; a < slashAnimationFrames; a++) {
-                charTexFrames[1][d][a] = charTexSlash.getSubimage(a*texRes, d*texRes, texRes, texRes);
-            }
-            for(int a = 0; a < bowAnimationFrames; a++) {
-                charTexFrames[2][d][a] = charTexBow.getSubimage(a*texRes, d*texRes, texRes, texRes);
+        } else {
+            // For each row (each row corresponds to a direction, hence 8 directions)
+            for(int d = 0; d < 8; d++) {
+                for(int a = 0; a < movementAnimationFrames; a++) {
+                    charTexFrames[0][d][a] = charTexNormal.getSubimage(a*texRes, d*texRes, texRes, texRes);
+                }
+                for(int a = 0; a < slashAnimationFrames; a++) {
+                    charTexFrames[1][d][a] = charTexSlash.getSubimage(a*texRes, d*texRes, texRes, texRes);
+                }
+                for(int a = 0; a < bowAnimationFrames; a++) {
+                    charTexFrames[2][d][a] = charTexBow.getSubimage(a*texRes, d*texRes, texRes, texRes);
+                }
             }
         }
+
         // Hurt animation only occurs in one direction
         for(int a = 0; a < hurtAnimationFrames; a++) {
             charTexFrames[3][0][a] = charTexHurt.getSubimage(a*texRes, 0, texRes, texRes);
@@ -105,7 +132,7 @@ public class CharacterView extends JPanel {
             }
 
             // Increment frames every 100ms
-            if(deltaTimeElapsed > animationFPS) {
+            if(deltaTimeElapsed > animationFrameSpeed) {
                 if(model.walking) {
                     animationMovementFrame++;
                 }
