@@ -7,7 +7,7 @@ public class EnemyController {
 
     public double deltaTime = 0;
     public double speed = 0.05;
-    private double hitTimer = 0;
+    private double stunTimer = 0;
 
     public boolean enemyDead = false;
 
@@ -16,7 +16,7 @@ public class EnemyController {
     public BoxManager boxManager;
     public BoxController boxController;
     private EnemyAIController aiController;
-    private AttackController attackController;
+    public AttackController attackController;
 
     public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager) {
         try {
@@ -27,6 +27,8 @@ public class EnemyController {
                     view = new CharacterView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
                     boxController = new BoxController(model, view);
                     aiController = new EnemyAIController(boxController, player);
+                    attackController = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+                    model.direction = 4;
                     boxManager = _boxManager;
                     boxManager.entities.add(boxController);
                 }
@@ -37,19 +39,65 @@ public class EnemyController {
     }
 
     public void update() {
-        if(hitTimer <= 0) {
-            double delta = deltaTime * speed;
-            Vector2 aiVector = aiController.move();
-            Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
-            x += moveVector.x * delta;
-            y += moveVector.y * delta;
-            view.moveWorld((int) x, (int) y);
+        if(stunTimer <= 0) {
+            groundMovement();
+            attackDetection();
         } else {
-            hitTimer = hitTimer - deltaTime / 1000;
+            stunTimer = stunTimer - deltaTime / 1000;
         }
         if(boxManager.detectAttackCollision(boxController, true)){
-            hitTimer = 2;
+            stunTimer = 2;
             System.out.println("Hit!");
+        }
+    }
+
+    void groundMovement(){
+        double delta = deltaTime * speed;
+        Vector2 aiVector = aiController.move();
+        Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
+        x += moveVector.x * delta;
+        y += moveVector.y * delta;
+        view.moveWorld((int) x, (int) y);
+    }
+
+    void attackDetection(){
+        Point aiVector = aiController.attackDir();
+
+        int attackX = aiVector.x;
+        int attackY = aiVector.y;
+
+        if(attackX == 0 && attackY == 1){
+            model.direction = 0;
+        } else if(attackX == 1 && attackY == 1){
+            model.direction = 7;
+        } else if(attackX == 1 && attackY == 0){
+            model.direction = 6;
+        } else if(attackX == 1 && attackY == -1){
+            model.direction = 5;
+        } else if(attackX == 0 && attackY == -1){
+            model.direction = 4;
+        }else if(attackX == -1 && attackY == -1){
+            model.direction = 3;
+        }else if(attackX == -1 && attackY == 0){
+            model.direction = 2;
+        }else if(attackX == -1 && attackY == 1){
+            model.direction = 1;
+        }
+
+
+        Rectangle attackRectangle = new Rectangle(new Rectangle(view.getBounds().x + attackX * view.getBounds().height + (view.getBounds().height - attackController.getHeight())/2, view.getBounds().y + attackY * view.getBounds().width + (view.getBounds().width - attackController.getWidth())/2, attackController.getWidth(), attackController.getHeight()));
+        attackController.updateHitBox(attackRectangle, 0);
+
+        if(model.attackTimer <= 0) {
+            attackController.active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+            model.attackDagger = attackController.active;
+            if(model.attackDagger){
+                model.attackTimer = 1;
+            }
+        } else {
+            model.attackDagger = false;
+            attackController.active = false;
+            model.attackTimer -= deltaTime / 1000;
         }
     }
 

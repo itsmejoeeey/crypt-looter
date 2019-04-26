@@ -77,7 +77,6 @@ public class BoxManager {
     }
 
     public boolean detectAttackCollision(BoxController entity, boolean checkPlayer){
-        System.out.println(entity.getHeight());
         if((entity.getHeight() != playerAttacks[0].attackHeight) && !(playerAttacks[0].attackHeight == -1 || entity.getHeight() == -1)){
             return false;
         }
