@@ -13,6 +13,8 @@ public class PlayerController extends CharacterController {
 
     public PlayerController(Point spawnPos, BoxManager _boxManager, SoundController soundController) {
         super(spawnPos, soundController, _boxManager);
+        view = new PlayerView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        boxController = new BoxController(model, view);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
