@@ -133,7 +133,7 @@ public class MenuEscapeView extends JPanel {
 
     }
     private void buttonExitMenuAction() {
-
+        parent.updateState(MainController.GameState_t.INIT_MAIN_MENU);
     }
     private void buttonExitDesktopAction() {
         // Kill the program in a swift stroke

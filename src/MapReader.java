@@ -28,8 +28,8 @@ public class MapReader {
     private boolean[][][] heightCollisions;
     private int[][] heightMap;
 
-    MapReader() throws IOException, InvalidMapException {
-        File mapFile = new File("src/maps/demomap.tmx");
+    MapReader(String mapPath) throws IOException, InvalidMapException {
+        File mapFile = new File(mapPath);
 
         Document mapXML;
         try {
