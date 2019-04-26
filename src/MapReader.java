@@ -8,8 +8,10 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 // TODO Implement parsing of the items and enemies layers in the provided map files
@@ -27,6 +29,8 @@ public class MapReader {
     private int[][] mapFloated;
     private boolean[][][] heightCollisions;
     private int[][] heightMap;
+    ArrayList<Point2D.Double> enemiesNormal;
+    ArrayList<Point2D.Double> enemiesBoss;
 
     MapReader(String mapPath) throws IOException, InvalidMapException {
         File mapFile = new File(mapPath);
@@ -52,6 +56,7 @@ public class MapReader {
              parentObject.hasAttribute("height") &&
              parentObject.hasAttribute("width") &&
              parentObject.hasAttribute("tileheight") &&
+             parentObject.getAttribute("infinite").equals("0") &&
              parentObject.hasAttribute("tilewidth") &&
              parentObject.getAttribute("tilewidth").equals(parentObject.getAttribute("tileheight")))) {
             throw new InvalidMapException();
@@ -80,7 +85,7 @@ public class MapReader {
         for(int i = 0; i < 5; i++) {
             NodeList worldLevelNode;
             try {
-                worldLevelNode = (NodeList) xpath.compile("/map/group/layer[@name='world_floor_" + String.format("%02d", i) + "']").evaluate(mapXML, XPathConstants.NODESET);
+                worldLevelNode = (NodeList) xpath.compile("/map/group[@name='world']/layer[@name='world_floor_" + String.format("%02d", i) + "']").evaluate(mapXML, XPathConstants.NODESET);
             } catch(XPathExpressionException ex) {
                 // Compulsory to handle invalid XPath expression exception
                 throw new InvalidMapException();
@@ -164,24 +169,6 @@ public class MapReader {
         mapLevelExtractor(worldCosmeticNode.item(0), mapCosmetic);
 
 
-        // >> Parse the 'world_floor_floated' layer
-        // This layer of the map appears above the character. This is used for cases where you want the character to
-        // move under a visible item such as tree leaves. This allows for hidden rooms and other easter eggs.
-        NodeList worldFloatedNode;
-        try {
-            worldFloatedNode = (NodeList) xpath.compile("/map/group[@name='world']/layer[@name='world_floor_floated']").evaluate(mapXML, XPathConstants.NODESET);
-        } catch(XPathExpressionException ex) {
-            // Compulsory to handle invalid XPath expression exception
-            throw new InvalidMapException();
-        }
-        // Ensure there is one result for the XPath expression
-        if (worldFloatedNode.getLength() != 1) {
-            throw new InvalidMapException();
-        }
-        // There should only be one child in the NodeList, so we pass child index 0
-        mapLevelExtractor(worldFloatedNode.item(0), mapCosmetic);
-
-
         // >> Parse the 'collisions' layer
         // This layer represents tiles that the character cannot move to (and instead collides against).
         NodeList collisionsNode;
@@ -235,20 +222,71 @@ public class MapReader {
             }
         }
 
+        // >> Parse the 'enemies' layer
+        // Creates an array that has the coordinates of the center of the enemy as a double (as the user can create
+        // the enemy anywhere on the world in the tile editor)
+        enemiesNormal = new ArrayList<Point2D.Double>();
+        enemiesBoss = new ArrayList<Point2D.Double>();
+        NodeList enemiesNode;
+        try {
+            enemiesNode = (NodeList) xpath.compile("/map/objectgroup[@name='enemies']").evaluate(mapXML, XPathConstants.NODESET);
+        } catch(XPathExpressionException ex) {
+            // Compulsory to handle invalid XPath expression exception
+            throw new InvalidMapException();
+        }
+        // Ensure there is one result for the XPath expression
+        if (enemiesNode.getLength() != 1) {
+            throw new InvalidMapException();
+        }
+        enemiesNode = enemiesNode.item(0).getChildNodes();
+        for(int i = 0; i < enemiesNode.getLength(); i++) {
+            Element element;
+            // As outputted by 'Tiled' - even-entries are simply newlines
+            if(i % 2 == 1) {
+                element = (Element) enemiesNode.item(i);
+            } else {
+                continue;
+            }
+            System.out.println(enemiesNode.item(i).getNodeName());
+            if(element.getNodeName() == "object" &&
+               element.hasAttribute("type") &&
+               element.hasAttribute("x") &&
+               element.hasAttribute("y") &&
+               element.hasAttribute("height") &&
+               element.hasAttribute("width")) {
 
+                double x = Integer.parseInt(element.getAttribute("x").toString());
+                double y = Integer.parseInt(element.getAttribute("y").toString());
+                double height = Integer.parseInt(element.getAttribute("height").toString());
+                double width = Integer.parseInt(element.getAttribute("width").toString());
+                Point2D.Double enemyPoint = new Point2D.Double((x+(width/2))/mapTileSize, (y+(height/2))/mapTileSize);
+
+                if(element.getAttribute("type").equals("normal")) {
+                    enemiesNormal.add(enemyPoint);
+                }
+                if(element.getAttribute("type").equals("boss")) {
+                    enemiesBoss.add(enemyPoint);
+                }
+            }
+        }
+
+        // TODO add items
+
+        System.out.println(enemiesNormal);
+        System.out.println(enemiesBoss);
 
         // Print out all parsed maps
-        System.out.println(Arrays.deepToString(mapFloor));
-        System.out.println(Arrays.deepToString(mapCosmetic));
-        System.out.println(Arrays.deepToString(mapFloated));
-        System.out.println(Arrays.deepToString(collisions));
-        System.out.println(Arrays.deepToString(death));
-        System.out.println(Arrays.deepToString(heightCollisions[0]));
-        System.out.println(Arrays.deepToString(heightCollisions[1]));
-        System.out.println(Arrays.deepToString(heightCollisions[2]));
-        System.out.println(Arrays.deepToString(heightCollisions[3]));
-        System.out.println(Arrays.deepToString(heightCollisions[4]));
-        System.out.println(Arrays.deepToString(heightMap));
+//        System.out.println(Arrays.deepToString(mapFloor));
+//        System.out.println(Arrays.deepToString(mapCosmetic));
+//        System.out.println(Arrays.deepToString(mapFloated));
+//        System.out.println(Arrays.deepToString(collisions));
+//        System.out.println(Arrays.deepToString(death));
+//        System.out.println(Arrays.deepToString(heightCollisions[0]));
+//        System.out.println(Arrays.deepToString(heightCollisions[1]));
+//        System.out.println(Arrays.deepToString(heightCollisions[2]));
+//        System.out.println(Arrays.deepToString(heightCollisions[3]));
+//        System.out.println(Arrays.deepToString(heightCollisions[4]));
+//        System.out.println(Arrays.deepToString(heightMap));
     }
 
     // This takes care of extracting and cleaning all values before outputting back to the passed in 2D array
@@ -306,6 +344,9 @@ public class MapReader {
 
         world.heightCollisions = heightCollisions;
         world.heightMap = heightMap;
+
+        world.enemiesNormal = enemiesNormal;
+        world.enemiesBoss = enemiesBoss;
 
         return world;
     }
