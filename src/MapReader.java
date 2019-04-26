@@ -31,6 +31,10 @@ public class MapReader {
     private int[][] heightMap;
     ArrayList<Point2D.Double> enemiesNormal;
     ArrayList<Point2D.Double> enemiesBoss;
+    ArrayList<Point2D.Double> itemsHealthPotBig;
+    ArrayList<Point2D.Double> itemsHealthPotSmall;
+    ArrayList<Point2D.Double> itemsCoin;
+    ArrayList<Point2D.Double> itemsFinalChest;
 
     MapReader(String mapPath) throws IOException, InvalidMapException {
         File mapFile = new File(mapPath);
@@ -270,12 +274,65 @@ public class MapReader {
             }
         }
 
-        // TODO add items
 
-        System.out.println(enemiesNormal);
-        System.out.println(enemiesBoss);
+        // >> Parse the 'items' layer
+        // Creates an array that has the coordinates of the center of each item as a double (as the user can create
+        // items anywhere on the world in the tile editor)
+        itemsHealthPotBig = new ArrayList<Point2D.Double>();
+        itemsHealthPotSmall = new ArrayList<Point2D.Double>();
+        itemsCoin = new ArrayList<Point2D.Double>();
+        itemsFinalChest = new ArrayList<Point2D.Double>();
+        NodeList itemsNode;
+        try {
+            itemsNode = (NodeList) xpath.compile("/map/objectgroup[@name='items']").evaluate(mapXML, XPathConstants.NODESET);
+        } catch(XPathExpressionException ex) {
+            // Compulsory to handle invalid XPath expression exception
+            throw new InvalidMapException();
+        }
+        // Ensure there is one result for the XPath expression
+        if (itemsNode.getLength() != 1) {
+            throw new InvalidMapException();
+        }
+        itemsNode = itemsNode.item(0).getChildNodes();
+        for(int i = 0; i < itemsNode.getLength(); i++) {
+            Element element;
+            // As outputted by 'Tiled' - even-entries are simply newlines
+            if(i % 2 == 1) {
+                element = (Element) itemsNode.item(i);
+            } else {
+                continue;
+            }
+            System.out.println(itemsNode.item(i).getNodeName());
+            if(element.getNodeName() == "object" &&
+                    element.hasAttribute("type") &&
+                    element.hasAttribute("x") &&
+                    element.hasAttribute("y") &&
+                    element.hasAttribute("height") &&
+                    element.hasAttribute("width")) {
 
-        // Print out all parsed maps
+                double x = Integer.parseInt(element.getAttribute("x").toString());
+                double y = Integer.parseInt(element.getAttribute("y").toString());
+                double height = Integer.parseInt(element.getAttribute("height").toString());
+                double width = Integer.parseInt(element.getAttribute("width").toString());
+                Point2D.Double itemPoint = new Point2D.Double((x+(width/2))/mapTileSize, (y+(height/2))/mapTileSize);
+
+                if(element.getAttribute("type").equals("health_pot_big")) {
+                    itemsHealthPotBig.add(itemPoint);
+                }
+                if(element.getAttribute("type").equals("health_pot_small")) {
+                    itemsHealthPotSmall.add(itemPoint);
+                }
+                if(element.getAttribute("type").equals("coin")) {
+                    itemsCoin.add(itemPoint);
+                }
+                if(element.getAttribute("type").equals("final_chest")) {
+                    itemsFinalChest.add(itemPoint);
+                }
+            }
+        }
+
+
+//        // Print out all parsed maps
 //        System.out.println(Arrays.deepToString(mapFloor));
 //        System.out.println(Arrays.deepToString(mapCosmetic));
 //        System.out.println(Arrays.deepToString(mapFloated));
@@ -287,6 +344,15 @@ public class MapReader {
 //        System.out.println(Arrays.deepToString(heightCollisions[3]));
 //        System.out.println(Arrays.deepToString(heightCollisions[4]));
 //        System.out.println(Arrays.deepToString(heightMap));
+//
+//        System.out.println(enemiesNormal);
+//        System.out.println(enemiesBoss);
+//
+//        System.out.println(itemsHealthPotBig);
+//        System.out.println(itemsHealthPotSmall);
+//        System.out.println(itemsCoin);
+//        System.out.println(itemsFinalChest);
+
     }
 
     // This takes care of extracting and cleaning all values before outputting back to the passed in 2D array
@@ -347,6 +413,11 @@ public class MapReader {
 
         world.enemiesNormal = enemiesNormal;
         world.enemiesBoss = enemiesBoss;
+
+        world.itemsHealthPotBig = itemsHealthPotBig;
+        world.itemsHealthPotSmall = itemsHealthPotSmall;
+        world.itemsCoin = itemsCoin;
+        world.itemsFinalChest = itemsFinalChest;
 
         return world;
     }

@@ -21,6 +21,12 @@ public class World {
     public int tileSize = 50;
 
     // Enemy position (represented in tiles)
-    ArrayList<Point2D.Double> enemiesNormal = new ArrayList<Point2D.Double>();
-    ArrayList<Point2D.Double> enemiesBoss = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> enemiesNormal = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> enemiesBoss = new ArrayList<Point2D.Double>();
+
+    // Item position (represented in tiles)
+    public ArrayList<Point2D.Double> itemsHealthPotBig = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> itemsHealthPotSmall = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> itemsCoin = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> itemsFinalChest = new ArrayList<Point2D.Double>();
 }
