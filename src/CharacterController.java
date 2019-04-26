@@ -47,7 +47,9 @@ public class CharacterController {
         view.deltaTime = deltaTime;
         groundMovement();
         attackDetection();
-        view.update();
+        if(model.dead){
+            System.out.println("Player Dead");
+        }
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -61,7 +63,7 @@ public class CharacterController {
 
         deltaTimeElapsed += deltaTime;
         if(deltaTimeElapsed > 1000) {
-            deltaTimeElapsed-= 1000;
+            deltaTimeElapsed -= 1000;
             model.secondsElapsed++;
         }
     }
@@ -148,10 +150,19 @@ public class CharacterController {
         attackController[1].updateHitBox(leftRectangle, 0);
         attackController[2].updateHitBox(rightRectangle, 0);
 
-        //Origins playerOrigins = new Origins(view.getBounds(), 0, 0);
-        attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
-        //System.out.println(attackController[0].active);
-        model.attackDagger = attackController[0].active;
+        attackController[0].attackHeight = model.height;
+
+        if(model.attackTimer <= 0) {
+            attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
+            model.attackDagger = attackController[0].active;
+            if(model.attackDagger){
+                model.attackTimer = 1;
+            }
+        } else {
+            model.attackDagger = false;
+            attackController[0].active = false;
+            model.attackTimer -= deltaTime / 1000;
+        }
     }
 
     public int[] getMoveDirection(int direction){

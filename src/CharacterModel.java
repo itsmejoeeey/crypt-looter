@@ -10,6 +10,9 @@ public class CharacterModel {
     public boolean attackDagger = false;
     public boolean attackBow = false;
     public boolean walking = false;
+    public boolean dead = false;
+
+    public double attackTimer = 0;
     int height;
 
     static int maxHealth = 3;

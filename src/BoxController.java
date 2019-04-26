@@ -46,6 +46,14 @@ public class BoxController {
         return rect;
     }
 
+    public void setDeath(boolean death){
+        model.dead = death;
+    }
+
+    public void setHeight(int height){
+        model.height = height;
+    }
+
     public CharacterView getView(){
         return view;
     }

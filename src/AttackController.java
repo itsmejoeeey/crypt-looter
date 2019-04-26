@@ -5,6 +5,7 @@ public class AttackController extends JPanel {
     public double rotation;
     private Rectangle rect;
     public boolean active;
+    public int attackHeight;
 
     public AttackController(Rectangle rect){
         this.rect = rect;

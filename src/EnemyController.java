@@ -9,6 +9,8 @@ public class EnemyController {
     public double speed = 0.05;
     private double hitTimer = 0;
 
+    public boolean enemyDead = false;
+
     CharacterView view;
     CharacterModel model;
     public BoxManager boxManager;

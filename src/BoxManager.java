@@ -8,6 +8,7 @@ public class BoxManager {
     public World world;
     public BoxController[][] colliders;
     public ArrayList<BoxController> entities = new ArrayList<>();
+    public ArrayList<BoxController> items = new ArrayList<>();
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
     public AttackController[] playerAttacks;
 
@@ -32,23 +33,21 @@ public class BoxManager {
         }
     }
 
-    public  Vector2 move(Vector2 velocity, Rectangle character, BoxController exclude){
+    public Vector2 move(Vector2 velocity, Rectangle character, BoxController entity){
         int tileY = Math.floorMod(((character.y + character.width / 2) / world.tileSize) , world.mapSize.width);
         int tileX = Math.floorMod(((character.x + character.height / 2) / world.tileSize), world.mapSize.height);
 
-
         int boxHeight = world.heightMap[tileY][tileX];
+        entity.setHeight(boxHeight);
+        entity.setDeath(world.death[tileY][tileX]);;
 
-        int minX =  (tileX - character.height / world.tileSize * 2) % world.mapSize.height;
-        int maxX =  (tileX + character.height / world.tileSize * 2 + 1) % world.mapSize.height;
-        int minY =  (tileY - character.width / world.tileSize * 2) % world.mapSize.width;
-        int maxY =  (tileY + character.width / world.tileSize * 2 + 1) % world.mapSize.width;
+        int minX =  Math.floorMod((tileX - character.height / world.tileSize * 2), world.mapSize.height);
+        int maxX =  Math.floorMod((tileX + character.height / world.tileSize * 2 + 1), world.mapSize.height);
+        int minY =  Math.floorMod((tileY - character.width / world.tileSize * 2) , world.mapSize.width);
+        int maxY =  Math.floorMod((tileY + character.width / world.tileSize * 2 + 1) , world.mapSize.width);
 
-        minX = minX < 0 ? 0 : minX;
-        minY = minY < 0 ? 0 : minY;
 
         Origins origins = new Origins(character, playerHeightOffset, skinWidth);
-        //System.out.println(tileY + "-" + tileX + " " + minY + ":" + maxY + " " + minX + ":" + maxX);
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 if(boxHeight != -1){
@@ -61,20 +60,27 @@ public class BoxManager {
                 }
                 BoxController box = colliders[y][x];
                 velocity = collideBoxes(box, velocity, origins);
-
             }
         }
 
         Origins characterOrigins = new Origins(character, 0, skinWidth);
         for(int i= 0; i < entities.size(); i++){
-            if(entities.get(i) != exclude){
+            if(entities.get(i) != entity){
                 velocity = collideBoxes(entities.get(i), velocity, characterOrigins);
             }
         }
         return velocity;
     }
 
+    public boolean detectItemCollision(BoxController player, BoxController item){
+        return player.getRect().intersects(item.getRect());
+    }
+
     public boolean detectAttackCollision(BoxController entity, boolean checkPlayer){
+        System.out.println(entity.getHeight());
+        if((entity.getHeight() != playerAttacks[0].attackHeight) && !(playerAttacks[0].attackHeight == -1 || entity.getHeight() == -1)){
+            return false;
+        }
         if(checkPlayer && playerAttacks[0].active){
             for(int j= 0; j < 3; j++) {
                 AttackController playerAttack = playerAttacks[j];
