@@ -18,6 +18,7 @@ public class MainController {
     EnemyManager enamyManager;
     BoxManager boxManager;
     SoundController sound;
+    ItemManager itemManager;
 
     // UI
     HUDController hud;
@@ -165,6 +166,7 @@ public class MainController {
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
         enamyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
+        itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model);
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
@@ -215,6 +217,7 @@ public class MainController {
         world.update();
         camera.update();
         enamyManager.update();
+        itemManager.update();
         sound.update();
     }
 
