@@ -14,8 +14,8 @@ public class MainController {
     // World objects
     WorldController world;
     CameraController camera;
-    CharacterController character;
-    EnemyController enemy;
+    PlayerController character;
+    EnemyManager enamyManager;
     BoxManager boxManager;
     SoundController sound;
 
@@ -25,7 +25,7 @@ public class MainController {
     MenuEscapeController escapeMenu;
 
     enum GameState_t {
-        PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE
+        PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER
     }
 
     GameState_t state = GameState_t.INIT_MAIN_MENU;
@@ -54,7 +54,9 @@ public class MainController {
     }
 
     public void update() {
-        System.out.println("UPDATING" + state);
+        // Not entirely sure why this is needed here, but the state machine WILL
+        // have a fit if not here in some capacity :))
+        System.out.print("");
         switch(state) {
             case INIT_MAIN_MENU:
                 init_main_menu();
@@ -73,11 +75,12 @@ public class MainController {
                 break;
             case ESCAPE:
                 update_escape();
+            case GAME_OVER:
+                update_gameover();
         }
     }
 
     public void updateState(GameState_t newState) {
-        System.out.println("MOVED TO NEW STATE" + newState);
         prevState = state;
         state = newState;
         switch(newState) {
@@ -144,7 +147,6 @@ public class MainController {
     }
 
     private void init_normalgame() {
-        System.out.println("ENTERING INIT STATEMENT");
         MapReader mapReader;
         try {
             mapReader = new MapReader("src/maps/demomap.tmx");
@@ -158,10 +160,10 @@ public class MainController {
         boxManager = new BoxManager(mapReader.getWorld());
 
         world = new WorldController(this, mapReader.getWorld());
-        character = new CharacterController(new Point(800,500), boxManager);
-        enemy = new EnemyController(new Point(1100, 500), character.boxController, boxManager);
+        character = new PlayerController(new Point(800,500), boxManager, sound);
+        sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
-	    sound = new SoundController(character.model);
+        enamyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
@@ -175,8 +177,6 @@ public class MainController {
         world.getView().add(character.attackController[0]);
         world.getView().add(character.attackController[1]);
         world.getView().add(character.attackController[2]);
-        world.getView().add(enemy.attackController);
-        world.getView().add(enemy.getView());
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
                 try {
@@ -196,7 +196,6 @@ public class MainController {
 	    sound.playBackgroundMusic();
 
         // Go to normal game state
-        System.out.println("SHOULD BE CHANGING STATE???");
         updateState(GameState_t.NORMAL_GAME);
     }
 
@@ -207,14 +206,14 @@ public class MainController {
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
-        enemy.deltaTime = this.deltaTime;
         sound.deltaTime = this.deltaTime;
+        enamyManager.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
         world.update();
         camera.update();
-        enemy.update();
+        enamyManager.update();
         sound.update();
     }
 
@@ -230,5 +229,9 @@ public class MainController {
         frame.setCursor(defaultCursor);
 
         escapeMenu.update();
+    }
+
+    private void update_gameover(){
+
     }
 }
