@@ -57,6 +57,7 @@ public class MainController {
         // Not entirely sure why this is needed here, but the state machine WILL
         // have a fit if not here in some capacity :))
         System.out.print("");
+
         switch(state) {
             case INIT_MAIN_MENU:
                 init_main_menu();
