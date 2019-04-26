@@ -73,6 +73,7 @@ public class MainController {
         world.getView().add(character.attackController[0]);
         world.getView().add(character.attackController[1]);
         world.getView().add(character.attackController[2]);
+        world.getView().add(enemy.attackController);
         world.getView().add(enemy.getView());
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
