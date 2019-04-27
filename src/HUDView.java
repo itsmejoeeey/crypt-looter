@@ -14,6 +14,8 @@ public class HUDView extends JPanel {
     ImageIcon heartRedIcon;
     ImageIcon heartBlackIcon;
 
+    boolean timerRunning = false;
+
     int previousCharacterHealth;
 
     JLabel[] heartViews;
@@ -108,25 +110,29 @@ public class HUDView extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         // Show a translucent red flash on damage inflicted
-        if(previousCharacterHealth != character.health) {
+        if(previousCharacterHealth > character.health) {
             g2.setColor(Color.RED);
             g2.setComposite(AlphaComposite.SrcOver.derive(0.50f));
             g2.fillRect(0,0, getWidth(),getHeight());
             g2.setComposite(AlphaComposite.SrcOver.derive(1f));
             repaint();
 
-            // After 100ms update previousCharacterHealth so the red disappears
-            Timer timer = new Timer(100, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    previousCharacterHealth = character.health;
-                    repaint();
+            if(!timerRunning) {
+                // After 100ms update previousCharacterHealth so the red disappears
+                timerRunning = true;
+                Timer timer = new Timer(100, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        previousCharacterHealth = character.health;
+                        timerRunning = false;
+                        repaint();
 
-                    // Stop the timer before it loops
-                    ((Timer)e.getSource()).stop();
-                }
-            });
-            timer.start();
+                        // Stop the timer before it loops
+                        ((Timer)e.getSource()).stop();
+                    }
+                });
+                timer.start();
+            }
         }
 
         g2.setColor(Color.BLACK);
