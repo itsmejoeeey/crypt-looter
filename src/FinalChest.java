@@ -10,8 +10,11 @@ public class FinalChest extends ItemController {
 
     @Override
     public void triggerItem(){
-        if(bossModel.dead) {
-            mainController.updateState(MainController.GameState_t.GAME_OVER);
-        }
+        mainController.updateState(MainController.GameState_t.GAME_OVER);
+    }
+
+    @Override
+    public boolean canTrigger(){
+        return bossModel.dead;
     }
 }

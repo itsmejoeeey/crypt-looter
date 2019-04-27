@@ -43,6 +43,9 @@ public class PlayerController extends CharacterController {
             }
             boxManager.detectItemCollision(boxController);
             if(model.dead){
+                model.walking = false;
+                model.attackDagger = false;
+                model.attackBow = false;
                 model.health = 0;
             }
         }

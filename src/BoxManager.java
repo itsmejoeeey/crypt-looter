@@ -76,7 +76,10 @@ public class BoxManager {
     public void detectItemCollision(BoxController player){
         for(int i = 0; i < itemManager.items.size(); i++) {
             if (player.getRect().intersects(itemManager.items.get(i).getRect())) {
-                itemManager.items.get(i).triggerItem();
+                if(itemManager.items.get(i).canTrigger()) {
+                    itemManager.items.get(i).triggerItem();
+                    itemManager.useItem(itemManager.items.get(i));
+                }
             }
         }
     }
@@ -103,7 +106,7 @@ public class BoxManager {
         for(int j = 0; j < enemyAttacks.size(); j++) {
             AttackController enemyAttack = enemyAttacks.get(j);
             if ((player.getHeight() != enemyAttack.attackHeight) && !(player.getHeight() == -1 || enemyAttack.attackHeight == -1)) {
-                return false;
+                continue;
             }
             if(enemyAttack.active) {
                 Point[] points = enemyAttack.getPoints();
@@ -113,7 +116,7 @@ public class BoxManager {
                     }
                 }
             }
-            return false;
+            continue;
         }
         return false;
     }

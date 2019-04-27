@@ -15,7 +15,7 @@ public class CharacterModel {
     public double attackTimer = 0;
     int height;
 
-    static int maxHealth = 3;
+    public int maxHealth = 3;
 
     public int score = 0;
     public int health = maxHealth;
@@ -43,7 +43,7 @@ public class CharacterModel {
     }
 
     public void decreaseHealth(int decreaseAmount) {
-        if((health - decreaseAmount) < 0) {
+        if((health - decreaseAmount) <= 0) {
             health = 0;
             dead = true;
         } else {

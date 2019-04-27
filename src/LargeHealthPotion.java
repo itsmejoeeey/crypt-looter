@@ -9,6 +9,14 @@ public class LargeHealthPotion extends ItemController {
 
     @Override
     public void triggerItem(){
-        playerModel.increaseHealth(3);
+         playerModel.increaseHealth(3);
+    }
+
+    @Override
+    public boolean canTrigger(){
+        if(playerModel.health != playerModel.maxHealth){
+            return true;
+        }
+        return false;
     }
 }

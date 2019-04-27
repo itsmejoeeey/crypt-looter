@@ -3,15 +3,17 @@ import java.util.ArrayList;
 
 public class ItemManager {
     public ArrayList<ItemController> items = new ArrayList<>();
+    private WorldController worldController;
     public ItemManager (WorldController worldController, World world, BoxManager boxManager, CharacterModel model){
         boxManager.itemManager = this;
+        this.worldController = worldController;
         int totalItems = 0;
         for (int i = 0; i < world.itemsHealthPotSmall.size(); i++){
             items.add(
                     new SmallHealthPotion(
                             (new Rectangle((int) world.itemsHealthPotSmall.get(i).x * world.tileSize, (int) (world.itemsHealthPotSmall.get(i).y * world.tileSize), 50, 50)),
-                                model)
-                    );
+                            model)
+            );
             worldController.getView().add(items.get(i).getView());
             totalItems++;
         }
@@ -37,9 +39,9 @@ public class ItemManager {
         }
     }
 
-    public void update(){
-        for(int i =0; i < items.size(); i++){
-            items.get(i).update();
-        }
+
+    public void useItem(ItemController item){
+        items.remove(item);
+        worldController.getView().remove(item.getView());
     }
 }

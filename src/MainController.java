@@ -217,7 +217,6 @@ public class MainController {
         world.update();
         camera.update();
         enemyManager.update();
-        itemManager.update();
 
         sound.update();
     }
