@@ -43,5 +43,6 @@ public class ItemManager {
     public void useItem(ItemController item){
         items.remove(item);
         worldController.getView().remove(item.getView());
+        worldController.getView().repaint();
     }
 }
