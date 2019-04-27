@@ -109,6 +109,10 @@ public class HUDView extends JPanel {
         // https://tips4java.wordpress.com/2009/05/31/backgrounds-with-transparency/
         Graphics2D g2 = (Graphics2D) g;
 
+        // Immediately update variable if the player has been healed
+        if(previousCharacterHealth < character.health) {
+            previousCharacterHealth = character.health;
+        }
         // Show a translucent red flash on damage inflicted
         if(previousCharacterHealth > character.health) {
             g2.setColor(Color.RED);
