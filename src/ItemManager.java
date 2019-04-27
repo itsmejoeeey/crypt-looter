@@ -37,6 +37,16 @@ public class ItemManager {
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
         }
+
+        for (int i = 0; i < world.itemsCoin.size(); i++){
+            items.add(
+                    new Coin(
+                            (new Rectangle((int) world.itemsCoin.get(i).x * world.tileSize, (int) (world.itemsCoin.get(i).y * world.tileSize), 50, 50)),
+                            model)
+            );
+            worldController.getView().add(items.get(totalItems).getView());
+            totalItems++;
+        }
     }
 
 

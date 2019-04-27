@@ -27,6 +27,9 @@ public class ItemView extends JPanel {
 
         // Default rectangle
         g2.setColor(Color.black);
+        if(texture == null)
         g2.fillRect(0, 0, getWidth(), getHeight());
+        else
+            g2.drawImage(texture, -7, -7, 64, 64, null);
     }
 }

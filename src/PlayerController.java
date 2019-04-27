@@ -82,8 +82,10 @@ public class PlayerController extends CharacterController {
         if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState())){
             projectileManager.spawnProjectile(new Point(boxController.getCenter().x, boxController.getCenter().y), new Vector2(getMoveDirection(model.direction)[0] * 100, -getMoveDirection(model.direction)[1]  * 100), boxController);
             model.projectileTimer = 2;
+            model.attackBow = true;
         }
         if(model.projectileTimer > 0){
+            model.attackBow = false;
             model.projectileTimer -= deltaTime / 1000;
         }
     }

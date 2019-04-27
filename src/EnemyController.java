@@ -7,10 +7,12 @@ public class EnemyController extends CharacterController {
 
     private EnemyAIController aiController;
     public AttackController attackController;
+    private CharacterModel playerModel;
 
-    public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController) {
+    public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel) {
         super(spawnPos, _soundController, _boxManager);
         view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        this.playerModel = playerModel;
         boxController = new BoxController(model, view);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
@@ -46,6 +48,9 @@ public class EnemyController extends CharacterController {
                 stunTimer = 1;
                 soundController.playEnemyHit();
                 model.decreaseHealth(1);
+            }
+            if(model.dead){
+                playerModel.increaseScore(400);
             }
         } else{
             model.walking = false;
