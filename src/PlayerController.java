@@ -97,8 +97,8 @@ public class PlayerController extends CharacterController {
     }
 
     public void fireBow(){
-        if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState())){
-            projectileManager.spawnProjectile(new Point(boxController.getCenter().x, boxController.getCenter().y), new Vector2(getMoveDirection(model.direction)[0] * 100, -getMoveDirection(model.direction)[1]  * 100), boxController);
+        if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState()) && model.bowEquipped){
+            projectileManager.spawnProjectile(new Point(boxController.getCenter().x - 15, boxController.getCenter().y - 5), new Vector2(getMoveDirection(model.direction)[0], -getMoveDirection(model.direction)[1]), boxController);
             model.projectileTimer = 2;
             model.attackBow = true;
         }
@@ -182,7 +182,7 @@ public class PlayerController extends CharacterController {
         attackController[0].attackHeight = model.height;
 
         //System.out.println(model.attackDagger);
-        if(model.attackTimer <= 0) {
+        if(model.attackTimer <= 0 && model.daggerEquipped) {
             attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
             model.attackDagger = attackController[0].active;
             if(model.attackDagger){

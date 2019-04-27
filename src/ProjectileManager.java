@@ -27,7 +27,7 @@ public class ProjectileManager {
     }
 
     public void spawnProjectile(Point spawn, Vector2 direction, BoxController archer){
-        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 20, 20), direction, archer, this);
+        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 30, 30), direction, archer, this);
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
         worldController.getView().add(projectile.view);

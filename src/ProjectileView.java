@@ -1,23 +1,35 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ProjectileView extends JPanel {
+    String texturePath = "src/res/textures/arrow.png";
     BufferedImage texture;
     Rectangle origin;
-    public boolean stationary;
-    public ProjectileView(Rectangle bounds, boolean stationary){
+    public ProjectileView(Rectangle bounds, int direction){
         this.origin = bounds;
         this.setOpaque(false);
         this.setFocusable(true);
         this.setLayout(null);
         this.setSize(new Dimension(bounds.width, bounds.height));
-        this.stationary =stationary;
+        initView(direction);
+    }
+
+    private void initView(int direction){
+        try {
+            texture = ImageIO.read(new File(texturePath));
+            texture = texture.getSubimage(direction * texture.getWidth()/8,0, texture.getWidth()/8, texture.getHeight());
+        } catch (IOException e){
+            return;
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        //super.paintComponent(g);
 
         //setLocation(origin.x, origin.y);
 
@@ -28,7 +40,7 @@ public class ProjectileView extends JPanel {
 
         // Default rectangle
         g2.setColor(Color.black);
-        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.drawImage(texture, 0, 0, 30, 30, null);
     }
 
     public void moveWorld(int newX, int newY) {

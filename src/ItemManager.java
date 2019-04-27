@@ -47,6 +47,26 @@ public class ItemManager {
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
         }
+
+        for (int i = 0; i < world.itemsDagger.size(); i++){
+            items.add(
+                    new Dagger(
+                            (new Rectangle((int) world.itemsDagger.get(i).x * world.tileSize, (int) (world.itemsDagger.get(i).y * world.tileSize), 50, 50)),
+                            model)
+            );
+            worldController.getView().add(items.get(totalItems).getView());
+            totalItems++;
+        }
+
+        for (int i = 0; i < world.itemsBow.size(); i++){
+            items.add(
+                    new Bow(
+                            (new Rectangle((int) world.itemsBow.get(i).x * world.tileSize, (int) (world.itemsBow.get(i).y * world.tileSize), 50, 50)),
+                            model)
+            );
+            worldController.getView().add(items.get(totalItems).getView());
+            totalItems++;
+        }
     }
 
 
