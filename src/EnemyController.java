@@ -4,14 +4,17 @@ import javax.swing.*;
 public class EnemyController extends CharacterController {
     public double speed = 0.05;
     private double stunTimer = 0;
+    protected double stunTime = 2;
+    protected double attackTime = 2;
 
-    private EnemyAIController aiController;
+    protected EnemyAIController aiController;
     public AttackController attackController;
-    private CharacterModel playerModel;
+    protected CharacterModel playerModel;
 
     public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel) {
         super(spawnPos, _soundController, _boxManager);
-        view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        //view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        initView(spawnPos);
         this.playerModel = playerModel;
         boxController = new BoxController(model, view);
         try {
@@ -28,6 +31,10 @@ public class EnemyController extends CharacterController {
         } catch (Exception e) {
             // Required to catch potential exception
         }
+    }
+
+    public void initView(Point spawnPos){
+        view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
     }
 
     public void update() {
@@ -50,7 +57,7 @@ public class EnemyController extends CharacterController {
                 model.decreaseHealth(1);
             }
             if(model.dead){
-                playerModel.increaseScore(400);
+                Die();
             }
         } else{
             model.walking = false;
@@ -72,6 +79,10 @@ public class EnemyController extends CharacterController {
         } catch (Exception e) {
             // Required to catch potential exception
         }
+    }
+
+    protected void Die(){
+        playerModel.increaseScore(400);
     }
 
     void groundMovement(){
@@ -103,7 +114,7 @@ public class EnemyController extends CharacterController {
             attackController.active = true;
             model.attackDagger = true;
             if(model.attackDagger){
-                model.attackTimer = 2;
+                model.attackTimer = attackTime;
             }
         } else {
             model.attackDagger = false;

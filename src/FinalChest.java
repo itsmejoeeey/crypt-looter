@@ -3,9 +3,9 @@ import java.awt.*;
 
 public class FinalChest extends ItemController {
     public MainController mainController;
-    private CharacterModel bossModel;
+    private CharacterModel[] bossModel;
 
-    public FinalChest(Rectangle bounds, CharacterModel bossModel){
+    public FinalChest(Rectangle bounds, CharacterModel[] bossModel){
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -28,6 +28,11 @@ public class FinalChest extends ItemController {
 
     @Override
     public boolean canTrigger(){
-        return bossModel.dead;
+        for (int i = 0; i < bossModel.length; i++){
+            if(!bossModel[i].dead){
+                return false;
+            }
+        }
+        return true;
     }
 }

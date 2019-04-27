@@ -20,17 +20,17 @@ public class CharacterView extends JPanel {
     private boolean attackBowAnimation = false;
     private boolean deadAnimationCompleted = false; // To stop the dead animation from looping
 
-    private int g2d_image;
-    private int g2d_imageDirection;
-    private int g2d_imageFrame;
+    protected int g2d_image;
+    protected int g2d_imageDirection;
+    protected int g2d_imageFrame;
 
-    static int texRes; // texture resolution
-    static int animationFrameSpeed; // animation frame speed in milliseconds
-    static boolean fourDirectionsOnly;
-    static int movementAnimationFrames;
-    static int slashAnimationFrames;
-    static int bowAnimationFrames;
-    static int hurtAnimationFrames;
+    int texRes; // texture resolution
+    int animationFrameSpeed; // animation frame speed in milliseconds
+    boolean fourDirectionsOnly;
+    int movementAnimationFrames;
+    int slashAnimationFrames;
+    int bowAnimationFrames;
+    int hurtAnimationFrames;
 
     static String charTexNormalFilepath;
     static String charTexSlashFilepath;

@@ -39,6 +39,7 @@ public class PlayerController extends CharacterController {
         model.direction = 4;
         boxManager.entities.add(boxController);
         boxManager.playerAttacks = attackController;
+        boxManager.player = boxController;
         this.projectileManager = projectileManager;
     }
 

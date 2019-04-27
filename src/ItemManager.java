@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class ItemManager {
     public ArrayList<ItemController> items = new ArrayList<>();
     private WorldController worldController;
-    public ItemManager (WorldController worldController, World world, BoxManager boxManager, CharacterModel model){
+    public ItemManager (WorldController worldController, World world, BoxManager boxManager, CharacterModel playerModel, CharacterModel[] bossModels){
         boxManager.itemManager = this;
         this.worldController = worldController;
         int totalItems = 0;
@@ -12,7 +12,7 @@ public class ItemManager {
             items.add(
                     new SmallHealthPotion(
                             (new Rectangle((int) world.itemsHealthPotSmall.get(i).x * world.tileSize, (int) (world.itemsHealthPotSmall.get(i).y * world.tileSize), 50, 50)),
-                            model)
+                            playerModel)
             );
             worldController.getView().add(items.get(i).getView());
             totalItems++;
@@ -22,7 +22,7 @@ public class ItemManager {
             items.add(
                     new LargeHealthPotion(
                             (new Rectangle((int) world.itemsHealthPotBig.get(i).x * world.tileSize, (int) (world.itemsHealthPotBig.get(i).y * world.tileSize), 50, 50)),
-                            model)
+                            playerModel)
             );
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
@@ -32,7 +32,7 @@ public class ItemManager {
             items.add(
                     new FinalChest(
                             (new Rectangle((int) world.itemsFinalChest.get(i).x * world.tileSize, (int) (world.itemsFinalChest.get(i).y * world.tileSize), 50, 50)),
-                            model)
+                            bossModels)
             );
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
@@ -42,7 +42,7 @@ public class ItemManager {
             items.add(
                     new Coin(
                             (new Rectangle((int) world.itemsCoin.get(i).x * world.tileSize, (int) (world.itemsCoin.get(i).y * world.tileSize), 50, 50)),
-                            model)
+                            playerModel)
             );
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
@@ -52,7 +52,7 @@ public class ItemManager {
             items.add(
                     new Dagger(
                             (new Rectangle((int) world.itemsDagger.get(i).x * world.tileSize, (int) (world.itemsDagger.get(i).y * world.tileSize), 50, 50)),
-                            model)
+                            playerModel)
             );
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
@@ -62,7 +62,7 @@ public class ItemManager {
             items.add(
                     new Bow(
                             (new Rectangle((int) world.itemsBow.get(i).x * world.tileSize, (int) (world.itemsBow.get(i).y * world.tileSize), 50, 50)),
-                            model)
+                            playerModel)
             );
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;

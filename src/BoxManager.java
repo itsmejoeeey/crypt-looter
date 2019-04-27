@@ -11,7 +11,7 @@ public class BoxManager {
     public AttackController[] playerAttacks;
     public ItemManager itemManager;
     public ProjectileManager projectileManager;
-    //public BoxController player;
+    public BoxController player;
 
     int skinWidth = 2;
     int playerHeightOffset = 20;
@@ -163,6 +163,9 @@ public class BoxManager {
 
     public boolean detectPlayerProjectileCollision(BoxController enemy){
         for (int i= 0; i < projectileManager.projectiles.size(); i++){
+            if(projectileManager.projectiles.get(i).archer != player){
+                continue;
+            }
             if (projectileManager.projectiles.get(i).view.getBounds().intersects(enemy.getRect())) {
                 projectileManager.destroyProjectile(projectileManager.projectiles.get(i));
                 return true;

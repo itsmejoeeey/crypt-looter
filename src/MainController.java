@@ -242,8 +242,8 @@ public class MainController {
         character = new PlayerController(this, new Point(1100,500), boxManager, sound, projectileManager);
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
-        itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model);
-        enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
+        enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound, projectileManager);
+        itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model, enemyManager.getBossModels());
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
