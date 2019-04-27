@@ -10,7 +10,8 @@ public class ItemView extends JPanel {
         this.bounds = bounds;
         this.setOpaque(false);
         this.setFocusable(true);
-        setPreferredSize(new Dimension(bounds.width, bounds.height));
+        this.setLayout(null);
+        this.setSize(new Dimension(bounds.width, bounds.height));
         this.stationary =stationary;
     }
 

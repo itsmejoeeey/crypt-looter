@@ -52,6 +52,7 @@ public class WorldView extends JPanel {
         this.setBounds(initialX, initialY, mapSize.width, mapSize.height);
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
+        this.setLayout(null);
 
         try {
             tileset = ImageIO.read(new File("src/res/textures/tileset.png"));
