@@ -25,8 +25,6 @@ public class MapReader {
     private boolean[][] death;
     private int[][] mapFloor;
     private int[][] mapCosmetic;
-    // TODO Consider how necessary mapFloated is - could be overkill for our small game
-    private int[][] mapFloated;
     private boolean[][][] heightCollisions;
     private int[][] heightMap;
     ArrayList<Point2D.Double> enemiesNormal;
@@ -78,7 +76,6 @@ public class MapReader {
         death = new boolean[mapWidth][mapHeight];
         mapFloor = new int[mapWidth][mapHeight];
         mapCosmetic = new int[mapWidth][mapHeight];
-        mapFloated = new int[mapWidth][mapHeight];
 
         heightCollisions = new boolean[5][mapWidth][mapHeight];
         heightMap = new int[mapWidth][mapHeight];
@@ -418,7 +415,6 @@ public class MapReader {
         world.death = death;
         world.mapFloor = mapFloor;
         world.mapCosmetic = mapCosmetic;
-        world.mapFloated = mapFloated;
 
         world.heightCollisions = heightCollisions;
         world.heightMap = heightMap;
