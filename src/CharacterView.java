@@ -14,9 +14,11 @@ public class CharacterView extends JPanel {
 
     private int animationMovementFrame = 0;
     private int animationAttackFrame = 0;
+    private int animationDeadFrame = 0;
 
     private boolean attackSlashAnimation = false;
     private boolean attackBowAnimation = false;
+    private boolean deadAnimationCompleted = false; // To stop the dead animation from looping
 
     private int g2d_image;
     private int g2d_imageDirection;
@@ -117,11 +119,15 @@ public class CharacterView extends JPanel {
         // ANIMATIONS
         // Work out the image sprite to show above when 'paintComponent()' is evaluated
         // This sets g2d_image, g2d_imageDirection, and g2d_imageFrame which corresponds to an image in a 3D array
-        if(!(model.walking || (model.attackDagger || attackSlashAnimation) || (model.attackBow || attackBowAnimation))) {
+        if(!(model.walking ||
+             (model.attackDagger || attackSlashAnimation) ||
+             (model.attackBow || attackBowAnimation) ||
+             (model.dead && !(deadAnimationCompleted)) )) {
             // If standing still - disable animations
             deltaTimeElapsed = 0;
             animationMovementFrame = 0;
             animationAttackFrame = 0;
+            animationDeadFrame = 0;
         } else {
             // Set flag when attack is detected
             if(model.attackDagger) {
@@ -136,6 +142,9 @@ public class CharacterView extends JPanel {
                 if(model.walking) {
                     animationMovementFrame++;
                 }
+                if(model.dead) {
+                    animationDeadFrame++;
+                }
                 if(attackSlashAnimation || attackBowAnimation) {
                     animationAttackFrame++;
                 }
@@ -144,15 +153,22 @@ public class CharacterView extends JPanel {
             deltaTimeElapsed += deltaTime;
         }
 
-        if(attackSlashAnimation) {
+        if(model.dead && !(deadAnimationCompleted)) {
+            g2d_image = 3;
+            g2d_imageDirection = 0;
+            g2d_imageFrame = animationDeadFrame & (hurtAnimationFrames - 1);
+        }
+        else if(attackSlashAnimation) {
             g2d_image = 1;
             g2d_imageDirection = model.direction;
             g2d_imageFrame = animationAttackFrame % (slashAnimationFrames - 1);
-        } else if(attackBowAnimation) {
+        }
+        else if(attackBowAnimation) {
             g2d_image = 2;
             g2d_imageDirection = model.direction;
             g2d_imageFrame = animationAttackFrame % (bowAnimationFrames - 1);
-        } else {
+        }
+        else if(model.walking) {
             g2d_image = 0;
             g2d_imageDirection = model.direction;
             g2d_imageFrame = animationMovementFrame % (movementAnimationFrames - 1);
@@ -166,6 +182,10 @@ public class CharacterView extends JPanel {
         if(attackBowAnimation && (animationAttackFrame % (bowAnimationFrames - 1) == 0) && animationAttackFrame > 0) {
             this.attackBowAnimation = false;
             animationAttackFrame = 0;
+        }
+        if(model.dead && (animationDeadFrame % (hurtAnimationFrames - 1) == 0) && animationDeadFrame > 0) {
+            this.deadAnimationCompleted = true;
+            animationDeadFrame = 0;
         }
 
         repaint();
