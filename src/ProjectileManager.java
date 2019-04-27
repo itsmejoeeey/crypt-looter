@@ -31,6 +31,7 @@ public class ProjectileManager {
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
         worldController.getView().add(projectile.view);
+        worldController.getView().setComponentZOrder(projectile.view, 0);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override

@@ -179,6 +179,7 @@ public class MainController {
 
         frame.add(world.getView());
         world.getView().add(character.getView());
+        world.getView().setComponentZOrder(character.getView(), 0);
         world.getView().add(character.attackController[0]);
         world.getView().add(character.attackController[1]);
         world.getView().add(character.attackController[2]);

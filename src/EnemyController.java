@@ -29,22 +29,31 @@ public class EnemyController extends CharacterController {
     }
 
     public void update() {
-        if(stunTimer <= 0) {
-            groundMovement();
-            attackDetection();
-        } else {
-            stunTimer = stunTimer - deltaTime / 1000;
+        if(!model.dead) {
+            if (stunTimer <= 0) {
+                groundMovement();
+                attackDetection();
+            } else {
+                stunTimer = stunTimer - deltaTime / 1000;
+                model.walking = false;
+            }
+            if (boxManager.detectPlayerAttackCollision(boxController)) {
+                stunTimer = 2;
+                soundController.playEnemyHit();
+                model.decreaseHealth(1);
+            }
+            if (boxManager.detectPlayerProjectileCollision(boxController)) {
+                stunTimer = 1;
+                soundController.playEnemyHit();
+                model.decreaseHealth(1);
+            }
+        } else{
             model.walking = false;
-        }
-        if(boxManager.detectPlayerAttackCollision(boxController)){
-            stunTimer = 2;
-            soundController.playEnemyHit();
-            model.decreaseHealth(1);
-        }
-        if(boxManager.detectPlayerProjectileCollision(boxController)){
-            stunTimer = 1;
-            soundController.playEnemyHit();
-            model.decreaseHealth(1);
+            model.attackDagger = false;
+            model.attackBow = false;
+            model.health = 0;
+            boxManager.entities.remove(boxController);
+            boxManager.enemyAttacks.remove(attackController);
         }
         view.deltaTime = deltaTime;
         view.update();
