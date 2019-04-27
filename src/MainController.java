@@ -19,6 +19,7 @@ public class MainController {
     BoxManager boxManager;
     SoundController sound;
     ItemManager itemManager;
+    ProjectileManager projectileManager;
 
     // UI
     HUDController hud;
@@ -159,14 +160,17 @@ public class MainController {
 
         frame.addKeyListener(new KeyController());
 
-        boxManager = new BoxManager(mapReader.getWorld());
 
         world = new WorldController(this, mapReader.getWorld());
-        character = new PlayerController(new Point(1100,500), boxManager, sound);
+        boxManager = new BoxManager(mapReader.getWorld());
+        projectileManager = new ProjectileManager(world, boxManager);
+        character = new PlayerController(new Point(1100,500), boxManager, sound, projectileManager);
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
         itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model);
         enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
+        projectileManager.spawnProjectile(new Rectangle(1300, 400, 40, 40), new Vector2(20, 0), character.boxController);
+
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
@@ -180,6 +184,7 @@ public class MainController {
         world.getView().add(character.attackController[0]);
         world.getView().add(character.attackController[1]);
         world.getView().add(character.attackController[2]);
+
         for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
             for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
                 try {
@@ -211,12 +216,14 @@ public class MainController {
         camera.deltaTime = this.deltaTime;
         sound.deltaTime = this.deltaTime;
         enemyManager.deltaTime = this.deltaTime;
+        projectileManager.deltaTime = this.deltaTime;
 
         character.update();
         boxManager.update();
         world.update();
         camera.update();
         enemyManager.update();
+        projectileManager.update();
 
         sound.update();
     }

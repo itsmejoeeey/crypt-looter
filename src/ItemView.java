@@ -27,6 +27,5 @@ public class ItemView extends JPanel {
         // Default rectangle
         g2.setColor(Color.black);
         g2.fillRect(0, 0, getWidth(), getHeight());
-
     }
 }

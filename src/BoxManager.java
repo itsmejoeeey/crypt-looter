@@ -11,6 +11,7 @@ public class BoxManager {
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
     public AttackController[] playerAttacks;
     public ItemManager itemManager;
+    public ProjectileManager projectileManager;
     //public BoxController player;
 
     int skinWidth = 2;
@@ -121,6 +122,29 @@ public class BoxManager {
         return false;
     }
 
+    public boolean detectEnemyProjectileCollision(BoxController boxController){
+        for (int i= 0; i < projectileManager.projectiles.size(); i++){
+            if(projectileManager.projectiles.get(i).archer == boxController){
+                continue;
+            }
+            if(projectileManager.projectiles.get(i).view.bounds.intersects(boxController.getRect())){
+                projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean detectPlayerProjectileCollision(BoxController enemy){
+        for (int i= 0; i < projectileManager.projectiles.size(); i++){
+            if (projectileManager.projectiles.get(i).view.bounds.intersects(enemy.getRect())) {
+                projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
         Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;
@@ -139,7 +163,7 @@ public class BoxManager {
         return velocity;
     }
 
-    private boolean contains(float x, float y, Rectangle rectangle){
+    private boolean contains(double x, double y, Rectangle rectangle){
         return rectangle.x <= x && x <= rectangle.x + rectangle.width &&
                 rectangle.y <= y && y <= rectangle.y + rectangle.height;
     }
