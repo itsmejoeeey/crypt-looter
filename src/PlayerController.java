@@ -41,6 +41,7 @@ public class PlayerController extends CharacterController {
             if(boxManager.detectEnemyAttackCollision(boxController)){
                 model.decreaseHealth(1);
             }
+            boxManager.detectItemCollision(boxController);
             if(model.dead){
                 model.health = 0;
             }

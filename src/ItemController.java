@@ -5,6 +5,7 @@ public class ItemController {
 
     public ItemController(Rectangle bounds){
         itemView = new ItemView(bounds);
+        itemView.setLocation(bounds.x, bounds.y);
     }
 
     public Rectangle getRect(){
@@ -12,5 +13,12 @@ public class ItemController {
     }
     public void triggerItem(){
         System.out.println("Item Triggered");
+    }
+
+    public ItemView getView(){
+        return itemView;
+    }
+
+    public void update(){
     }
 }

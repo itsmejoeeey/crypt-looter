@@ -2,12 +2,16 @@ import java.awt.*;
 
 public class FinalChest extends ItemController {
     public MainController mainController;
-    public FinalChest(Rectangle bounds){
+    private CharacterModel bossModel;
+    public FinalChest(Rectangle bounds, CharacterModel bossModel){
         super(bounds);
+        this.bossModel = bossModel;
     }
 
     @Override
     public void triggerItem(){
-        mainController.updateState(MainController.GameState_t.GAME_OVER);
+        if(bossModel.dead) {
+            mainController.updateState(MainController.GameState_t.GAME_OVER);
+        }
     }
 }

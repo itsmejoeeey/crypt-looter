@@ -35,6 +35,7 @@ public class EnemyController extends CharacterController {
             attackDetection();
         } else {
             stunTimer = stunTimer - deltaTime / 1000;
+            model.walking = false;
         }
         if(boxManager.detectPlayerAttackCollision(boxController)){
             stunTimer = 2;
@@ -45,10 +46,15 @@ public class EnemyController extends CharacterController {
 
     void groundMovement(){
         double delta = deltaTime * speed;
-        Vector2 aiVector = aiController.move();
+        Vector2 aiVector = aiController.move(model.height);
         Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
         x += moveVector.x * delta;
         y += moveVector.y * delta;
+        if(moveVector.x > 0 || moveVector.y > 0){
+            model.walking = true;
+        } else {
+            model.walking = false;
+        }
         view.moveWorld((int) x, (int) y);
     }
 
@@ -58,12 +64,13 @@ public class EnemyController extends CharacterController {
         int attackX = aiVector.x;
         int attackY = aiVector.y;
 
-        setDirection(attackX, attackY);
+        setDirection(attackX, -attackY);
 
         Rectangle attackRectangle = new Rectangle(new Rectangle(view.getBounds().x + attackX * view.getBounds().height + (view.getBounds().height - attackController.getHeight())/2, view.getBounds().y + attackY * view.getBounds().width + (view.getBounds().width - attackController.getWidth())/2, attackController.getWidth(), attackController.getHeight()));
         attackController.updateHitBox(attackRectangle, 0);
+        attackController.attackHeight = model.height;
 
-        if(model.attackTimer <= 0) {
+        if(model.attackTimer <= 0 && aiController.canAttack(60, model.height)) {
             attackController.active = true;
             model.attackDagger = true;
             if(model.attackDagger){

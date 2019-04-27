@@ -8,9 +8,9 @@ public class BoxManager {
     public World world;
     public BoxController[][] colliders;
     public ArrayList<BoxController> entities = new ArrayList<>();
-    public ArrayList<ItemController> items = new ArrayList<>();
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
     public AttackController[] playerAttacks;
+    public ItemManager itemManager;
     //public BoxController player;
 
     int skinWidth = 2;
@@ -74,9 +74,9 @@ public class BoxManager {
     }
 
     public void detectItemCollision(BoxController player){
-        for(int i = 0; i < items.size(); i++) {
-            if (player.getRect().intersects(items.get(i).getRect())) {
-                items.get(i).triggerItem();
+        for(int i = 0; i < itemManager.items.size(); i++) {
+            if (player.getRect().intersects(itemManager.items.get(i).getRect())) {
+                itemManager.items.get(i).triggerItem();
             }
         }
     }

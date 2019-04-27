@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class EnemyAIController {
-    public static int attackDistance = 300;
     public BoxController enemy;
     public BoxController player;
     public World world;
@@ -11,8 +10,8 @@ public class EnemyAIController {
         this.player = player;
     }
 
-    public Vector2 move (){
-        if(!canAttack()){
+    public Vector2 move (int height){
+        if(!canAttack(300, height)){
             return new Vector2(0, 0);
         }
         float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
@@ -33,12 +32,14 @@ public class EnemyAIController {
         }
     }
 
-    public boolean canAttack(){
-        float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
-        float y = (player.getView().getBounds().y - enemy.getView().getBounds().y);
-        System.out.println(Math.sqrt(x*x + y*y));
-        if(Math.sqrt(x*x + y*y) < attackDistance){
-            return true;
+    public boolean canAttack(int attackDistance, int height){
+
+        if(height == player.getHeight() || (height == -1 || player.getHeight() == -1)) {
+            float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);
+            float y = (player.getView().getBounds().y - enemy.getView().getBounds().y);
+            if (Math.sqrt(x * x + y * y) < attackDistance) {
+                return true;
+            }
         }
         return false;
     }
