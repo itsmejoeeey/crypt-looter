@@ -238,7 +238,7 @@ public class MainController {
 
         world = new WorldController(this, mapReader.getWorld());
         boxManager = new BoxManager(mapReader.getWorld());
-        projectileManager = new ProjectileManager(world, boxManager);
+        projectileManager = new ProjectileManager(world, boxManager, new Dimension(mapReader.getWorld().mapSize.width * mapReader.getWorld().tileSize, mapReader.getWorld().mapSize.height * mapReader.getWorld().tileSize));
         character = new PlayerController(this, new Point(1100,500), boxManager, sound, projectileManager);
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);

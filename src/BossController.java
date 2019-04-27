@@ -29,7 +29,6 @@ public class BossController extends EnemyController {
         setDirection(attackX, -attackY);
         if(model.attackTimer <= 0 && aiController.canAttack(150, model.height)) {
             double segmentAngle = 2 * Math.PI / 8;
-            System.out.println(segmentAngle);
             for(int i =0; i < 8; i++){
                 double x = Math.cos(segmentAngle * i) * 2;
                 double y = Math.sin(segmentAngle * i) * 2;

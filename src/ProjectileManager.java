@@ -8,10 +8,12 @@ public class ProjectileManager {
     public double deltaTime;
     private BoxManager boxManager;
     private WorldController worldController;
-    public ProjectileManager (WorldController worldController, BoxManager boxManager){
+    private Dimension mapSize;
+    public ProjectileManager (WorldController worldController, BoxManager boxManager, Dimension mapSize){
         this.worldController = worldController;
         this.boxManager = boxManager;
         boxManager.projectileManager = this;
+        this.mapSize = mapSize;
     }
 
     public void update(){
@@ -27,7 +29,7 @@ public class ProjectileManager {
     }
 
     public void spawnProjectile(Point spawn, Vector2 direction, BoxController archer){
-        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 30, 30), direction, archer, this);
+        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 30, 30), direction, archer, this, mapSize);
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
         worldController.getView().add(projectile.view);

@@ -12,8 +12,9 @@ public class ProjectileController {
     ProjectileManager projectileManager;
     public BoxController archer;
     public ProjectileView view;
+    public Dimension mapSize;
 
-    public ProjectileController(Rectangle spawnRect, Vector2 direction, BoxController archer, ProjectileManager projectileManager){
+    public ProjectileController(Rectangle spawnRect, Vector2 direction, BoxController archer, ProjectileManager projectileManager, Dimension mapSize){
         this.projectileManager = projectileManager;
         deltaX = direction.x;
         deltaY = direction.y;
@@ -21,6 +22,7 @@ public class ProjectileController {
         y = spawnRect.y;
         this.archer = archer;
         height = archer.getHeight();
+        this.mapSize = mapSize;
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -40,7 +42,12 @@ public class ProjectileController {
         }
         x += deltaX * deltaTime * speed / 1000;
         y += deltaY * deltaTime * speed / 1000;
-        view.moveWorld((int) x, (int) y);
+        System.out.println(mapSize);
+        if(x < 0 || y < 0 || x > mapSize.width || y > mapSize.height){
+            projectileManager.destroyProjectile(this);
+        } else {
+            view.moveWorld((int) x, (int) y);
+        }
     }
 
     protected int getDirection(int attackX, int attackY){
