@@ -4,8 +4,10 @@ import java.awt.*;
 public class FinalChest extends ItemController {
     public MainController mainController;
     private CharacterModel[] bossModel;
+    public boolean open = false;
+    boolean oldOpen = false;
 
-    public FinalChest(Rectangle bounds, CharacterModel[] bossModel){
+    public FinalChest(Rectangle bounds, CharacterModel[] bossModel, MainController mainController){
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -18,12 +20,22 @@ public class FinalChest extends ItemController {
             // Required to catch potential exception
         }
         this.bossModel = bossModel;
+        this.mainController = mainController;
+    }
+
+    public void update(){
+        if(canTrigger()){
+            open = true;
+        }
+        if (oldOpen == false && open == true) {
+            itemView.trigger();
+            oldOpen = true;
+        }
     }
 
     @Override
     public void triggerItem(){
         mainController.updateState(MainController.GameState_t.GAME_OVER);
-        //itemView.trigger();
     }
 
     @Override

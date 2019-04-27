@@ -99,7 +99,7 @@ public class PlayerController extends CharacterController {
 
     public void fireBow(){
         if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState()) && model.bowEquipped){
-            projectileManager.spawnProjectile(new Point(boxController.getCenter().x - 15, boxController.getCenter().y - 5), new Vector2(getMoveDirection(model.direction)[0], -getMoveDirection(model.direction)[1]), boxController);
+            projectileManager.spawnProjectile(new Point(boxController.getCenter().x - 15, boxController.getCenter().y - 5), new Vector2(getMoveDirection(model.direction)[0], -getMoveDirection(model.direction)[1]), boxController, true);
             model.projectileTimer = 2;
             model.attackBow = true;
         }

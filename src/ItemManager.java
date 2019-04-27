@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class ItemManager {
     public ArrayList<ItemController> items = new ArrayList<>();
     private WorldController worldController;
+    int finalChestIndex;
+    int finalChestCount;
     public ItemManager (WorldController worldController, World world, BoxManager boxManager, CharacterModel playerModel, CharacterModel[] bossModels){
         boxManager.itemManager = this;
         this.worldController = worldController;
@@ -28,15 +30,17 @@ public class ItemManager {
             totalItems++;
         }
 
+        finalChestIndex = totalItems;
         for (int i = 0; i < world.itemsFinalChest.size(); i++){
             items.add(
                     new FinalChest(
                             (new Rectangle((int) world.itemsFinalChest.get(i).x * world.tileSize, (int) (world.itemsFinalChest.get(i).y * world.tileSize), 50, 50)),
-                            bossModels)
+                            bossModels, worldController.parent)
             );
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
         }
+        finalChestCount = world.itemsFinalChest.size();
 
         for (int i = 0; i < world.itemsCoin.size(); i++){
             items.add(
@@ -69,6 +73,11 @@ public class ItemManager {
         }
     }
 
+    public void update(){
+        for (int i =0; i < finalChestCount; i++){
+            items.get(i + finalChestIndex).update();
+        }
+    }
 
     public void useItem(ItemController item){
         items.remove(item);

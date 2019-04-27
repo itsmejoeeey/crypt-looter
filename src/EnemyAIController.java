@@ -4,6 +4,7 @@ public class EnemyAIController {
     public BoxController enemy;
     public BoxController player;
     public World world;
+    public int attackDistance = 300;
 
     public EnemyAIController(BoxController enemy, BoxController player){
         this.enemy = enemy;
@@ -11,7 +12,7 @@ public class EnemyAIController {
     }
 
     public Vector2 move (int height){
-        if(!canAttack(300, height)){
+        if(!canAttack(attackDistance, height)){
             return new Vector2(0, 0);
         }
         float x = (player.getView().getBounds().x - enemy.getView().getBounds().x);

@@ -20,7 +20,13 @@ public class FinalChestView extends ItemView {
     }
 
     public void trigger(){
-        texture = texture.getSubimage(texture.getWidth()/2, 0, texture.getWidth()/2, texture.getHeight());
+        try {
+            texture = ImageIO.read(new File(texturePath));
+            texture = texture.getSubimage(texture.getWidth()/2, 0, texture.getWidth()/2, texture.getHeight());
+            repaint();
+        } catch (IOException ex) {
+            return;
+        }
     }
 
     @Override
@@ -35,7 +41,7 @@ public class FinalChestView extends ItemView {
 
         // Default rectangle
         g2.setColor(Color.black);
-            g2.drawImage(texture, -7, -7, 40, 40, null);
+        g2.drawImage(texture, -2, -2, 35, 35, null);
 
     }
 }

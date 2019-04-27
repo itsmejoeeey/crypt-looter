@@ -18,4 +18,6 @@ public class ItemController {
     public boolean canTrigger(){
         return true;
     }
+
+    public void update(){}
 }

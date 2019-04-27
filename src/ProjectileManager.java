@@ -28,8 +28,8 @@ public class ProjectileManager {
         }
     }
 
-    public void spawnProjectile(Point spawn, Vector2 direction, BoxController archer){
-        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 30, 30), direction, archer, this, mapSize);
+    public void spawnProjectile(Point spawn, Vector2 direction, BoxController archer, boolean player){
+        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 20, 20),  direction, player, archer, this, mapSize);
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
         try {

@@ -14,7 +14,7 @@ public class ProjectileController {
     public ProjectileView view;
     public Dimension mapSize;
 
-    public ProjectileController(Rectangle spawnRect, Vector2 direction, BoxController archer, ProjectileManager projectileManager, Dimension mapSize){
+    public ProjectileController(Rectangle spawnRect, Vector2 direction, boolean player, BoxController archer, ProjectileManager projectileManager, Dimension mapSize){
         this.projectileManager = projectileManager;
         deltaX = direction.x;
         deltaY = direction.y;
@@ -27,7 +27,7 @@ public class ProjectileController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new ProjectileView(spawnRect, getDirection((int) Math.signum(direction.x), -(int) Math.signum(direction.y)));
+                    view = new ProjectileView(spawnRect, getDirection((int) Math.signum(direction.x), -(int) Math.signum(direction.y)), player);
                     view.getBounds(spawnRect);
                 }
             });
@@ -42,7 +42,6 @@ public class ProjectileController {
         }
         x += deltaX * deltaTime * speed / 1000;
         y += deltaY * deltaTime * speed / 1000;
-        System.out.println(mapSize);
         if(x < 0 || y < 0 || x > mapSize.width || y > mapSize.height){
             projectileManager.destroyProjectile(this);
         } else {

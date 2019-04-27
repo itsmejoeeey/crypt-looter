@@ -32,4 +32,7 @@ public class ItemView extends JPanel {
         else
             g2.drawImage(texture, -7, -7, 64, 64, null);
     }
+
+    public void trigger(){
+    }
 }

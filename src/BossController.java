@@ -5,10 +5,10 @@ public class BossController extends EnemyController {
     public BossController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel, ProjectileManager projectileManager){
         super(spawnPos, player, _boxManager, _soundController, playerModel);
         this.projectileManager = projectileManager;
-        System.out.println(boxController.getView() == view);
-        model.maxHealth = 5;
-        model.health = 5;
+        model.maxHealth = 6;
+        model.health = 6;
         speed = 0.03;
+        aiController.attackDistance = 100;
     }
 
     @Override
@@ -18,6 +18,9 @@ public class BossController extends EnemyController {
 
     public void update(){
         super.update();
+        if(model.health != model.maxHealth){
+            aiController.attackDistance = 10000;
+        }
     }
 
     public void attackDetection(){
@@ -27,15 +30,16 @@ public class BossController extends EnemyController {
         int attackY = aiVector.y;
 
         setDirection(attackX, -attackY);
-        if(model.attackTimer <= 0 && aiController.canAttack(150, model.height)) {
+        if(model.attackTimer <= 0 && aiController.canAttack(aiController.attackDistance, model.height)) {
             double segmentAngle = 2 * Math.PI / 8;
             for(int i =0; i < 8; i++){
                 double x = Math.cos(segmentAngle * i) * 2;
                 double y = Math.sin(segmentAngle * i) * 2;
-                projectileManager.spawnProjectile(new Point(getView().getX(), getView().getY()), new Vector2(Math.signum((int)x), Math.signum((int)y)), boxController);
+                projectileManager.spawnProjectile(new Point(getView().getX(), getView().getY()), new Vector2(Math.signum((int)x), Math.signum((int)y)), boxController, false);
             }
             model.attackBow = true;
             model.attackTimer = attackTime;
+            aiController.attackDistance = 10000;
         }else {
             model.attackBow = false;
             attackController.active = false;
