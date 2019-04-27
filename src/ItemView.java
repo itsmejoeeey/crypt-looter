@@ -6,13 +6,12 @@ public class ItemView extends JPanel {
     BufferedImage texture;
     Rectangle bounds;
     public boolean stationary;
-    public ItemView(Rectangle bounds, boolean stationary){
+    public ItemView(Rectangle bounds){
         this.bounds = bounds;
         this.setOpaque(false);
         this.setFocusable(true);
         this.setLayout(null);
         this.setSize(new Dimension(bounds.width, bounds.height));
-        this.stationary =stationary;
     }
 
     @Override

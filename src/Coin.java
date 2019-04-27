@@ -1,14 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class SmallHealthPotion extends ItemController {
+public class Coin extends ItemController{
     CharacterModel playerModel;
-    public SmallHealthPotion(Rectangle bounds, CharacterModel playerModel){
+    public Coin(Rectangle bounds, CharacterModel playerModel){
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    itemView = new SmallHealthPotionView(bounds);
+                    itemView = new CoinView(bounds);
                     itemView.setLocation(bounds.x, bounds.y);
                 }
             });
@@ -20,14 +20,11 @@ public class SmallHealthPotion extends ItemController {
 
     @Override
     public void triggerItem(){
-        playerModel.increaseHealth(1);
+        playerModel.increaseScore(1000);
     }
 
     @Override
     public boolean canTrigger(){
-        if(playerModel.health != playerModel.maxHealth){
-            return true;
-        }
-        return false;
+        return true;
     }
 }

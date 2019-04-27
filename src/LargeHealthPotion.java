@@ -1,9 +1,20 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class LargeHealthPotion extends ItemController {
     CharacterModel playerModel;
     public LargeHealthPotion(Rectangle bounds, CharacterModel playerModel){
-        super(bounds);
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    itemView = new LargeHealthPotionView(bounds);
+                    itemView.setLocation(bounds.x, bounds.y);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
         this.playerModel = playerModel;
     }
 
