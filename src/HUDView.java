@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +13,8 @@ public class HUDView extends JPanel {
 
     ImageIcon heartRedIcon;
     ImageIcon heartBlackIcon;
+
+    int previousCharacterHealth;
 
     JLabel[] heartViews;
     JLabel itemIcon1;
@@ -27,6 +31,8 @@ public class HUDView extends JPanel {
         this.setOpaque(false);
         this.setFocusable(true);
         this.setLayout(null);
+
+        previousCharacterHealth = character.health;
 
         // Define fonts
         Font textFontSmall = new Font("sans", Font.BOLD, 25);
@@ -100,6 +106,29 @@ public class HUDView extends JPanel {
         // Transparency needs to be done here to prevent weird artifacts and behaviour
         // https://tips4java.wordpress.com/2009/05/31/backgrounds-with-transparency/
         Graphics2D g2 = (Graphics2D) g;
+
+        // Show a translucent red flash on damage inflicted
+        if(previousCharacterHealth != character.health) {
+            g2.setColor(Color.RED);
+            g2.setComposite(AlphaComposite.SrcOver.derive(0.50f));
+            g2.fillRect(0,0, getWidth(),getHeight());
+            g2.setComposite(AlphaComposite.SrcOver.derive(1f));
+            repaint();
+
+            // After 100ms update previousCharacterHealth so the red disappears
+            Timer timer = new Timer(100, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    previousCharacterHealth = character.health;
+                    repaint();
+
+                    // Stop the timer before it loops
+                    ((Timer)e.getSource()).stop();
+                }
+            });
+            timer.start();
+        }
+
         g2.setColor(Color.BLACK);
         g2.setComposite(AlphaComposite.SrcOver.derive(0.80f));
         g2.fillRect(0,parent.screenSize.height - 100,getWidth(), 100);
