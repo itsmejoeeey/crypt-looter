@@ -33,8 +33,6 @@ public class MapReader {
     ArrayList<Point2D.Double> itemsHealthPotSmall;
     ArrayList<Point2D.Double> itemsCoin;
     ArrayList<Point2D.Double> itemsFinalChest;
-    ArrayList<Point2D.Double> itemsBow;
-    ArrayList<Point2D.Double> itemsDagger;
 
     MapReader(String mapPath) throws IOException, InvalidMapException {
         File mapFile = new File(mapPath);
@@ -281,8 +279,6 @@ public class MapReader {
         itemsHealthPotSmall = new ArrayList<Point2D.Double>();
         itemsCoin = new ArrayList<Point2D.Double>();
         itemsFinalChest = new ArrayList<Point2D.Double>();
-        itemsBow = new ArrayList<Point2D.Double>();
-        itemsDagger = new ArrayList<Point2D.Double>();
         NodeList itemsNode;
         try {
             itemsNode = (NodeList) xpath.compile("/map/objectgroup[@name='items']").evaluate(mapXML, XPathConstants.NODESET);
@@ -329,12 +325,6 @@ public class MapReader {
                 if(element.getAttribute("type").equals("final_chest")) {
                     itemsFinalChest.add(itemPoint);
                 }
-                if(element.getAttribute("type").equals("bow")) {
-                    itemsBow.add(itemPoint);
-                }
-                if(element.getAttribute("type").equals("dagger")) {
-                    itemsDagger.add(itemPoint);
-                }
             }
         }
 
@@ -359,8 +349,6 @@ public class MapReader {
 //        System.out.println(itemsHealthPotSmall);
 //        System.out.println(itemsCoin);
 //        System.out.println(itemsFinalChest);
-//        System.out.println(itemsBow);
-//        System.out.println(itemsDagger);
 
     }
 
@@ -426,8 +414,6 @@ public class MapReader {
         world.itemsHealthPotSmall = itemsHealthPotSmall;
         world.itemsCoin = itemsCoin;
         world.itemsFinalChest = itemsFinalChest;
-        world.itemsBow = itemsBow;
-        world.itemsDagger = itemsDagger;
 
         return world;
     }
