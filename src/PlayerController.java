@@ -80,7 +80,7 @@ public class PlayerController extends CharacterController {
     public void fireBow(){
         if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState())){
             Rectangle projectileRect = new Rectangle(attackController[0].getRect().x, attackController[0].getRect().y, 40, 40);
-            projectileManager.spawnProjectile(projectileRect, new Vector2(getMoveDirection(model.direction)[0] * 100, getMoveDirection(model.direction)[1]  * 100), boxController);
+            projectileManager.spawnProjectile(projectileRect, new Vector2(getMoveDirection(model.direction)[0] * 100, -getMoveDirection(model.direction)[1]  * 100), boxController);
             model.projectileTimer = 2;
         }
         if(model.projectileTimer > 0){

@@ -2,7 +2,7 @@ import javax.sound.midi.Receiver;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProjectileController extends AttackController {
+public class ProjectileController {
     protected float x = 0;
     protected float y = 0;
     double deltaX = 0, deltaY = 0;
@@ -11,10 +11,9 @@ public class ProjectileController extends AttackController {
     BoxManager boxManager;
     ProjectileManager projectileManager;
     public BoxController archer;
-    ItemView view;
+    public ProjectileView view;
 
     public ProjectileController(Rectangle spawnRect, Vector2 direction, BoxController archer, ProjectileManager projectileManager){
-        super(spawnRect);
         this.projectileManager = projectileManager;
         deltaX = direction.x;
         deltaY = direction.y;
@@ -25,7 +24,8 @@ public class ProjectileController extends AttackController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new ItemView(spawnRect);
+                    view = new ProjectileView(spawnRect, false);
+                    view.getBounds(spawnRect);
                 }
             });
         } catch (Exception e) {
@@ -40,10 +40,12 @@ public class ProjectileController extends AttackController {
         if(outputMove.x != deltaX || outputMove.y != deltaY){
             hitWorld();
         }
-        Rectangle rectangle = view.getBounds();
-        rectangle.setLocation((int) x, (int) y);
-        view.bounds = rectangle;
-        view.repaint();
+        view.moveWorld((int) x, (int) y);
+        //Rectangle rectangle = view.getBounds();
+        //rectangle.setLocation((int) x, (int) y);
+        //view.setLocation((int) x, (int) y);
+        //view.setBounds(new Rectangle((int) x, (int) y, view.getBounds().width, view.getBounds().height));
+        //view.repaint();
     }
 
     public void hitWorld(){

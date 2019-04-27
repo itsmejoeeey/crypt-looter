@@ -33,12 +33,13 @@ public class ProjectileManager {
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
         worldController.getView().add(projectile.view);
-        //worldController.getView().revalidate();
-        //worldController.getView().repaint();
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
+                    worldController.getView().repaint();
+                    worldController.getView().validate();
+                    //worldController.getView().revalidate();
                 }
             });
         } catch (InterruptedException | InvocationTargetException ex) {
@@ -47,8 +48,19 @@ public class ProjectileManager {
     }
 
     public void destoryProjectile(ProjectileController projectileController){
+        System.out.println(projectileController.view.getBounds());
         projectiles.remove(projectileController);
-        worldController.getView().remove(projectileController.view);
-        worldController.getView().repaint();
+
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    worldController.getView().remove(projectileController.view);
+                    worldController.getView().repaint();
+                }
+            });
+        } catch (InterruptedException | InvocationTargetException ex) {
+
+        }
     }
 }

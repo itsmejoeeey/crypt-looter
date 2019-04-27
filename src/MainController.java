@@ -218,12 +218,12 @@ public class MainController {
         enemyManager.deltaTime = this.deltaTime;
         projectileManager.deltaTime = this.deltaTime;
 
-        character.update();
         boxManager.update();
-        world.update();
-        camera.update();
+        character.update();
         enemyManager.update();
         projectileManager.update();
+        world.update();
+        camera.update();
 
         sound.update();
     }

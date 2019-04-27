@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 //BoxManager class checks collisions between the player and other box controllers
@@ -127,7 +126,7 @@ public class BoxManager {
             if(projectileManager.projectiles.get(i).archer == boxController){
                 continue;
             }
-            if(projectileManager.projectiles.get(i).view.bounds.intersects(boxController.getRect())){
+            if(projectileManager.projectiles.get(i).view.origin.intersects(boxController.getRect())){
                 projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
                 return true;
             }
@@ -137,7 +136,7 @@ public class BoxManager {
 
     public boolean detectPlayerProjectileCollision(BoxController enemy){
         for (int i= 0; i < projectileManager.projectiles.size(); i++){
-            if (projectileManager.projectiles.get(i).view.bounds.intersects(enemy.getRect())) {
+            if (projectileManager.projectiles.get(i).view.origin.intersects(enemy.getRect())) {
                 projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
                 return true;
             }

@@ -9,7 +9,7 @@ public class ItemController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    itemView = new ItemView(bounds);
+                    itemView = new ItemView(bounds, true);
                     itemView.setLocation(bounds.x, bounds.y);
                 }
             });
