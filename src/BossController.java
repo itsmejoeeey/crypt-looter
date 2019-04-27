@@ -32,7 +32,7 @@ public class BossController extends EnemyController {
             for(int i =0; i < 8; i++){
                 double x = Math.cos(segmentAngle * i) * 2;
                 double y = Math.sin(segmentAngle * i) * 2;
-                projectileManager.spawnProjectile(new Point((int) (view.getWidth() * x + view.getX()),(int) (view.getHeight() * y + view.getY())), new Vector2(Math.signum((int)x), Math.signum((int)y)), boxController);
+                projectileManager.spawnProjectile(new Point(getView().getX(), getView().getY()), new Vector2(Math.signum((int)x), Math.signum((int)y)), boxController);
             }
             model.attackBow = true;
             model.attackTimer = attackTime;

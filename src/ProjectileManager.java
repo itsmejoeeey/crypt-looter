@@ -32,12 +32,12 @@ public class ProjectileManager {
         ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 30, 30), direction, archer, this, mapSize);
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
-        worldController.getView().add(projectile.view);
-        worldController.getView().setComponentZOrder(projectile.view, 0);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
+                    worldController.getView().add(projectile.view);
+                    worldController.getView().setComponentZOrder(projectile.view, 0);
                     worldController.getView().repaint();
                     worldController.getView().validate();
                 }
