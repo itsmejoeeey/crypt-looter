@@ -13,7 +13,9 @@ public class SoundController {
     double deltaTime;
     double footstepTimer = 0;
     private CharacterModel playerModel;
-    public SoundController(CharacterModel playerModel){
+    private MainController parent;
+    public SoundController(MainController parent, CharacterModel playerModel){
+        this.parent = parent;
         this.playerModel = playerModel;
         try {
             String backgroundPath = "src/res/sounds/ingame_background.wav";
@@ -66,7 +68,7 @@ public class SoundController {
         if(playerModel.walking){
             playerFootstep.loop(-1);
         }
-        if(!playerModel.walking){
+        if(!playerModel.walking || parent.state != MainController.GameState_t.NORMAL_GAME ){
             playerFootstep.stop();
         }
         if(footstepTimer >= 0){

@@ -31,6 +31,8 @@ public class MainController {
     MenuGameoverController gameOverMenu;
     MenuHighScoreController highScoresMenu;
 
+    HighScoreController highScoreController;
+
     public boolean defaultMapLoaded;
     public File mapToLoad;
 
@@ -62,6 +64,8 @@ public class MainController {
 
         blankCursor = frame.getToolkit().createCustomCursor(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), null);
         defaultCursor = Cursor.getDefaultCursor();
+
+        highScoreController = new HighScoreController();
     }
 
     public void update() {
@@ -158,12 +162,12 @@ public class MainController {
                 break;
             case GAME_OVER:
                 frame.setCursor(defaultCursor);
-                gameOverMenu = new MenuGameoverController(this, character.model);
+                gameOverMenu = new MenuGameoverController(this, character.model, highScoreController);
                 frame.getLayeredPane().add(gameOverMenu.getView(), new Integer(4));
                 frame.repaint();
                 break;
             case HIGH_SCORES:
-                highScoresMenu = new MenuHighScoreController(this);
+                highScoresMenu = new MenuHighScoreController(this, highScoreController.highScores);
                 frame.getLayeredPane().add(highScoresMenu.getView(), new Integer(5));
                 frame.repaint();
                 break;
@@ -186,6 +190,7 @@ public class MainController {
 
     private void init_normalgame() {
         defaultMapLoaded = true;
+
         mapToLoad = new File("src/maps/demomap.tmx");
     }
 
@@ -240,7 +245,7 @@ public class MainController {
         boxManager = new BoxManager(mapReader.getWorld());
         projectileManager = new ProjectileManager(world, boxManager, new Dimension(mapReader.getWorld().mapSize.width * mapReader.getWorld().tileSize, mapReader.getWorld().mapSize.height * mapReader.getWorld().tileSize));
         character = new PlayerController(this, new Point(1100,500), boxManager, sound, projectileManager);
-        sound = new SoundController(character.model);
+        sound = new SoundController(this, character.model);
         hud = new HUDController(this, character.model);
         enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound, projectileManager);
         itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model, enemyManager.getBossModels());
@@ -295,6 +300,7 @@ public class MainController {
         projectileManager.update();
         world.update();
         camera.update();
+        itemManager.update();
 
         sound.update();
     }

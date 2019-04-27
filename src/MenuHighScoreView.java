@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MenuHighScoreView extends JPanel {
     MainController parent;
-    public MenuHighScoreView(MainController parent, int[] highScores) {
+    public MenuHighScoreView(MainController parent, ArrayList<String> highScores) {
         this.parent = parent;
         this.setBounds(0,0,parent.screenSize.width,parent.screenSize.height);
         this.setOpaque(true);
@@ -30,8 +31,8 @@ public class MenuHighScoreView extends JPanel {
         textContainerLayout.setVgap(20);
         textContainer.setLayout(textContainerLayout);
 
-        for(int i = 0; i < highScores.length; i++) {
-            JLabel highScoreEntry = new JLabel(String.format("%08d", highScores[i]), SwingConstants.CENTER);
+        for(int i = 0; i < highScores.size(); i++) {
+            JLabel highScoreEntry = new JLabel(highScores.get(i), SwingConstants.CENTER);
             highScoreEntry.setForeground(Color.WHITE);
             highScoreEntry.setFont(textFontSmall);
             textContainer.add(highScoreEntry);
