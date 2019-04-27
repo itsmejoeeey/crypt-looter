@@ -31,10 +31,11 @@ public class MainController {
     MenuGameoverController gameOverMenu;
     MenuHighScoreController highScoresMenu;
 
+    public boolean defaultMapLoaded;
     public File mapToLoad;
 
     enum GameState_t {
-        PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER, HIGH_SCORES, CREDITS
+        PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER, HIGH_SCORES, INIT_CUSTOM_GAME
     }
 
     GameState_t state = GameState_t.INIT_MAIN_MENU;
@@ -76,6 +77,7 @@ public class MainController {
                 break;
             case INIT_NORMAL_GAME:
                 init_normalgame();
+                init_game();
                 break;
             case NORMAL_GAME:
                 update_normalgame();
@@ -91,6 +93,9 @@ public class MainController {
             case HIGH_SCORES:
                 // No tasks required;
                 break;
+            case INIT_CUSTOM_GAME:
+                init_customgame();
+                init_game();
         }
     }
 
@@ -123,11 +128,7 @@ public class MainController {
                 break;
 
             case INIT_NORMAL_GAME:
-                if(prevState == GameState_t.MAIN_MENU) {
-                    frame.getContentPane().removeAll();
-                    frame.repaint();
-                    frame.revalidate();
-                }
+            case INIT_CUSTOM_GAME:
                 break;
 
             case NORMAL_GAME:
@@ -178,15 +179,44 @@ public class MainController {
         updateState(GameState_t.MAIN_MENU);
     }
 
+    private void init_customgame() {
+        defaultMapLoaded = false;
+    }
+
     private void init_normalgame() {
-        // Show a black screen until the game should be loaded
+        defaultMapLoaded = true;
+        mapToLoad = new File("src/maps/demomap.tmx");
+    }
+
+    private void init_game() {
+        MapReader mapReader;
+        try {
+            mapReader = new MapReader(mapToLoad);
+        } catch (IOException | InvalidMapException ex) {
+            // Invalid (or incorrect path to) map
+            System.out.println("INVALID_MAP_LOADED");
+            JOptionPane.showMessageDialog(frame,
+                    "Please select a valid map file.\n" +
+                            "Crypt Looter supports map files made with the Tiled Map Editor.",
+                    "Invalid Map Loaded",
+                    JOptionPane.ERROR_MESSAGE);
+            this.updateState(GameState_t.MAIN_MENU);
+            return;
+        }
+
+        // Clear the screen (primarily the main menu)
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.revalidate();
+
+        // Rough hack to not show the game screen until we suspect the game will be loaded
         JPanel blackScreen = new JPanel();
         blackScreen.setLayout(null);
         blackScreen.setSize(new Dimension(frame.getWidth(), frame.getHeight()));
         blackScreen.setBackground(Color.BLACK);
         frame.getLayeredPane().add(blackScreen, new Integer(99));
-
-        Timer timer = new Timer(1250, new ActionListener() {
+        //
+        Timer loadingTimer = new Timer(1500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getLayeredPane().remove(blackScreen);
@@ -200,15 +230,7 @@ public class MainController {
                 ((Timer)e.getSource()).stop();
             }
         });
-        timer.start();
-
-        MapReader mapReader;
-        try {
-            mapReader = new MapReader(new File("src/maps/demomap.tmx"));
-        } catch (IOException | InvalidMapException ex) {
-            // Invalid (or incorrect path to) map
-            return;
-        }
+        loadingTimer.start();
 
         frame.addKeyListener(new KeyController());
 

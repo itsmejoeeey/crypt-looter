@@ -127,6 +127,7 @@ public class MenuMainView extends JPanel {
         int fileChooserReturnStatus = fileChooser.showOpenDialog(this);
         if(fileChooserReturnStatus == JFileChooser.APPROVE_OPTION) {
             parent.mapToLoad = fileChooser.getSelectedFile();
+            parent.updateState(MainController.GameState_t.INIT_CUSTOM_GAME);
         }
     }
     private void buttonHighScoresAction() {
