@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class ItemManager {
     public ArrayList<ItemController> items = new ArrayList<>();
+    public ArrayList<ItemController> chest = new ArrayList<>();
     private WorldController worldController;
     int finalChestIndex;
     int finalChestCount;
@@ -29,18 +30,6 @@ public class ItemManager {
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
         }
-
-        finalChestIndex = totalItems;
-        for (int i = 0; i < world.itemsFinalChest.size(); i++){
-            items.add(
-                    new FinalChest(
-                            (new Rectangle((int) world.itemsFinalChest.get(i).x * world.tileSize, (int) (world.itemsFinalChest.get(i).y * world.tileSize), 50, 50)),
-                            bossModels, worldController.parent)
-            );
-            worldController.getView().add(items.get(totalItems).getView());
-            totalItems++;
-        }
-        finalChestCount = world.itemsFinalChest.size();
 
         for (int i = 0; i < world.itemsCoin.size(); i++){
             items.add(
@@ -71,11 +60,24 @@ public class ItemManager {
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
         }
+
+        finalChestIndex = totalItems;
+        for (int i = 0; i < world.itemsFinalChest.size(); i++){
+            items.add(
+                    new FinalChest(
+                            (new Rectangle((int) world.itemsFinalChest.get(i).x * world.tileSize, (int) (world.itemsFinalChest.get(i).y * world.tileSize), 50, 50)),
+                            bossModels, worldController.parent)
+            );
+            chest.add(items.get(totalItems));
+            worldController.getView().add(items.get(totalItems).getView());
+            totalItems++;
+        }
+        finalChestCount = world.itemsFinalChest.size();
     }
 
     public void update(){
-        for (int i =0; i < finalChestCount; i++){
-            items.get(i + finalChestIndex).update();
+        for (int i =0; i < chest.size(); i++){
+            chest.get(i).update();
         }
     }
 

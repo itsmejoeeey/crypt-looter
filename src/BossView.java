@@ -32,7 +32,7 @@ public class BossView extends CharacterView{
 //        g2.setColor(Color.black);
 //        g2.fillRect(model.baseTranform.x, model.baseTranform.y, model.baseTranform.width, model.baseTranform.height);
 
-        g2.drawImage(charTexFrames[g2d_image][g2d_imageDirection][g2d_imageFrame], 0, 0, 64, 64, null);
+        g2.drawImage(charTexFrames[g2d_image][g2d_imageDirection][g2d_imageFrame], 0, -10, 64, 64, null);
 
     }
 }
