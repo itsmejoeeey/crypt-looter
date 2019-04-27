@@ -28,4 +28,6 @@ public class World {
     public ArrayList<Point2D.Double> itemsHealthPotSmall = new ArrayList<Point2D.Double>();
     public ArrayList<Point2D.Double> itemsCoin = new ArrayList<Point2D.Double>();
     public ArrayList<Point2D.Double> itemsFinalChest = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> itemsBow = new ArrayList<Point2D.Double>();
+    public ArrayList<Point2D.Double> itemsDagger = new ArrayList<Point2D.Double>();
 }
