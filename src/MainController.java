@@ -169,8 +169,6 @@ public class MainController {
         hud = new HUDController(this, character.model);
         itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model);
         enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound);
-        projectileManager.spawnProjectile(new Rectangle(1300, 400, 40, 40), new Vector2(20, 0), character.boxController);
-
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());

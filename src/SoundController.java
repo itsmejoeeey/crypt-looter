@@ -91,7 +91,6 @@ public class SoundController {
 
     public void playEnemyHit(){
         int hit = (int) (Math.random() * 3 + 1);
-        System.out.println(hit);
         switch (hit) {
             case 1:
                 enemyHit1.setFramePosition(0);

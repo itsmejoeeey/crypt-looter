@@ -45,7 +45,6 @@ public class PlayerController extends CharacterController {
                 model.decreaseHealth(1);
             }
             if(boxManager.detectEnemyProjectileCollision(boxController)){
-                System.out.println("player hit");
                 model.decreaseHealth(1);
             }
             boxManager.detectItemCollision(boxController);
@@ -81,8 +80,7 @@ public class PlayerController extends CharacterController {
 
     public void fireBow(){
         if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState())){
-            Rectangle projectileRect = new Rectangle(boxController.getRect().x, boxController.getRect().y, 40, 40);
-            projectileManager.spawnProjectile(projectileRect, new Vector2(getMoveDirection(model.direction)[0] * 100, -getMoveDirection(model.direction)[1]  * 100), boxController);
+            projectileManager.spawnProjectile(new Point(boxController.getCenter().x, boxController.getCenter().y), new Vector2(getMoveDirection(model.direction)[0] * 100, -getMoveDirection(model.direction)[1]  * 100), boxController);
             model.projectileTimer = 2;
         }
         if(model.projectileTimer > 0){
@@ -101,7 +99,7 @@ public class PlayerController extends CharacterController {
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
-        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController, true);
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController);
         x += v.x;
         y += v.y;
     }

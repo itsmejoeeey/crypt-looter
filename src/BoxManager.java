@@ -34,14 +34,40 @@ public class BoxManager {
         }
     }
 
-    public Vector2 move(Vector2 velocity, Rectangle character, BoxController entity, boolean killable){
+    public boolean projectileMove(Rectangle arrow, int height){
+        int tileY = Math.floorMod(((arrow.y + arrow.width / 2) / world.tileSize) , world.mapSize.width);
+        int tileX = Math.floorMod(((arrow.x + arrow.height / 2) / world.tileSize), world.mapSize.height);
+
+        int minX =  Math.floorMod((tileX - arrow.height / world.tileSize * 2), world.mapSize.height);
+        int maxX =  Math.floorMod((tileX + arrow.height / world.tileSize * 2 + 1), world.mapSize.height);
+        int minY =  Math.floorMod((tileY - arrow.width / world.tileSize * 2) , world.mapSize.width);
+        int maxY =  Math.floorMod((tileY + arrow.width / world.tileSize * 2 + 1) , world.mapSize.width);
+        for(int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
+                if(height != -1){
+                    if (!world.heightCollisions[height][y][x] && !world.collisions[y][x]) {
+                        continue;
+                    }
+                }
+                if(height == -1 && !world.collisions[y][x]){
+                    continue;
+                }
+                BoxController box = colliders[y][x];
+                if(box.getRect().intersects(arrow)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Vector2 move(Vector2 velocity, Rectangle character, BoxController entity){
         int tileY = Math.floorMod(((character.y + character.width / 2) / world.tileSize) , world.mapSize.width);
         int tileX = Math.floorMod(((character.x + character.height / 2) / world.tileSize), world.mapSize.height);
 
         int boxHeight = world.heightMap[tileY][tileX];
-        entity.setHeight(boxHeight);
-        if(killable)
         entity.setDeath(world.death[tileY][tileX]);
+        entity.setHeight(boxHeight);
 
         int minX =  Math.floorMod((tileX - character.height / world.tileSize * 2), world.mapSize.height);
         int maxX =  Math.floorMod((tileX + character.height / world.tileSize * 2 + 1), world.mapSize.height);

@@ -5,7 +5,7 @@ public class ProjectileController {
     protected float x = 0;
     protected float y = 0;
     double deltaX = 0, deltaY = 0;
-    public double deltaTime;
+    int height = 0;
 
     BoxManager boxManager;
     ProjectileManager projectileManager;
@@ -19,6 +19,7 @@ public class ProjectileController {
         x = spawnRect.x;
         y = spawnRect.y;
         this.archer = archer;
+        height = archer.getHeight();
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -32,19 +33,13 @@ public class ProjectileController {
         }
 
     }
-    public void update(){
-        Vector2 outputMove = boxManager.move(new Vector2(deltaX, deltaY), view.getBounds(), archer, false);
-        x += deltaX * deltaTime / 1000;
-        y += deltaY * deltaTime / 1000;
-        if(outputMove.x != deltaX || outputMove.y != deltaY){
+    public void update(double deltaTime){
+        if(boxManager.projectileMove(new Rectangle((int) x, (int) y, view.getWidth(), view.getHeight()), height)){
             hitWorld();
         }
+        x += deltaX * deltaTime / 1000;
+        y += deltaY * deltaTime / 1000;
         view.moveWorld((int) x, (int) y);
-        //Rectangle rectangle = view.getBounds();
-        //rectangle.setLocation((int) x, (int) y);
-        //view.setLocation((int) x, (int) y);
-        //view.setBounds(new Rectangle((int) x, (int) y, view.getBounds().width, view.getBounds().height));
-        //view.repaint();
     }
 
     public void hitWorld(){

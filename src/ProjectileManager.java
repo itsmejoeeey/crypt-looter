@@ -18,8 +18,7 @@ public class ProjectileManager {
         projectiles.trimToSize();
         for(int i= 0; i < projectiles.size(); i++){
             try {
-                projectiles.get(i).update();
-                projectiles.get(i).deltaTime = deltaTime;
+                projectiles.get(i).update(deltaTime);
             } catch (IndexOutOfBoundsException e){
                 System.out.println(e.getMessage());
                 continue;
@@ -27,9 +26,8 @@ public class ProjectileManager {
         }
     }
 
-    public void spawnProjectile(Rectangle spawnRect, Vector2 direction, BoxController archer){
-        System.out.println("Fire!");
-        ProjectileController projectile = new ProjectileController(spawnRect, direction, archer, this);
+    public void spawnProjectile(Point spawn, Vector2 direction, BoxController archer){
+        ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 20, 20), direction, archer, this);
         projectiles.add(projectile);
         projectile.boxManager = boxManager;
         worldController.getView().add(projectile.view);
@@ -39,7 +37,6 @@ public class ProjectileManager {
                 public void run() {
                     worldController.getView().repaint();
                     worldController.getView().validate();
-                    //worldController.getView().revalidate();
                 }
             });
         } catch (InterruptedException | InvocationTargetException ex) {
@@ -48,7 +45,6 @@ public class ProjectileManager {
     }
 
     public void destroyProjectile(ProjectileController projectileController){
-        System.out.println(projectileController.view.getBounds());
         projectiles.remove(projectileController);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {

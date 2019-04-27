@@ -50,6 +50,11 @@ public class BoxController {
         model.dead = death;
     }
 
+    public Rectangle getCenter(){
+        Rectangle center = view.getBounds();
+        center.setLocation((int) center.getCenterX(), (int) center.getCenterY());
+        return center;
+    }
     public void setHeight(int height){
         model.height = height;
     }
