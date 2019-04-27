@@ -15,7 +15,7 @@ public class ProjectileManager {
     }
 
     public void update(){
-        //System.out.println(projectiles.size());
+        projectiles.trimToSize();
         for(int i= 0; i < projectiles.size(); i++){
             try {
                 projectiles.get(i).update();
@@ -50,7 +50,6 @@ public class ProjectileManager {
     public void destoryProjectile(ProjectileController projectileController){
         System.out.println(projectileController.view.getBounds());
         projectiles.remove(projectileController);
-
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override

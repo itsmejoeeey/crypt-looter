@@ -34,13 +34,14 @@ public class BoxManager {
         }
     }
 
-    public Vector2 move(Vector2 velocity, Rectangle character, BoxController entity){
+    public Vector2 move(Vector2 velocity, Rectangle character, BoxController entity, boolean killable){
         int tileY = Math.floorMod(((character.y + character.width / 2) / world.tileSize) , world.mapSize.width);
         int tileX = Math.floorMod(((character.x + character.height / 2) / world.tileSize), world.mapSize.height);
 
         int boxHeight = world.heightMap[tileY][tileX];
         entity.setHeight(boxHeight);
-        entity.setDeath(world.death[tileY][tileX]);;
+        if(killable)
+        entity.setDeath(world.death[tileY][tileX]);
 
         int minX =  Math.floorMod((tileX - character.height / world.tileSize * 2), world.mapSize.height);
         int maxX =  Math.floorMod((tileX + character.height / world.tileSize * 2 + 1), world.mapSize.height);
@@ -126,7 +127,7 @@ public class BoxManager {
             if(projectileManager.projectiles.get(i).archer == boxController){
                 continue;
             }
-            if(projectileManager.projectiles.get(i).view.origin.intersects(boxController.getRect())){
+            if(projectileManager.projectiles.get(i).view.getBounds().intersects(boxController.getRect())){
                 projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
                 return true;
             }
@@ -136,7 +137,7 @@ public class BoxManager {
 
     public boolean detectPlayerProjectileCollision(BoxController enemy){
         for (int i= 0; i < projectileManager.projectiles.size(); i++){
-            if (projectileManager.projectiles.get(i).view.origin.intersects(enemy.getRect())) {
+            if (projectileManager.projectiles.get(i).view.getBounds().intersects(enemy.getRect())) {
                 projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
                 return true;
             }

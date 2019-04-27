@@ -34,7 +34,7 @@ public class ProjectileController {
 
     }
     public void update(){
-        Vector2 outputMove = boxManager.move(new Vector2(deltaX, deltaY), view.getBounds(), archer);
+        Vector2 outputMove = boxManager.move(new Vector2(deltaX, deltaY), view.getBounds(), archer, false);
         x += deltaX * deltaTime / 1000;
         y += deltaY * deltaTime / 1000;
         if(outputMove.x != deltaX || outputMove.y != deltaY){

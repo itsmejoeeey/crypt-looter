@@ -45,6 +45,7 @@ public class PlayerController extends CharacterController {
                 model.decreaseHealth(1);
             }
             if(boxManager.detectEnemyProjectileCollision(boxController)){
+                System.out.println("player hit");
                 model.decreaseHealth(1);
             }
             boxManager.detectItemCollision(boxController);
@@ -55,6 +56,7 @@ public class PlayerController extends CharacterController {
                 model.health = 0;
             }
         }
+        //System.out.println(model.dead);
 
         // Update the character animations
         view.deltaTime = deltaTime;
@@ -99,7 +101,7 @@ public class PlayerController extends CharacterController {
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
-        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController);
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController, true);
         x += v.x;
         y += v.y;
     }

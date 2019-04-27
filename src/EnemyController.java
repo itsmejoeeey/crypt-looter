@@ -63,7 +63,7 @@ public class EnemyController extends CharacterController {
     void groundMovement(){
         double delta = deltaTime * speed;
         Vector2 aiVector = aiController.move(model.height);
-        Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
+        Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController, true);
         x += moveVector.x * delta;
         y += moveVector.y * delta;
         if(moveVector.x > 0 || moveVector.y > 0){
