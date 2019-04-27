@@ -8,7 +8,9 @@ public class CharacterModel {
     public Rectangle baseTranform;
     public int direction = 4;
     public boolean attackDagger = false;
+    public boolean daggerEquipped = false;
     public boolean attackBow = false;
+    public boolean bowEquipped = false;
     public boolean walking = false;
     public boolean dead = false;
 
