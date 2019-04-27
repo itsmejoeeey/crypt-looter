@@ -48,6 +48,7 @@ public class MainController {
     public MainController() {
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         // Add some extra pixels to account for titlebar and window border
         frame.setSize(screenSize.width + 10, screenSize.height + 37);
