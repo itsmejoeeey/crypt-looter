@@ -120,7 +120,14 @@ public class MenuMainView extends JPanel {
         parent.updateState(MainController.GameState_t.INIT_NORMAL_GAME);
     }
     private void buttonOpenMapAction() {
-
+        JFileChooser fileChooser = new JFileChooser();
+        // Start file chooser in current directory
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int fileChooserReturnStatus = fileChooser.showOpenDialog(this);
+        if(fileChooserReturnStatus == JFileChooser.APPROVE_OPTION) {
+            parent.mapToLoad = fileChooser.getSelectedFile();
+        }
     }
     private void buttonHighScoresAction() {
         parent.updateState(MainController.GameState_t.HIGH_SCORES);

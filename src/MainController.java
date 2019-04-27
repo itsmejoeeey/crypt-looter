@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import static java.lang.Thread.sleep;
@@ -29,6 +30,8 @@ public class MainController {
     MenuEscapeController escapeMenu;
     MenuGameoverController gameOverMenu;
     MenuHighScoreController highScoresMenu;
+
+    public File mapToLoad;
 
     enum GameState_t {
         PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER, HIGH_SCORES, CREDITS
@@ -201,7 +204,7 @@ public class MainController {
 
         MapReader mapReader;
         try {
-            mapReader = new MapReader("src/maps/demomap.tmx");
+            mapReader = new MapReader(new File("src/maps/demomap.tmx"));
         } catch (IOException | InvalidMapException ex) {
             // Invalid (or incorrect path to) map
             return;

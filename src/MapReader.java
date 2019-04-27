@@ -36,8 +36,7 @@ public class MapReader {
     ArrayList<Point2D.Double> itemsBow;
     ArrayList<Point2D.Double> itemsDagger;
 
-    MapReader(String mapPath) throws IOException, InvalidMapException {
-        File mapFile = new File(mapPath);
+    MapReader(File mapFile) throws IOException, InvalidMapException {
 
         Document mapXML;
         try {
