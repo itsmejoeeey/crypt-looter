@@ -67,19 +67,19 @@ public class MenuMainView extends JPanel {
         });
         buttonContainer.add(buttonOpenMap);
 
-        JButton buttonCredits = new JButton("Credits and licenses");
-        buttonCredits.setFocusable(false);
-        buttonCredits.setOpaque(true);
-        buttonCredits.setContentAreaFilled(false);
-        buttonCredits.setForeground(Color.WHITE);
-        buttonCredits.setFont(buttonTextFont);
-        buttonCredits.addActionListener(new ActionListener() {
+        JButton buttonHighScores = new JButton("View high scores");
+        buttonHighScores.setFocusable(false);
+        buttonHighScores.setOpaque(true);
+        buttonHighScores.setContentAreaFilled(false);
+        buttonHighScores.setForeground(Color.WHITE);
+        buttonHighScores.setFont(buttonTextFont);
+        buttonHighScores.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonCreditsAction();
+                buttonHighScoresAction();
             }
         });
-        buttonContainer.add(buttonCredits);
+        buttonContainer.add(buttonHighScores);
 
         JButton buttonExitDesktop = new JButton("Exit to desktop");
         buttonExitDesktop.setFocusable(false);
@@ -95,7 +95,7 @@ public class MenuMainView extends JPanel {
         });
         buttonContainer.add(buttonExitDesktop);
 
-        buttonContainer.setSize(new Dimension(400, 300));
+        buttonContainer.setSize(new Dimension(400, 400));
         buttonContainer.setLocation(
                 (parent.screenSize.width - buttonContainer.getWidth())/2,
                 (parent.screenSize.height - buttonContainer.getHeight())/2 + 150
@@ -122,8 +122,8 @@ public class MenuMainView extends JPanel {
     private void buttonOpenMapAction() {
 
     }
-    private void buttonCreditsAction() {
-
+    private void buttonHighScoresAction() {
+        parent.updateState(MainController.GameState_t.HIGH_SCORES);
     }
     private void buttonExitDesktopAction() {
         // Kill the program in a swift stroke

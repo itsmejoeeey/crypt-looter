@@ -16,6 +16,7 @@ public class MenuEscapeView extends JPanel {
     CharacterModel character;
 
     JLabel runtimeString;
+    JLabel timeRemainingString;
 
     public MenuEscapeView(MainController parent, CharacterModel character) {
         this.parent = parent;
@@ -30,15 +31,29 @@ public class MenuEscapeView extends JPanel {
 
         JPanel buttonContainer = new JPanel();
         buttonContainer.setOpaque(false);
-        GridLayout buttonContainerLayout = new GridLayout(5,1);
+        GridLayout buttonContainerLayout = new GridLayout(4,1);
         buttonContainerLayout.setVgap(20);
         buttonContainer.setLayout(buttonContainerLayout);
+
+        JPanel textContainer = new JPanel();
+        textContainer.setOpaque(false);
+        GridLayout textContainerLayout = new GridLayout(2,1);
+        textContainerLayout.setVgap(20);
+        textContainer.setLayout(textContainerLayout);
 
         // Game run time
         runtimeString = new JLabel("TIME GOES HERE", SwingConstants.CENTER);
         runtimeString.setForeground(Color.WHITE);
         runtimeString.setFont(buttonTextFont);
-        buttonContainer.add(runtimeString);
+        textContainer.add(runtimeString);
+
+        // Game time remaining
+        timeRemainingString = new JLabel("TIME GOES HERE", SwingConstants.CENTER);
+        timeRemainingString.setForeground(Color.WHITE);
+        timeRemainingString.setFont(buttonTextFont);
+        textContainer.add(timeRemainingString);
+
+        buttonContainer.add(textContainer);
 
         // Buttons
         JButton buttonResume = new JButton("Resume");
@@ -54,20 +69,6 @@ public class MenuEscapeView extends JPanel {
             }
         });
         buttonContainer.add(buttonResume);
-
-        JButton buttonRestart = new JButton("Restart level");
-        buttonRestart.setFocusable(false);
-        buttonRestart.setOpaque(true);
-        buttonRestart.setContentAreaFilled(false);
-        buttonRestart.setForeground(Color.WHITE);
-        buttonRestart.setFont(buttonTextFont);
-        buttonRestart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buttonRestartAction();
-            }
-        });
-        buttonContainer.add(buttonRestart);
 
         JButton buttonExitMenu = new JButton("Exit to main menu");
         buttonExitMenu.setFocusable(false);
@@ -100,7 +101,7 @@ public class MenuEscapeView extends JPanel {
         buttonContainer.setSize(new Dimension(400, 400));
         buttonContainer.setLocation(
                 (parent.screenSize.width - buttonContainer.getWidth())/2,
-                (parent.screenSize.height - buttonContainer.getHeight())/2
+                (parent.screenSize.height - buttonContainer.getHeight())/2 + 25
         );
         this.add(buttonContainer);
 
@@ -124,13 +125,14 @@ public class MenuEscapeView extends JPanel {
         String runtime = new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
         runtimeString.setText("Time elapsed: " + runtime);
 
+        // Update game time remaining
+        calendar.set(0,0,0,0,0,300 - character.secondsElapsed);
+        String timeRemaining = new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
+        timeRemainingString.setText("Time remaining: " + timeRemaining);
     }
 
     private void buttonResumeAction() {
         parent.updateState(MainController.GameState_t.NORMAL_GAME);
-    }
-    private void buttonRestartAction() {
-
     }
     private void buttonExitMenuAction() {
         parent.updateState(MainController.GameState_t.INIT_MAIN_MENU);

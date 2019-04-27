@@ -28,9 +28,10 @@ public class MainController {
     MenuPauseController pauseMenu;
     MenuEscapeController escapeMenu;
     MenuGameoverController gameOverMenu;
+    MenuHighScoreController highScoresMenu;
 
     enum GameState_t {
-        PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER
+        PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER, HIGH_SCORES, CREDITS
     }
 
     GameState_t state = GameState_t.INIT_MAIN_MENU;
@@ -84,6 +85,9 @@ public class MainController {
             case GAME_OVER:
                 // No tasks required
                 break;
+            case HIGH_SCORES:
+                // No tasks required;
+                break;
         }
     }
 
@@ -106,6 +110,9 @@ public class MainController {
                 if(prevState == GameState_t.GAME_OVER) {
                     frame.getLayeredPane().remove(gameOverMenu.getView());
                     frame.getLayeredPane().remove(hud.getView());
+                }
+                if(prevState == GameState_t.HIGH_SCORES) {
+                    frame.getLayeredPane().remove(highScoresMenu.getView());
                 }
                 frame.getContentPane().removeAll();
                 frame.repaint();
@@ -149,6 +156,12 @@ public class MainController {
                 gameOverMenu = new MenuGameoverController(this, character.model);
                 frame.getLayeredPane().add(gameOverMenu.getView(), new Integer(4));
                 frame.repaint();
+                break;
+            case HIGH_SCORES:
+                highScoresMenu = new MenuHighScoreController(this);
+                frame.getLayeredPane().add(highScoresMenu.getView(), new Integer(5));
+                frame.repaint();
+                break;
             default:
                 break;
         }
