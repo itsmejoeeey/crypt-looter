@@ -1,4 +1,3 @@
-import javax.sound.midi.Receiver;
 import javax.swing.*;
 import java.awt.*;
 
@@ -49,6 +48,6 @@ public class ProjectileController {
     }
 
     public void hitWorld(){
-        projectileManager.destoryProjectile(this);
+        projectileManager.destroyProjectile(this);
     }
 }

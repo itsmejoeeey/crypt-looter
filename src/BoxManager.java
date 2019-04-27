@@ -128,7 +128,7 @@ public class BoxManager {
                 continue;
             }
             if(projectileManager.projectiles.get(i).view.getBounds().intersects(boxController.getRect())){
-                projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
+                projectileManager.destroyProjectile(projectileManager.projectiles.get(i));
                 return true;
             }
         }
@@ -138,7 +138,7 @@ public class BoxManager {
     public boolean detectPlayerProjectileCollision(BoxController enemy){
         for (int i= 0; i < projectileManager.projectiles.size(); i++){
             if (projectileManager.projectiles.get(i).view.getBounds().intersects(enemy.getRect())) {
-                projectileManager.destoryProjectile(projectileManager.projectiles.get(i));
+                projectileManager.destroyProjectile(projectileManager.projectiles.get(i));
                 return true;
             }
         }

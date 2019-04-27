@@ -47,7 +47,7 @@ public class ProjectileManager {
         }
     }
 
-    public void destoryProjectile(ProjectileController projectileController){
+    public void destroyProjectile(ProjectileController projectileController){
         System.out.println(projectileController.view.getBounds());
         projectiles.remove(projectileController);
         try {
