@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -150,6 +152,25 @@ public class MainController {
     }
 
     private void init_normalgame() {
+        // Show a black screen until the game should be loaded
+        JPanel blackScreen = new JPanel();
+        blackScreen.setLayout(null);
+        blackScreen.setSize(new Dimension(frame.getWidth(), frame.getHeight()));
+        blackScreen.setBackground(Color.BLACK);
+        frame.getLayeredPane().add(blackScreen, new Integer(99));
+
+        Timer timer = new Timer(1250, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getLayeredPane().remove(blackScreen);
+                frame.repaint();
+                frame.revalidate();
+                // Stop the timer before it loops
+                ((Timer)e.getSource()).stop();
+            }
+        });
+        timer.start();
+
         MapReader mapReader;
         try {
             mapReader = new MapReader("src/maps/demomap.tmx");
