@@ -13,6 +13,7 @@ public class CharacterModel {
     public boolean dead = false;
 
     public double attackTimer = 0;
+    public double projectileTimer = 0;
     int height;
 
     public int maxHealth = 3;

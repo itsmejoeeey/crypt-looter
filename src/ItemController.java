@@ -1,11 +1,21 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class ItemController {
     private ItemView itemView;
 
     public ItemController(Rectangle bounds){
-        itemView = new ItemView(bounds);
-        itemView.setLocation(bounds.x, bounds.y);
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    itemView = new ItemView(bounds, true);
+                    itemView.setLocation(bounds.x, bounds.y);
+                }
+            });
+        } catch (Exception e) {
+            // Required to catch potential exception
+        }
     }
 
     public Rectangle getRect(){

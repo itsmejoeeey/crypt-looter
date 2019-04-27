@@ -29,6 +29,9 @@ public class KeyController implements KeyListener {
             case KeyEvent.VK_J:
                 KeyStates.attackKey.keyPressed();
                 break;
+            case KeyEvent.VK_K:
+                KeyStates.projKey.keyPressed();
+                break;
         }
     }
 
@@ -57,6 +60,9 @@ public class KeyController implements KeyListener {
                 break;
             case KeyEvent.VK_J:
                 KeyStates.attackKey.keyReleased();
+                break;
+            case KeyEvent.VK_K:
+                KeyStates.projKey.keyReleased();
                 break;
         }
     }

@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 //BoxManager class checks collisions between the player and other box controllers
@@ -11,6 +10,7 @@ public class BoxManager {
     public ArrayList<AttackController> enemyAttacks = new ArrayList<>();
     public AttackController[] playerAttacks;
     public ItemManager itemManager;
+    public ProjectileManager projectileManager;
     //public BoxController player;
 
     int skinWidth = 2;
@@ -34,13 +34,40 @@ public class BoxManager {
         }
     }
 
+    public boolean projectileMove(Rectangle arrow, int height){
+        int tileY = Math.floorMod(((arrow.y + arrow.width / 2) / world.tileSize) , world.mapSize.width);
+        int tileX = Math.floorMod(((arrow.x + arrow.height / 2) / world.tileSize), world.mapSize.height);
+
+        int minX =  Math.floorMod((tileX - arrow.height / world.tileSize * 2), world.mapSize.height);
+        int maxX =  Math.floorMod((tileX + arrow.height / world.tileSize * 2 + 1), world.mapSize.height);
+        int minY =  Math.floorMod((tileY - arrow.width / world.tileSize * 2) , world.mapSize.width);
+        int maxY =  Math.floorMod((tileY + arrow.width / world.tileSize * 2 + 1) , world.mapSize.width);
+        for(int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
+                if(height != -1){
+                    if (!world.heightCollisions[height][y][x] && !world.collisions[y][x]) {
+                        continue;
+                    }
+                }
+                if(height == -1 && !world.collisions[y][x]){
+                    continue;
+                }
+                BoxController box = colliders[y][x];
+                if(box.getRect().intersects(arrow)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Vector2 move(Vector2 velocity, Rectangle character, BoxController entity){
         int tileY = Math.floorMod(((character.y + character.width / 2) / world.tileSize) , world.mapSize.width);
         int tileX = Math.floorMod(((character.x + character.height / 2) / world.tileSize), world.mapSize.height);
 
         int boxHeight = world.heightMap[tileY][tileX];
+        entity.setDeath(world.death[tileY][tileX]);
         entity.setHeight(boxHeight);
-        entity.setDeath(world.death[tileY][tileX]);;
 
         int minX =  Math.floorMod((tileX - character.height / world.tileSize * 2), world.mapSize.height);
         int maxX =  Math.floorMod((tileX + character.height / world.tileSize * 2 + 1), world.mapSize.height);
@@ -121,6 +148,29 @@ public class BoxManager {
         return false;
     }
 
+    public boolean detectEnemyProjectileCollision(BoxController boxController){
+        for (int i= 0; i < projectileManager.projectiles.size(); i++){
+            if(projectileManager.projectiles.get(i).archer == boxController){
+                continue;
+            }
+            if(projectileManager.projectiles.get(i).view.getBounds().intersects(boxController.getRect())){
+                projectileManager.destroyProjectile(projectileManager.projectiles.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean detectPlayerProjectileCollision(BoxController enemy){
+        for (int i= 0; i < projectileManager.projectiles.size(); i++){
+            if (projectileManager.projectiles.get(i).view.getBounds().intersects(enemy.getRect())) {
+                projectileManager.destroyProjectile(projectileManager.projectiles.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
         Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;
@@ -139,7 +189,7 @@ public class BoxManager {
         return velocity;
     }
 
-    private boolean contains(float x, float y, Rectangle rectangle){
+    private boolean contains(double x, double y, Rectangle rectangle){
         return rectangle.x <= x && x <= rectangle.x + rectangle.width &&
                 rectangle.y <= y && y <= rectangle.y + rectangle.height;
     }

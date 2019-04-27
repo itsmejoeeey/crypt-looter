@@ -48,7 +48,8 @@ public class CharacterView extends JPanel {
         this.setOpaque(false);
         this.setFocusable(true);
         this.addKeyListener(new KeyController());
-        this.setPreferredSize(new Dimension(transform.width,transform.height));
+        this.setLayout(null);
+        this.setSize(new Dimension(transform.width,transform.height));
 
         /*
           Load animation images

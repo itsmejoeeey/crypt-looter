@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class ItemView extends JPanel {
+public class ProjectileView extends JPanel {
     BufferedImage texture;
-    Rectangle bounds;
+    Rectangle origin;
     public boolean stationary;
-    public ItemView(Rectangle bounds, boolean stationary){
-        this.bounds = bounds;
+    public ProjectileView(Rectangle bounds, boolean stationary){
+        this.origin = bounds;
         this.setOpaque(false);
         this.setFocusable(true);
         this.setLayout(null);
@@ -19,7 +19,7 @@ public class ItemView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        setLocation(bounds.x, bounds.y);
+        //setLocation(origin.x, origin.y);
 
         Graphics2D g2 = (Graphics2D) g;
 
@@ -29,5 +29,9 @@ public class ItemView extends JPanel {
         // Default rectangle
         g2.setColor(Color.black);
         g2.fillRect(0, 0, getWidth(), getHeight());
+    }
+
+    public void moveWorld(int newX, int newY) {
+        this.setLocation(origin.x + newX, origin.y + newY);
     }
 }

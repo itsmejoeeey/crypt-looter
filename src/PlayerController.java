@@ -10,26 +10,28 @@ public class PlayerController extends CharacterController {
     public float speed = 0.2f;
 
     public AttackController[] attackController = new AttackController[3];
+    private ProjectileManager projectileManager;
 
-    public PlayerController(Point spawnPos, BoxManager _boxManager, SoundController soundController) {
+    public PlayerController(Point spawnPos, BoxManager _boxManager, SoundController soundController, ProjectileManager projectileManager) {
         super(spawnPos, soundController, _boxManager);
-        view = new PlayerView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
-        boxController = new BoxController(model, view);
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    attackController[0] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
-                    attackController[1] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
-                    attackController[2] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
-                    model.direction = 4;
-                    boxManager.entities.add(boxController);
-                    boxManager.playerAttacks = attackController;
+                    view = new PlayerView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
                 }
             });
         } catch (Exception e) {
             // Required to catch potential exception
         }
+        boxController = new BoxController(model, view);
+        attackController[0] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+        attackController[1] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+        attackController[2] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+        model.direction = 4;
+        boxManager.entities.add(boxController);
+        boxManager.playerAttacks = attackController;
+        this.projectileManager = projectileManager;
     }
 
     //Moves player based on key inputs
@@ -38,7 +40,11 @@ public class PlayerController extends CharacterController {
         if(!model.dead) {
             groundMovement();
             attackDetection();
+            fireBow();
             if(boxManager.detectEnemyAttackCollision(boxController)){
+                model.decreaseHealth(1);
+            }
+            if(boxManager.detectEnemyProjectileCollision(boxController)){
                 model.decreaseHealth(1);
             }
             boxManager.detectItemCollision(boxController);
@@ -49,6 +55,7 @@ public class PlayerController extends CharacterController {
                 model.health = 0;
             }
         }
+        //System.out.println(model.dead);
 
         // Update the character animations
         view.deltaTime = deltaTime;
@@ -68,6 +75,16 @@ public class PlayerController extends CharacterController {
         if(deltaTimeElapsed > 1000) {
             deltaTimeElapsed -= 1000;
             model.secondsElapsed++;
+        }
+    }
+
+    public void fireBow(){
+        if(model.projectileTimer <= 0 && (KeyStates.projKey.keyState())){
+            projectileManager.spawnProjectile(new Point(boxController.getCenter().x, boxController.getCenter().y), new Vector2(getMoveDirection(model.direction)[0] * 100, -getMoveDirection(model.direction)[1]  * 100), boxController);
+            model.projectileTimer = 2;
+        }
+        if(model.projectileTimer > 0){
+            model.projectileTimer -= deltaTime / 1000;
         }
     }
 
