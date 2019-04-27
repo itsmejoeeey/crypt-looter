@@ -130,7 +130,7 @@ public class MenuGameoverView extends JPanel {
                 // Remove all spaces from string
                 playerName = playerName.replaceAll("[;., ]","");
                 if(playerName.length() < 6) {
-                    for(int i = 0; i <=  playerName.length(); i++) {
+                    for(int i = 0; i <  playerName.length(); i++) {
                         // Check string only contains characters
                         if (!Character.isLetter(playerName.charAt(i))) {
                             throw new IllegalArgumentException();
