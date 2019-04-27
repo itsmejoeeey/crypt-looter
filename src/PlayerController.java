@@ -1,6 +1,8 @@
 import javax.lang.model.util.Elements;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayerController extends CharacterController {
 
@@ -9,11 +11,16 @@ public class PlayerController extends CharacterController {
 
     public float speed = 0.2f;
 
+    private MainController parent;
+
     public AttackController[] attackController = new AttackController[3];
     private ProjectileManager projectileManager;
 
-    public PlayerController(Point spawnPos, BoxManager _boxManager, SoundController soundController, ProjectileManager projectileManager) {
+    public PlayerController(MainController parent, Point spawnPos, BoxManager _boxManager, SoundController soundController, ProjectileManager projectileManager) {
         super(spawnPos, soundController, _boxManager);
+
+        this.parent = parent;
+
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -24,6 +31,7 @@ public class PlayerController extends CharacterController {
         } catch (Exception e) {
             // Required to catch potential exception
         }
+
         boxController = new BoxController(model, view);
         attackController[0] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
         attackController[1] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
@@ -53,6 +61,16 @@ public class PlayerController extends CharacterController {
                 model.attackDagger = false;
                 model.attackBow = false;
                 model.health = 0;
+
+                Timer timer = new Timer(1250, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        parent.updateState(MainController.GameState_t.GAME_OVER);
+                        // Stop the timer before it loops
+                        ((Timer)e.getSource()).stop();
+                    }
+                });
+                timer.start();
             }
         }
         //System.out.println(model.dead);

@@ -27,6 +27,7 @@ public class MainController {
     HUDController hud;
     MenuPauseController pauseMenu;
     MenuEscapeController escapeMenu;
+    MenuGameoverController gameOverMenu;
 
     enum GameState_t {
         PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER
@@ -81,7 +82,8 @@ public class MainController {
             case ESCAPE:
                 update_escape();
             case GAME_OVER:
-                update_gameover();
+                // No tasks required
+                break;
         }
     }
 
@@ -99,6 +101,10 @@ public class MainController {
                 }
                 if(prevState == GameState_t.ESCAPE) {
                     frame.getLayeredPane().remove(escapeMenu.getView());
+                    frame.getLayeredPane().remove(hud.getView());
+                }
+                if(prevState == GameState_t.GAME_OVER) {
+                    frame.getLayeredPane().remove(gameOverMenu.getView());
                     frame.getLayeredPane().remove(hud.getView());
                 }
                 frame.getContentPane().removeAll();
@@ -138,6 +144,11 @@ public class MainController {
                 frame.getLayeredPane().add(escapeMenu.getView(), new Integer(3));
                 frame.repaint();
                 break;
+            case GAME_OVER:
+                frame.setCursor(defaultCursor);
+                gameOverMenu = new MenuGameoverController(this, character.model);
+                frame.getLayeredPane().add(gameOverMenu.getView(), new Integer(4));
+                frame.repaint();
             default:
                 break;
         }
@@ -163,6 +174,10 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getLayeredPane().remove(blackScreen);
+
+                // Hide cursor
+                frame.setCursor(blankCursor);
+
                 frame.repaint();
                 frame.revalidate();
                 // Stop the timer before it loops
@@ -185,7 +200,7 @@ public class MainController {
         world = new WorldController(this, mapReader.getWorld());
         boxManager = new BoxManager(mapReader.getWorld());
         projectileManager = new ProjectileManager(world, boxManager);
-        character = new PlayerController(new Point(1100,500), boxManager, sound, projectileManager);
+        character = new PlayerController(this, new Point(1100,500), boxManager, sound, projectileManager);
         sound = new SoundController(character.model);
         hud = new HUDController(this, character.model);
         itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model);
@@ -228,9 +243,6 @@ public class MainController {
     }
 
     private void update_normalgame() {
-        // Hide cursor
-        frame.setCursor(blankCursor);
-
         world.deltaTime = this.deltaTime;
         character.deltaTime = this.deltaTime;
         camera.deltaTime = this.deltaTime;
@@ -260,9 +272,5 @@ public class MainController {
         frame.setCursor(defaultCursor);
 
         escapeMenu.update();
-    }
-
-    private void update_gameover(){
-
     }
 }
