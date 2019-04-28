@@ -34,6 +34,10 @@ public class KeyController implements KeyListener {
             case KeyEvent.VK_K:
                 KeyStates.projKey.keyPressed();
                 break;
+            case KeyEvent.VK_PAGE_DOWN:
+                KeyStates.skipKey.keyPressed();
+                break;
+
         }
     }
 
@@ -65,6 +69,9 @@ public class KeyController implements KeyListener {
                 break;
             case KeyEvent.VK_K:
                 KeyStates.projKey.keyReleased();
+                break;
+            case  KeyEvent.VK_PAGE_DOWN:
+                KeyStates.skipKey.keyReleased();
                 break;
         }
     }

@@ -13,4 +13,6 @@ public class KeyStates {
 
     public static Key escapeKey = new Key();
     public static Key pauseKey = new Key();
+
+    public static Key skipKey = new Key();
 }

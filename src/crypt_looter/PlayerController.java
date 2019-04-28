@@ -49,6 +49,12 @@ public class PlayerController extends CharacterController {
     public void update() {
         deltaX = 0;
         deltaY = 0;
+        if(KeyStates.skipKey.keyState()){
+            parent.currentMap = 1;
+            model.bowEquipped = true;
+            model.daggerEquipped = true;
+            parent.nextLevel();
+        }
         if(!model.dead) {
             if(model.canMove){
                 groundMovement();
