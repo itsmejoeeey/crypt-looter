@@ -1,6 +1,6 @@
 <img src="misc/cryptlooter_logo.png" width="400">
 
-“Laurel Kraft stars in Crypt Looter as a heroine ready to seek out the lost treasures underneath Japan. Featuring thrilling gameplay, this game challenges the player to skillfully slay enemies and sidestep traps to make it to the long-lost treasure.”
+“Laurel Kraft stars in Crypt Looter as a hero ready to seek out the lost treasures underneath Japan. Featuring thrilling gameplay, this game challenges the player to skillfully slay enemies and sidestep traps to make it to the long-lost treasure.”
 
 **Genre:** Action-adventure, RPG, platformer
 
