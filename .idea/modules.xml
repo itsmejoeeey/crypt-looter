@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Game.iml" filepath="$PROJECT_DIR$/.idea/Game.iml" />
-      <module fileurl="file://$PROJECT_DIR$/JavaTest.iml" filepath="$PROJECT_DIR$/JavaTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/2019-Java-Group5.iml" filepath="$PROJECT_DIR$/.idea/2019-Java-Group5.iml" />
     </modules>
   </component>
 </project>

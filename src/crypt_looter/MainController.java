@@ -68,6 +68,7 @@ public class MainController {
     Cursor defaultCursor;
 
     public MainController() {
+        mapToLoad = defaultMaps[0];
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -280,7 +281,7 @@ public class MainController {
         enemyManager = new EnemyManager(world, map, character.boxController, boxManager, sound, projectileManager);
         itemManager = new ItemManager(world, map, boxManager, playerModel, enemyManager.getBossModels());
 
-        ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
+        ImageIcon icon = new ImageIcon("icons/app_icon.png");
         frame.setIconImage(icon.getImage());
 
         frame.setTitle("Crypt Looter");

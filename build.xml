@@ -51,19 +51,20 @@
     <exclude name="**/?*.flex"/>
     <exclude name="**/?*.kt"/>
     <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
   </patternset>
   
   <!-- Modules -->
   
-  <import file="${basedir}/.idea/module_game.xml"/>
+  <import file="${basedir}/.idea/module_2019-java-group5.xml"/>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.game" description="cleanup all"/>
+  <target name="clean" depends="clean.module.2019-java-group5" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.game" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.2019-java-group5" description="build all modules"/>
   
   <target name="all" depends="build.modules" description="build all"/>
 </project>
