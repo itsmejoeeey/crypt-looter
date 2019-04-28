@@ -62,7 +62,7 @@
   
   
   
-  <property name="compiler.args.javatest" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  <property name="compiler.args.javatest" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
   <property name="javatest.output.dir" value="${module.javatest.basedir}/out/production/JavaTest"/>
   <property name="javatest.testoutput.dir" value="${module.javatest.basedir}/out/test/JavaTest"/>
