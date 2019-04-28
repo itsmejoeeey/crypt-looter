@@ -23,7 +23,7 @@ public class FinalChestView extends ItemView {
 
     public void trigger(){
         try {
-            texture = ImageIO.read(new File(texturePath));
+            texture = ImageIO.read(getClass().getClassLoader().getResourceAsStream(texturePath));
             texture = texture.getSubimage(texture.getWidth()/2, 0, texture.getWidth()/2, texture.getHeight());
             repaint();
         } catch (IOException ex) {
