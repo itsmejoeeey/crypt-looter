@@ -76,12 +76,19 @@ public class BoxManager {
         entity.setHeight(boxHeight);
 
         int minX =  (tileX - character.height / world.tileSize * 2) % world.mapSize.height;
-        int maxX =  (tileX + character.height / world.tileSize * 2 + 1) % world.mapSize.height;
+        int maxX =  tileX + character.height / world.tileSize * 2 + 1;
         int minY =  (tileY - character.width / world.tileSize * 2 % world.mapSize.width);
-        int maxY =  (tileY + character.width / world.tileSize * 2 + 1) % world.mapSize.width;
+        int maxY =  tileY + character.width / world.tileSize * 2 + 1;
         minX = minX < 0 ? 0 : minX;
         minY = minY < 0 ? 0 : minY;
 
+        if(maxX > world.mapSize.height){
+            maxX = world.mapSize.height;
+        }
+
+        if(maxY > world.mapSize.width){
+            maxY = world.mapSize.width;
+        }
 
         Origins origins = new Origins(character, playerHeightOffset, skinWidth);
         for(int x = minX; x < maxX; x++) {
