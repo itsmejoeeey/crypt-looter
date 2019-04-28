@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AttackController extends JPanel {
+    //Acts as hit box for players and enemies;
     public double rotation;
     private Rectangle rect;
     public boolean active;
@@ -27,10 +28,7 @@ public class AttackController extends JPanel {
         g2.fillPolygon(xpoints, ypoints, 4);
     }
 
-    public Rectangle getRect(){
-        return rect;
-    }
-
+    //Retrieves the vertices of the rectangle
     public Point[] getPoints(){
         Point[] points = new Point[4];
         rect = getBounds();
@@ -62,6 +60,7 @@ public class AttackController extends JPanel {
         return points;
     }
 
+    //Sets location and scale of the attackController
     public void updateHitBox(Rectangle bounds, double rotation){
         this.rotation = rotation;
         setBounds(bounds);

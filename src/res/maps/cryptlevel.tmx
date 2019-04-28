@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="2019.04.25" orientation="orthogonal" renderorder="right-down" width="35" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="33" nextobjectid="34">
  <properties>
-  <property name="spawnX" type="int" value="22"/>
-  <property name="spawnY" type="int" value="10"/>
+  <property name="spawnX" type="int" value="17"/>
+  <property name="spawnY" type="int" value="32"/>
  </properties>
  <tileset firstgid="1" source="tilemap.tsx"/>
  <group id="31" name="world">
