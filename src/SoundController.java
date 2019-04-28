@@ -14,39 +14,40 @@ public class SoundController {
     double footstepTimer = 0;
     private CharacterModel playerModel;
     private MainController parent;
+    
     public SoundController(MainController parent, CharacterModel playerModel){
         this.parent = parent;
         this.playerModel = playerModel;
         try {
-            String backgroundPath = "src/res/sounds/ingame_background.wav";
-            AudioInputStream backgroundAudioStream = AudioSystem.getAudioInputStream(new File(backgroundPath).getAbsoluteFile());
+            String backgroundPath = "./res/sounds/music_background.wav";
+            AudioInputStream backgroundAudioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(backgroundPath));
             System.out.println(backgroundAudioStream.getFormat());
             inGameBackground = AudioSystem.getClip();
             inGameBackground.open(backgroundAudioStream);
 
 
-            String footstepPath = "src/res/sounds/footstep01.wav";
-            AudioInputStream footstepAudioStream = AudioSystem.getAudioInputStream(new File(footstepPath).getAbsoluteFile());
+            String footstepPath = "./res/sounds/footstep01.wav";
+            AudioInputStream footstepAudioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(footstepPath));
             playerFootstep = AudioSystem.getClip();
             playerFootstep.open(footstepAudioStream);
 
-            String swordSlashPath = "src/res/sounds/swordsound.wav";
-            AudioInputStream slashAudioStream = AudioSystem.getAudioInputStream(new File(swordSlashPath).getAbsoluteFile());
+            String swordSlashPath = "./res/sounds/sword.wav";
+            AudioInputStream slashAudioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(swordSlashPath));
             slashEffect = AudioSystem.getClip();
             slashEffect.open(slashAudioStream);
 
-            String enemy1HitPath = "src/res/sounds/monster-2.wav";
-            AudioInputStream enemyHit1Stream = AudioSystem.getAudioInputStream(new File(enemy1HitPath).getAbsoluteFile());
+            String enemy1HitPath = "./res/sounds/monster01.wav";
+            AudioInputStream enemyHit1Stream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(enemy1HitPath));
             enemyHit1 = AudioSystem.getClip();
             enemyHit1.open(enemyHit1Stream);
 
-            String enemy2HitPath = "src/res/sounds/monster-7.wav";
-            AudioInputStream enemyHit2Stream = AudioSystem.getAudioInputStream(new File(enemy2HitPath).getAbsoluteFile());
+            String enemy2HitPath = "./res/sounds/monster02.wav";
+            AudioInputStream enemyHit2Stream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(enemy2HitPath));
             enemyHit2 = AudioSystem.getClip();
             enemyHit2.open(enemyHit2Stream);
 
-            String enemy3HitPath = "src/res/sounds/monster-10.wav";
-            AudioInputStream enemyHit3Stream = AudioSystem.getAudioInputStream(new File(enemy3HitPath).getAbsoluteFile());
+            String enemy3HitPath = "./res/sounds/monster03.wav";
+            AudioInputStream enemyHit3Stream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(enemy3HitPath));
             enemyHit3 = AudioSystem.getClip();
             enemyHit3.open(enemyHit3Stream);
 
@@ -58,6 +59,7 @@ public class SoundController {
             System.out.println("Line Unavailable Audio File " + lue.getMessage());
         }
     }
+
 
     public void update(){
         walkingEffects();
@@ -84,11 +86,8 @@ public class SoundController {
     }
 
     public void playBackgroundMusic(){
-        inGameBackground.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    public void stopBackgroundMusic(){
         inGameBackground.stop();
+        inGameBackground.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void playEnemyHit(){
@@ -104,5 +103,14 @@ public class SoundController {
                 enemyHit3.setFramePosition(0);
                 enemyHit3.loop(0);
         }
+    }
+
+    public void stopAll() {
+        inGameBackground.stop();
+        playerFootstep.stop();
+        slashEffect.stop();
+        enemyHit1.stop();
+        enemyHit2.stop();
+        enemyHit3.stop();
     }
 }

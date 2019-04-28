@@ -24,7 +24,7 @@ public class MenuMainView extends JPanel {
 
         // Get menu background
         try {
-            menuBackground = ImageIO.read(new File("src/res/ui/main_menu.png"));
+            menuBackground = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/ui/main_menu.png"));
         } catch (IOException ex) {
             // Invalid image file path;
             return;
@@ -126,7 +126,7 @@ public class MenuMainView extends JPanel {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int fileChooserReturnStatus = fileChooser.showOpenDialog(this);
         if(fileChooserReturnStatus == JFileChooser.APPROVE_OPTION) {
-            parent.mapToLoad = fileChooser.getSelectedFile();
+            parent.mapToLoad = fileChooser.getSelectedFile().getAbsolutePath();
             parent.updateState(MainController.GameState_t.INIT_CUSTOM_GAME);
         }
     }

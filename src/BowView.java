@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class BowView extends ItemView {
-    String texturePath = "src/res/textures/bow.png";
+    String texturePath = "./res/textures/bow.png";
     public BowView(Rectangle bounds){
         super(bounds);
         initView();
@@ -14,7 +14,7 @@ public class BowView extends ItemView {
 
     public void initView(){
         try {
-            texture = ImageIO.read(new File(texturePath));
+            texture = ImageIO.read(getClass().getClassLoader().getResourceAsStream(texturePath));
         } catch (IOException ex) {
             return;
         }

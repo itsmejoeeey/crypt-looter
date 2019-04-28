@@ -36,7 +36,14 @@ public class MainController {
     HighScoreController highScoreController;
 
     public boolean defaultMapLoaded;
-    public File mapToLoad;
+    public String mapToLoad;
+
+    public static String[] defaultMaps = {
+            "./res/maps/demomap.tmx",
+            "./res/maps/demomap1.tmx",
+            "./res/maps/demomap2.tmx"
+
+    };
 
     int currentMap = 0;
     final Point[][] levelControl = {
@@ -119,6 +126,12 @@ public class MainController {
     public void updateState(GameState_t newState) {
         prevState = state;
         state = newState;
+        if(prevState == GameState_t.NORMAL_GAME){
+            sound.stopAll();
+        }
+        if(newState == GameState_t.NORMAL_GAME){
+            sound.playBackgroundMusic();
+        }
         switch(newState) {
             case INIT_MAIN_MENU:
                 // Remove previous views
@@ -204,7 +217,7 @@ public class MainController {
     private void init_normalgame() {
         defaultMapLoaded = true;
         playerModel = new CharacterModel(new Rectangle(20, 20, 50, 50), 2);
-        mapToLoad = new File("src/maps/demomap.tmx");
+        mapToLoad = defaultMaps[0];
     }
 
     private void init_game() {
@@ -344,23 +357,14 @@ public class MainController {
         if(currentMap < 2) {
             currentMap++;
 
-            //CharacterModel prevCharacterModel = character.model;
+            mapToLoad = defaultMaps[currentMap];
 
-            switch(currentMap) {
-                case 1:
-                    mapToLoad = new File("src/maps/demomap1.tmx");
-                    break;
-                case 2:
-                    mapToLoad = new File("src/maps/demomap2.tmx");
-                    break;
-            }
             frame.getLayeredPane().remove(hud.getView());
             frame.getContentPane().removeAll();
             frame.repaint();
             frame.revalidate();
 
             init_game();
-            //character.model = prevCharacterModel;
         }
 
     }
@@ -368,16 +372,7 @@ public class MainController {
         if(currentMap > 0) {
             currentMap--;
 
-            //CharacterModel prevCharacterModel = character.model;
-
-            switch(currentMap) {
-                case 0:
-                    mapToLoad = new File("src/maps/demomap.tmx");
-                    break;
-                case 1:
-                    mapToLoad = new File("src/maps/demomap1.tmx");
-                    break;
-            }
+            mapToLoad = defaultMaps[currentMap];
 
             frame.getLayeredPane().remove(hud.getView());
             frame.getContentPane().removeAll();
@@ -385,7 +380,6 @@ public class MainController {
             frame.revalidate();
 
             init_game();
-            //character.model = prevCharacterModel;
             character.setPos(prevLevelSpawn[currentMap]);
         }
     }

@@ -12,11 +12,11 @@ public class BossView extends CharacterView{
         bowAnimationFrames = 4;
         hurtAnimationFrames = 6;
 
-        charTexNormalFilepath = "src/res/textures/boss_walkcycle.png";
-        charTexSlashFilepath = "src/res/textures/boss_slash.png";
+        charTexNormalFilepath = "./res/textures/boss_walkcycle.png";
+        charTexSlashFilepath = "./res/textures/boss_slash.png";
         // No enemy bow textures, but CharacterView requires one so we will reuse the boss slash texture
-        charTexBowFilepath = "src/res/textures/boss_slash.png";
-        charTexHurtFilepath = "src/res/textures/boss_hurt.png";
+        charTexBowFilepath = "./res/textures/boss_slash.png";
+        charTexHurtFilepath = "./res/textures/boss_hurt.png";
 
         initView();
     }

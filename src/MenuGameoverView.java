@@ -42,7 +42,7 @@ public class MenuGameoverView extends JPanel {
         buttonContainer.add(scoreText);
 
         // Buttons
-        JButton buttonSetName = new JButton("Set playerModel name");
+        JButton buttonSetName = new JButton("Set player name");
         buttonSetName.setFocusable(false);
         buttonSetName.setOpaque(true);
         buttonSetName.setContentAreaFilled(false);

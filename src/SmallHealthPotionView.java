@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SmallHealthPotionView extends ItemView {
-    String texturePath = "src/res/textures/potions.png";
+    String texturePath = "./res/textures/potions.png";
     public SmallHealthPotionView(Rectangle bounds){
         super(bounds);
         initView();
@@ -12,7 +12,7 @@ public class SmallHealthPotionView extends ItemView {
 
     public void initView(){
         try {
-            texture = ImageIO.read(new File(texturePath));
+            texture = ImageIO.read(getClass().getClassLoader().getResourceAsStream(texturePath));
             texture = texture.getSubimage(0, 0, texture.getWidth()/2, texture.getHeight());
         } catch (IOException ex) {
             return;

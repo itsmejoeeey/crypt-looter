@@ -39,11 +39,11 @@ public class MapReader {
     ArrayList<Point2D.Double> itemsBow;
     ArrayList<Point2D.Double> itemsDagger;
 
-    MapReader(File mapFile) throws IOException, InvalidMapException {
+    MapReader(String mapPath) throws IOException, InvalidMapException {
 
         Document mapXML;
         try {
-            mapXML = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(mapFile);
+            mapXML = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getClass().getClassLoader().getResourceAsStream(mapPath));
         } catch (ParserConfigurationException | SAXException exception) {
             // If the map cannot be parsed it must be an invalid map
             throw new InvalidMapException();

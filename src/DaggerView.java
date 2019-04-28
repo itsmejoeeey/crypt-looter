@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class DaggerView extends ItemView{
-    String texturePath = "src/res/textures/sword.png";
+    String texturePath = "./res/textures/sword.png";
     public DaggerView(Rectangle bounds){
         super(bounds);
         initView();
@@ -13,7 +13,7 @@ public class DaggerView extends ItemView{
 
     public void initView(){
         try {
-            texture = ImageIO.read(new File(texturePath));
+            texture = ImageIO.read(getClass().getClassLoader().getResourceAsStream(texturePath));
         } catch (IOException ex) {
             return;
         }

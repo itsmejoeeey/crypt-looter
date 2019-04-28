@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CoinView extends ItemView {
-    String texturePath = "src/res/textures/coin.png";
+    String texturePath = "./res/textures/coin.png";
     public CoinView(Rectangle bounds){
         super(bounds);
         initView();
@@ -12,7 +12,7 @@ public class CoinView extends ItemView {
 
     public void initView(){
         try {
-            texture = ImageIO.read(new File(texturePath));
+            texture = ImageIO.read(getClass().getClassLoader().getResourceAsStream(texturePath));
         } catch (IOException ex) {
             return;
         }

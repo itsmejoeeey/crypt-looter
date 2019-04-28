@@ -12,11 +12,11 @@ public class EnemyView extends CharacterView {
         bowAnimationFrames = 13;
         hurtAnimationFrames = 6;
 
-        charTexNormalFilepath = "src/res/textures/enemy_walkcycle.png";
-        charTexSlashFilepath = "src/res/textures/enemy_slash.png";
+        charTexNormalFilepath = "./res/textures/enemy_walkcycle.png";
+        charTexSlashFilepath = "./res/textures/enemy_slash.png";
         // No enemy bow textures, but CharacterView requires one so we will reuse the playerModel texture
-        charTexBowFilepath = "src/res/textures/man_bow.png";
-        charTexHurtFilepath = "src/res/textures/enemy_hurt.png";
+        charTexBowFilepath = "./res/textures/man_bow.png";
+        charTexHurtFilepath = "./res/textures/enemy_hurt.png";
 
         initView();
     }

@@ -60,10 +60,10 @@ public class CharacterView extends JPanel {
         BufferedImage charTexHurt;
         charTexFrames = new BufferedImage[4][8][13]; // 4 different tex map, 8 directions, up to 13 frames of animation
         try {
-            charTexNormal = ImageIO.read(new File(charTexNormalFilepath));
-            charTexSlash = ImageIO.read(new File(charTexSlashFilepath));
-            charTexBow = ImageIO.read(new File(charTexBowFilepath));
-            charTexHurt = ImageIO.read(new File(charTexHurtFilepath));
+            charTexNormal = ImageIO.read(getClass().getClassLoader().getResourceAsStream(charTexNormalFilepath));
+            charTexSlash = ImageIO.read(getClass().getClassLoader().getResourceAsStream(charTexSlashFilepath));
+            charTexBow = ImageIO.read(getClass().getClassLoader().getResourceAsStream(charTexBowFilepath));
+            charTexHurt = ImageIO.read(getClass().getClassLoader().getResourceAsStream(charTexHurtFilepath));
         } catch (IOException ex) {
             return;
         }

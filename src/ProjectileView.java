@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class ProjectileView extends JPanel {
-    String texturePath = "src/res/textures/fireball.png";
-    String playerTexturePath = "src/res/textures/arrow.png";
+    String texturePath = "./res/textures/fireball.png";
+    String playerTexturePath = "./res/textures/arrow.png";
     BufferedImage texture;
     Rectangle origin;
     public ProjectileView(Rectangle bounds, int direction, boolean player){
@@ -23,7 +23,7 @@ public class ProjectileView extends JPanel {
 
     private void initView(int direction){
         try {
-            texture = ImageIO.read(new File(texturePath));
+            texture = ImageIO.read(getClass().getClassLoader().getResourceAsStream(texturePath));
             if(texturePath == playerTexturePath)
                 texture = texture.getSubimage(direction * texture.getWidth()/8,0, texture.getWidth()/8, texture.getHeight());
         } catch (IOException e){

@@ -12,10 +12,10 @@ public class PlayerView extends CharacterView {
         bowAnimationFrames = 13;
         hurtAnimationFrames = 6;
 
-        charTexNormalFilepath = "src/res/textures/man_walkcycle.png";
-        charTexSlashFilepath = "src/res/textures/man_slash.png";
-        charTexBowFilepath = "src/res/textures/man_bow.png";
-        charTexHurtFilepath = "src/res/textures/man_hurt.png";
+        charTexNormalFilepath = "./res/textures/man_walkcycle.png";
+        charTexSlashFilepath = "./res/textures/man_slash.png";
+        charTexBowFilepath = "./res/textures/man_bow.png";
+        charTexHurtFilepath = "./res/textures/man_hurt.png";
 
         initView();
     }
