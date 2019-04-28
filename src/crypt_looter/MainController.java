@@ -233,6 +233,7 @@ public class MainController {
 
     private void init_normalgame() {
         defaultMapLoaded = true;
+        currentMap = 0;
         playerModel = new CharacterModel(new Rectangle(20, 20, 50, 50), 2);
         mapToLoad = defaultMaps[0];
         mapExternalOrigin = false;
