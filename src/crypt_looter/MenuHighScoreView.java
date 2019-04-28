@@ -21,7 +21,7 @@ public class MenuHighScoreView extends JPanel {
 
         JLabel pausedText = new JLabel("High Scores", SwingConstants.CENTER);
         pausedText.setBounds(
-                (parent.screenSize.width - 200)/2, 125, 200, 100);
+                (parent.screenSize.width - 400)/2, 125, 400, 100);
         pausedText.setForeground(Color.WHITE);
         Font textFont = new Font("serif", Font.PLAIN, 40);
         pausedText.setFont(textFont);

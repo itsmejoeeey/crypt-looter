@@ -9,6 +9,9 @@ public class MenuGameoverView extends JPanel {
     MainController parent;
     CharacterModel character;
     HighScoreController highScoreController;
+
+    String player_name = "PLAYER";
+
     public MenuGameoverView(MainController parent, CharacterModel character, HighScoreController highScoreController) {
         this.parent = parent;
         this.character = character;
@@ -149,11 +152,11 @@ public class MenuGameoverView extends JPanel {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String highScoreString = String.format("%08d", character.score) + " " + playerName.toUpperCase();
-        highScoreController.addHighScore(highScoreString);
-        System.out.println(highScoreString);
+        player_name = playerName;
     }
     private void buttonMainMenuAction() {
+        String highScoreString = String.format("%08d", character.score) + " " + player_name.toUpperCase();
+        highScoreController.addHighScore(highScoreString);
         parent.updateState(MainController.GameState_t.INIT_MAIN_MENU);
     }
     private void buttonExitDesktopAction() {
