@@ -12,6 +12,9 @@ public class HUDView extends JPanel {
     private MainController parent;
     private CharacterModel character;
 
+    ImageIcon bowIcon;
+    ImageIcon daggerIcon;
+
     ImageIcon heartRedIcon;
     ImageIcon heartBlackIcon;
 
@@ -42,15 +45,21 @@ public class HUDView extends JPanel {
         Font textFontLarge = new Font("sans", Font.BOLD, 90);
 
         // Load in images
+        BufferedImage bowImage;
+        BufferedImage daggerImage;
         BufferedImage heartRedImage;
         BufferedImage heartBlackImage;
         try {
+            bowImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("icons/bow_icon.png"));
+            daggerImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("icons/dagger_icon.png"));
             heartRedImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("icons/heart_red.png"));
             heartBlackImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("icons/heart_black.png"));
         } catch (IOException ex) {
             return;
         }
         // Resize images now to conserve performance for later on
+        bowIcon = new ImageIcon(bowImage.getScaledInstance(60,60, Image.SCALE_SMOOTH));
+        daggerIcon = new ImageIcon(daggerImage.getScaledInstance(60,60, Image.SCALE_SMOOTH));
         heartRedIcon = new ImageIcon(heartRedImage.getScaledInstance(70,70, Image.SCALE_SMOOTH));
         heartBlackIcon = new ImageIcon(heartBlackImage.getScaledInstance(70,70, Image.SCALE_SMOOTH));
 
@@ -158,13 +167,13 @@ public class HUDView extends JPanel {
         g2.fillRect(itemBoxInitialX + 75,parent.screenSize.height - 120,65, 65);
 
         // Update display of the icons inside the item boxes
-        if(character.weapon1Available) {
-            itemIcon1.setIcon(heartRedIcon);
+        if(character.daggerEquipped) {
+            itemIcon1.setIcon(daggerIcon);
         } else {
             itemIcon1.setIcon(null);
         }
-        if(character.weapon2Available) {
-            itemIcon2.setIcon(heartRedIcon);
+        if(character.bowEquipped) {
+            itemIcon2.setIcon(bowIcon);
         } else {
             itemIcon2.setIcon(null);
         }

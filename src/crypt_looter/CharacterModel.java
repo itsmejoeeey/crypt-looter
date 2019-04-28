@@ -24,9 +24,6 @@ public class CharacterModel {
     public int score = 0;
     public int health = maxHealth;
 
-    public boolean weapon1Available = false;
-    public boolean weapon2Available = false;
-
     public int secondsElapsed = 0;
 
     CharacterModel(Rectangle transform, int height){
