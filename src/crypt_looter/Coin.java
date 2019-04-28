@@ -20,11 +20,13 @@ public class Coin extends ItemController{
         this.playerModel = playerModel;
     }
 
+    //Increase the players score
     @Override
     public void triggerItem(){
         playerModel.increaseScore(1000);
     }
 
+    //Will always activate when picked up
     @Override
     public boolean canTrigger(){
         return true;

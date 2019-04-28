@@ -3,6 +3,7 @@ package crypt_looter;
 import javax.swing.*;
 import java.awt.*;
 
+//Parent class for all items creates basic implementation for items
 public class ItemController {
     protected ItemView itemView;
 

@@ -12,10 +12,11 @@ public class SoundController {
     private Clip enemyHit2;
     private Clip enemyHit3;
     double deltaTime;
-    double footstepTimer = 0;
     private CharacterModel playerModel;
     private MainController parent;
 
+
+    //Loads all sound files into clips
     public SoundController(MainController parent, CharacterModel playerModel){
         this.parent = parent;
         this.playerModel = playerModel;
@@ -67,6 +68,7 @@ public class SoundController {
         playAttack();
     }
 
+    //Play walking sound on loop when player walking
     public void walkingEffects(){
         if(playerModel.walking){
             playerFootstep.loop(-1);
@@ -74,11 +76,9 @@ public class SoundController {
         if(!playerModel.walking || parent.state != MainController.GameState_t.NORMAL_GAME ){
             playerFootstep.stop();
         }
-        if(footstepTimer >= 0){
-            footstepTimer -= deltaTime / 1000;
-        }
     }
 
+    //If the player is attacking play attack sound once
     public void playAttack(){
         if(playerModel.attackDagger) {
             slashEffect.setFramePosition(0);
@@ -86,11 +86,13 @@ public class SoundController {
         }
     }
 
+    //Stop and original background music and loop background music
     public void playBackgroundMusic(){
         inGameBackground.stop();
         inGameBackground.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
+    //Randomly choose enemy hit sounds
     public void playEnemyHit(){
         int hit = (int) (Math.random() * 3 + 1);
         switch (hit) {
@@ -106,6 +108,7 @@ public class SoundController {
         }
     }
 
+    //Stops all sounds from playing in the game
     public void stopAll() {
         inGameBackground.stop();
         playerFootstep.stop();

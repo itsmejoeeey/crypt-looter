@@ -25,6 +25,7 @@ public class FinalChest extends ItemController {
         this.mainController = mainController;
     }
 
+    //Check if chest can trigger if so change chest texture in itemView
     public void update(){
         if(canTrigger()){
             open = true;
@@ -40,6 +41,7 @@ public class FinalChest extends ItemController {
         mainController.updateState(MainController.GameState_t.GAME_OVER);
     }
 
+    //If all of the bosses are dead then finalChest then the chest can trigger
     @Override
     public boolean canTrigger(){
         for (int i = 0; i < bossModel.length; i++){

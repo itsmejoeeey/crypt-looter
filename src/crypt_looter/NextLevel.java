@@ -3,6 +3,7 @@ package crypt_looter;
 import javax.swing.*;
 import java.awt.*;
 
+//Item triggers the next level transition when the player intersects it
 public class NextLevel extends ItemController {
     MainController mainController;
     public NextLevel(Rectangle bounds, MainController mainController){
@@ -25,6 +26,7 @@ public class NextLevel extends ItemController {
         mainController.nextLevel();
     }
 
+    //Will always trigger if the player intersects it
     @Override
     public boolean canTrigger(){
         return true;

@@ -19,6 +19,7 @@ public class CharacterController {
         this.boxManager = boxManager;
     }
 
+    //Sets model direction based on the attackX and attackY
     protected void setDirection(int attackX, int attackY){
         if(attackX == 0 && attackY == 1){
             model.direction = 0;

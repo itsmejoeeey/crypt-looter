@@ -19,6 +19,7 @@ public class BoxController {
         useView = false;
     }
 
+    //This constructor is used for debugging by drawing the boxController
     public BoxController(Rectangle rect, WorldController worldController, int height, boolean addView) {
         this.rect =  rect;
         model = new CharacterModel(rect, height);
@@ -55,6 +56,7 @@ public class BoxController {
         model.dead = death;
     }
 
+    //Object position is set at top left corner, getCenter gets the center of the sprite
     public Rectangle getCenter(){
         Rectangle center = model.getTransform();
         center.setLocation((int) center.getCenterX(), (int) center.getCenterY());

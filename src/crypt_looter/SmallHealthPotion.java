@@ -3,6 +3,7 @@ package crypt_looter;
 import javax.swing.*;
 import java.awt.*;
 
+//Restores 1 health to the player if the player has taken damage
 public class SmallHealthPotion extends ItemController {
     CharacterModel playerModel;
     public SmallHealthPotion(Rectangle bounds, CharacterModel playerModel){

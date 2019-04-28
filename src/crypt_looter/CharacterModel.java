@@ -50,12 +50,14 @@ public class CharacterModel {
         return new Rectangle((int) x, (int) y, baseTransform.width, baseTransform.height);
     }
 
+    //Moves the baseTransform , x and y based on the x and y movement
     public void moveWorld(double deltaX, double deltaY){
         x += deltaX;
         y += deltaY;
         baseTransform.setLocation((int) x, (int)y);
     }
 
+    //Sets the baseTransform, x and y location
     public void setWorld(int setX, int setY){
         x = setX;
         y = setY;
@@ -72,6 +74,7 @@ public class CharacterModel {
     }
 
 
+    //Decrease health and set dead if less than or equal to 0
     public void decreaseHealth(int decreaseAmount) {
         if((health - decreaseAmount) <= 0) {
             health = 0;

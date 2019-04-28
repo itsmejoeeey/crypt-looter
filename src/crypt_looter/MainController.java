@@ -297,7 +297,7 @@ public class MainController {
         character = new PlayerController(this, playerModel.baseTransform.getLocation(), boxManager, sound, projectileManager, playerModel);
         sound = new SoundController(this, playerModel);
         hud = new HUDController(this, playerModel);
-        enemyManager = new EnemyManager(world, map, character.boxController, boxManager, sound, projectileManager);
+        enemyManager = new EnemyManager(world, map, boxManager, sound, projectileManager);
         itemManager = new ItemManager(world, map, boxManager, playerModel, enemyManager.getBossModels());
 
         camera = new CameraController(map, world, character, screenSize);

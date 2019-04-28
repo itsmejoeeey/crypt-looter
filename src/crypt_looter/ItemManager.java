@@ -3,15 +3,19 @@ package crypt_looter;
 import java.awt.*;
 import java.util.ArrayList;
 
+//Spawns and updates all items in the scene
 public class ItemManager {
     public ArrayList<ItemController> items = new ArrayList<>();
+
+    //Chests are stored separately as they are the only items that need the update function
     public ArrayList<ItemController> chest = new ArrayList<>();
     private WorldController worldController;
-    int finalChestIndex;
-    int finalChestCount;
+
+
     public ItemManager (WorldController worldController, World world, BoxManager boxManager, CharacterModel playerModel, CharacterModel[] bossModels){
         boxManager.itemManager = this;
         this.worldController = worldController;
+        //Used to track position of most recently spawned item in items arraylist
         int totalItems = 0;
         for (int i = 0; i < world.itemsHealthPotSmall.size(); i++){
             items.add(
@@ -63,6 +67,7 @@ public class ItemManager {
             totalItems++;
         }
 
+        //Spawns next level and previous level items
         MainController mainController = worldController.parent;
         if(mainController.currentMap < 2) {
             items.add(
@@ -82,7 +87,6 @@ public class ItemManager {
             totalItems++;
         }
 
-        finalChestIndex = totalItems;
         for (int i = 0; i < world.itemsFinalChest.size(); i++){
             items.add(
                     new FinalChest(
@@ -93,7 +97,6 @@ public class ItemManager {
             worldController.getView().add(items.get(totalItems).getView());
             totalItems++;
         }
-        finalChestCount = world.itemsFinalChest.size();
     }
 
     public void update(){

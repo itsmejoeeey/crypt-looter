@@ -3,6 +3,7 @@ package crypt_looter;
 import javax.swing.*;
 import java.awt.*;
 
+//Item sets the player to maxHealth if taken damage
 public class LargeHealthPotion extends ItemController {
     CharacterModel playerModel;
     public LargeHealthPotion(Rectangle bounds, CharacterModel playerModel){
@@ -20,11 +21,13 @@ public class LargeHealthPotion extends ItemController {
         this.playerModel = playerModel;
     }
 
+    //Increases the players health by 3
     @Override
     public void triggerItem(){
          playerModel.increaseHealth(3);
     }
 
+    //Returns if the player has taken damage;
     @Override
     public boolean canTrigger(){
         if(playerModel.health != playerModel.maxHealth){

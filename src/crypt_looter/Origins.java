@@ -2,6 +2,7 @@ package crypt_looter;
 
 import java.awt.*;
 
+//Creates the origin class based on a Rectangle, heightOffset and skinWidth
 public class Origins{
     Vector2 topLeft, topRight, botLeft, botRight;
     public Origins(Rectangle rectangle, int heightOffset, int skinWidth) {

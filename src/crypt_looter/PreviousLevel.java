@@ -25,6 +25,7 @@ public class PreviousLevel extends ItemController{
         mainController.previousLevel();
     }
 
+    //Always trigger when player intersects
     @Override
     public boolean canTrigger(){
         return true;

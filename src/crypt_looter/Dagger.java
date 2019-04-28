@@ -21,11 +21,13 @@ public class Dagger extends ItemController {
         this.playerModel = playerModel;
     }
 
+    //Set dagger equipped to true to enable to attack
     @Override
     public void triggerItem(){
         playerModel.daggerEquipped = true;
     }
 
+    //Only trigger if the dagger is not already equipped
     @Override
     public boolean canTrigger(){
         return !playerModel.daggerEquipped;

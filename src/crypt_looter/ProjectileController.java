@@ -3,6 +3,7 @@ package crypt_looter;
 import javax.swing.*;
 import java.awt.*;
 
+//Controls projectile spawned by player and enemies
 public class ProjectileController {
     protected float x = 0;
     protected float y = 0;
@@ -37,6 +38,8 @@ public class ProjectileController {
         }
         view.setLocation((int) x,(int) y);
     }
+
+    //Move the projectile if it vector doesn't equal its original move vector then it has hit and object and should be destroyed
     public void update(double deltaTime){
         if(boxManager.projectileMove(new Rectangle((int) x, (int) y, view.getWidth(), view.getHeight()), height)){
             hitWorld();

@@ -43,27 +43,33 @@ public class EnemyController extends CharacterController {
         deltaX = 0;
         deltaY = 0;
         if(!model.dead) {
+            //If the enemy is not stunned then move and attack
             if (stunTimer <= 0) {
                 groundMovement();
                 attackDetection();
             } else {
+                //If stunned decrease stun timer and don't walk
                 stunTimer = stunTimer - deltaTime / 1000;
                 model.walking = false;
             }
+            //Detects the player attacks, apply stun, play sound and decrease health
             if (boxManager.detectPlayerAttackCollision(boxController)) {
                 stunTimer = stunTime;
                 soundController.playEnemyHit();
                 model.decreaseHealth(1);
             }
+            //Detects the player projectiles, stuns for half the length of attacks
             if (boxManager.detectPlayerProjectileCollision(boxController)) {
                 stunTimer = stunTime / 2;
                 soundController.playEnemyHit();
                 model.decreaseHealth(1);
             }
+            //Trigger die function when killed
             if(model.dead){
                 Die();
             }
         } else{
+            //Sets values for when the enemy is dead
             model.walking = false;
             model.attackDagger = false;
             model.attackBow = false;
@@ -71,6 +77,7 @@ public class EnemyController extends CharacterController {
             boxManager.entities.remove(boxController);
             boxManager.enemyAttacks.remove(attackController);
         }
+        //Apply the movement calculated to the view
         view.deltaTime = deltaTime;
         view.update();
         try {
@@ -90,13 +97,20 @@ public class EnemyController extends CharacterController {
     }
 
     void groundMovement(){
+        //Get the speed of enemy
         double delta = deltaTime * speed;
         deltaX = 0;
         deltaY = 0;
+
+        //Get the direction of movement and check if it is colliding
         Vector2 aiVector = aiController.move(model.height);
         Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), model.getTransform(), boxController);
+
+        //Apply movement vector to the delta
         deltaX += moveVector.x * delta;
         deltaY += moveVector.y * delta;
+
+        //If the movement vector is 0 then the enemy is walking
         if(moveVector.x > 0 || moveVector.y > 0){
             model.walking = true;
         } else {
@@ -105,6 +119,7 @@ public class EnemyController extends CharacterController {
     }
 
     void attackDetection(){
+        //Calculates the direction the enemy should be facing and sets the direction
         Point aiVector = aiController.attackDir();
 
         int attackX = aiVector.x;
@@ -112,11 +127,13 @@ public class EnemyController extends CharacterController {
 
         setDirection(attackX, -attackY);
 
+        //Updates the enemy hit box based on its transform and height
         Rectangle transform = model.getTransform();
         Rectangle attackRectangle = new Rectangle(new Rectangle(transform.x + attackX * transform.height + (transform.height - attackController.getHeight())/2, transform.y + attackY * transform.width + (transform.width - attackController.getWidth())/2, attackController.getWidth(), attackController.getHeight()));
         attackController.updateHitBox(attackRectangle, 0);
         attackController.attackHeight = model.height;
 
+        //If it can attack then attack the player if not reduce the cooldown on timer and set hit box active to false
         if(model.attackTimer <= 0 && aiController.canAttack(70, model.height)) {
             attackController.active = true;
             model.attackDagger = true;

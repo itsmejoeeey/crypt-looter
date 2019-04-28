@@ -16,7 +16,7 @@ public class BossView extends CharacterView{
 
         charTexNormalFilepath = "textures/boss_walkcycle.png";
         charTexSlashFilepath = "textures/boss_slash.png";
-        // No enemy bow textures, but CharacterView requires one so we will reuse the boss slash texture
+        // No boss bow textures, but CharacterView requires one so we will reuse the boss slash texture
         charTexBowFilepath = "textures/boss_slash.png";
         charTexHurtFilepath = "textures/boss_hurt.png";
 

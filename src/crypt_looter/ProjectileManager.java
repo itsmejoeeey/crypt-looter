@@ -5,6 +5,7 @@ import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+//Spawns, destroys and updates all projectiles
 public class ProjectileManager {
     public ArrayList<ProjectileController> projectiles = new ArrayList<>();
     public double deltaTime;
@@ -30,6 +31,8 @@ public class ProjectileManager {
         }
     }
 
+    //Spawn projectile and add view to world view
+    //Requires revalidate and repaint in UI thread
     public void spawnProjectile(Point spawn, Vector2 direction, BoxController archer, boolean player){
         ProjectileController projectile = new ProjectileController(new Rectangle(spawn.x, spawn.y, 20, 20),  direction, player, archer, this, mapSize);
         projectiles.add(projectile);
@@ -49,6 +52,8 @@ public class ProjectileManager {
         }
     }
 
+
+    //Destroys projectile removes and repaint in UI thread
     public void destroyProjectile(ProjectileController projectileController){
         projectiles.remove(projectileController);
         try {

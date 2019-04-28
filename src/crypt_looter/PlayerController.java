@@ -34,13 +34,18 @@ public class PlayerController extends CharacterController {
         }
 
         boxController = new BoxController(model, view);
+
+        //Creates the spawn attack controllers and adds them to boxManager
         attackController[0] = new AttackController(new Rectangle(0, 0, 20,20));
         attackController[1] = new AttackController(new Rectangle(0, 0, 20,20));
         attackController[2] = new AttackController(new Rectangle(0, 0, 20,20));
+
         model.direction = 4;
         boxManager.entities.add(boxController);
         boxManager.playerAttacks = attackController;
         boxManager.player = boxController;
+
+        //Sets the projectile manager for spawning projectiles
         this.projectileManager = projectileManager;
     }
 
@@ -173,26 +178,33 @@ public class PlayerController extends CharacterController {
 
         double distanceFactor = 0.8;
 
-        //System.out.println(attackX +"," + getMoveDirection(playerModel.direction)[0] +"," + attackY +"," + getMoveDirection(playerModel.direction)[1]);
-        //System.out.println(attackController[0].getWidth() + ":" + attackController[0].getHeight());
-        //System.out.println(leftAttackPosition[0] + ":" + leftAttackPosition[1] + "_" + attackX + ":" + attackY + "_" + rightAttackPosition[0] + ":" + rightAttackPosition[1]);
         Rectangle transform = model.getTransform();
+
+        //Calculates the centre hit box rectangle
         Rectangle centreRectangle = new Rectangle((int)(transform.x + centreAttackPosition[0] * transform.height * distanceFactor + (transform.height - attackController[0].getHeight())/2),
                 (int) (transform.y - centreAttackPosition[1] * transform.width * distanceFactor + (transform.width - attackController[0].getWidth())/2), attackController[0].getWidth(), attackController[0].getHeight());
+
+        //Calculates the left hit box rectangle
         Rectangle leftRectangle = new Rectangle((int)(transform.x + leftAttackPosition[0] * transform.height * distanceFactor + (transform.height - attackController[1].getHeight())/2),
                 (int) (transform.y - leftAttackPosition[1] * transform.height * distanceFactor + (transform.width - attackController[1].getWidth())/2), attackController[1].getWidth(), attackController[1].getHeight());
+
+        //Calculates the right hit box rectangle
         Rectangle rightRectangle = new Rectangle((int) (transform.x + rightAttackPosition[0] * transform.height * distanceFactor + (transform.height - attackController[2].getHeight())/2),
                 (int) (transform.y - rightAttackPosition[1] * transform.height * distanceFactor + (transform.width - attackController[2].getWidth())/2), attackController[2].getWidth(), attackController[2].getHeight());
 
+        //Sets the left and right hit boxes closer to the centre hit box for more detection accuracy and reduced size
         leftRectangle.setLocation((centreRectangle.x - leftRectangle.x)/2 + leftRectangle.x, (centreRectangle.y - leftRectangle.y)/2 + leftRectangle.y);
         rightRectangle.setLocation((centreRectangle.x - rightRectangle.x)/2 + rightRectangle.x, (centreRectangle.y - rightRectangle.y)/2 + rightRectangle.y);
+
+        //Updates the position of the hit boxes
         attackController[0].updateHitBox(centreRectangle, 0);
         attackController[1].updateHitBox(leftRectangle, 0);
         attackController[2].updateHitBox(rightRectangle, 0);
 
+        //Updates the height for the centre hit box
         attackController[0].attackHeight = model.height;
 
-        //System.out.println(playerModel.attackDagger);
+        //If the player can attack the if will attack and set the cooldown to 0.4 seconds
         if(model.attackTimer <= 0 && model.daggerEquipped) {
             attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
             model.attackDagger = attackController[0].active;
@@ -206,6 +218,7 @@ public class PlayerController extends CharacterController {
         }
     }
 
+    //Get x and y components from radial direction
     public int[] getMoveDirection(int direction){
         int [] directions = new int[2];
         switch (direction){
