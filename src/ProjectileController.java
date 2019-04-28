@@ -28,7 +28,7 @@ public class ProjectileController {
                 @Override
                 public void run() {
                     view = new ProjectileView(spawnRect, getDirection((int) Math.signum(direction.x), -(int) Math.signum(direction.y)), player);
-                    view.getBounds(spawnRect);
+                    //view.getBounds(spawnRect);
                 }
             });
         } catch (Exception e) {

@@ -16,12 +16,12 @@ public class BoxManager {
     int skinWidth = 2;
     int playerHeightOffset = 20;
 
-    public BoxManager(World world){
+    public BoxManager(World world, WorldController worldController){
         colliders = new BoxController[world.mapSize.width][world.mapSize.height];
         this.world = world;
         for(int x = 0; x < world.mapSize.width; x++){
             for (int y = 0; y < world.mapSize.height; y++){
-                colliders[y][x] = new BoxController(new Rectangle(x * world.tileSize, y * world.tileSize, 50, 50), world.heightMap[y][x] , false);
+                colliders[y][x] = new BoxController(new Rectangle(x * world.tileSize, y * world.tileSize, 50, 50), worldController, world.heightMap[y][x] , false);
             }
         }
     }
@@ -69,10 +69,12 @@ public class BoxManager {
         entity.setDeath(world.death[tileY][tileX]);
         entity.setHeight(boxHeight);
 
-        int minX =  Math.floorMod((tileX - character.height / world.tileSize * 2), world.mapSize.height);
-        int maxX =  Math.floorMod((tileX + character.height / world.tileSize * 2 + 1), world.mapSize.height);
-        int minY =  Math.floorMod((tileY - character.width / world.tileSize * 2) , world.mapSize.width);
-        int maxY =  Math.floorMod((tileY + character.width / world.tileSize * 2 + 1) , world.mapSize.width);
+        int minX =  (tileX - character.height / world.tileSize * 2) % world.mapSize.height;
+        int maxX =  (tileX + character.height / world.tileSize * 2 + 1) % world.mapSize.height;
+        int minY =  (tileY - character.width / world.tileSize * 2 % world.mapSize.width);
+        int maxY =  (tileY + character.width / world.tileSize * 2 + 1) % world.mapSize.width;
+        minX = minX < 0 ? 0 : minX;
+        minY = minY < 0 ? 0 : minY;
 
 
         Origins origins = new Origins(character, playerHeightOffset, skinWidth);
@@ -96,6 +98,25 @@ public class BoxManager {
             if(entities.get(i) != entity){
                 velocity = collideBoxes(entities.get(i), velocity, characterOrigins);
             }
+        }
+        return velocity;
+    }
+
+
+
+    private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
+        Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;
+        Vector2 horizontalOriginTop = (velocity.x < 0) ? origins.topLeft : origins.topRight;
+
+        if (contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.getRect()) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginTop.y, box.getRect())) {
+            velocity.x = 0;
+        }
+
+        Vector2 verticalOriginLeft = (velocity.y < 0) ? origins.topLeft : origins.botLeft;
+        Vector2 verticalOriginRight = (velocity.y < 0) ? origins.topRight : origins.botRight;
+
+        if (contains(verticalOriginLeft.x, verticalOriginLeft.y + velocity.y + Math.signum(velocity.y), box.getRect()) || contains(verticalOriginRight.x, verticalOriginRight.y + velocity.y + Math.signum(velocity.y), box.getRect())) {
+            velocity.y = 0;
         }
         return velocity;
     }
@@ -174,23 +195,6 @@ public class BoxManager {
         return false;
     }
 
-
-    private Vector2 collideBoxes(BoxController box, Vector2 velocity, Origins origins){
-        Vector2 horizontalOriginBot = (velocity.x < 0) ? origins.botLeft : origins.botRight;
-        Vector2 horizontalOriginTop = (velocity.x < 0) ? origins.topLeft : origins.topRight;
-
-        if (contains(horizontalOriginBot.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginBot.y, box.getRect()) || contains(horizontalOriginTop.x + velocity.x + Math.signum(velocity.x) * skinWidth, horizontalOriginTop.y, box.getRect())) {
-            velocity.x = 0;
-        }
-
-        Vector2 verticalOriginLeft = (velocity.y < 0) ? origins.topLeft : origins.botLeft;
-        Vector2 verticalOriginRight = (velocity.y < 0) ? origins.topRight : origins.botRight;
-
-        if (contains(verticalOriginLeft.x, verticalOriginLeft.y + velocity.y + Math.signum(velocity.y), box.getRect()) || contains(verticalOriginRight.x, verticalOriginRight.y + velocity.y + Math.signum(velocity.y), box.getRect())) {
-            velocity.y = 0;
-        }
-        return velocity;
-    }
 
     private boolean contains(double x, double y, Rectangle rectangle){
         return rectangle.x <= x && x <= rectangle.x + rectangle.width &&

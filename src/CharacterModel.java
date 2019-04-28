@@ -1,14 +1,10 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class CharacterModel {
-    public Rectangle baseTranform;
+    public Rectangle baseTransform;
 
-    public float x = 0;
-    public float y = 0;
+    private float x = 0;
+    private float y = 0;
     public int direction = 4;
     public boolean attackDagger = false;
     public boolean daggerEquipped = false;
@@ -33,7 +29,9 @@ public class CharacterModel {
 
     CharacterModel(Rectangle transform, int height){
         this.height = height;
-        baseTranform = transform;
+        baseTransform = transform;
+        x = baseTransform.x;
+        y = baseTransform.y;
     }
 
     public void increaseScore(int increaseAmount) {
@@ -47,6 +45,32 @@ public class CharacterModel {
             health += increaseAmount;
         }
     }
+
+    public Rectangle getTransform(){
+        return new Rectangle((int) x, (int) y, baseTransform.width, baseTransform.height);
+    }
+
+    public void moveWorld(double deltaX, double deltaY){
+        x += deltaX;
+        y += deltaY;
+        baseTransform.setLocation((int) x, (int)y);
+    }
+
+    public void setWorld(int setX, int setY){
+        x = setX;
+        y = setY;
+        baseTransform.setLocation((int) x, (int)y);
+
+    }
+
+    public int getX(){
+        return (int) (baseTransform.x + x);
+    }
+
+    public int getY(){
+        return (int) (baseTransform.y + y);
+    }
+
 
     public void decreaseHealth(int decreaseAmount) {
         if((health - decreaseAmount) <= 0) {

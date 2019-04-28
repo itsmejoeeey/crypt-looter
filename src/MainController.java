@@ -255,13 +255,12 @@ public class MainController {
 
         World map = mapReader.getWorld();
 
-        playerModel.baseTranform.x = map.spawnX;
-        playerModel.baseTranform.y = map.spawnY;
+        //playerModel.setWorld(map.spawnX, map.spawnY);
 
         world = new WorldController(this, map);
-        boxManager = new BoxManager(map);
+        boxManager = new BoxManager(map, world);
         projectileManager = new ProjectileManager(world, boxManager, new Dimension(map.mapSize.width * map.tileSize, map.mapSize.height * map.tileSize));
-        character = new PlayerController(this, playerModel.baseTranform.getLocation(), boxManager, sound, projectileManager, playerModel);
+        character = new PlayerController(this, playerModel.baseTransform.getLocation(), boxManager, sound, projectileManager, playerModel);
         sound = new SoundController(this, playerModel);
         hud = new HUDController(this, playerModel);
         enemyManager = new EnemyManager(world, map, character.boxController, boxManager, sound, projectileManager);

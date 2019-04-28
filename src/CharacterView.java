@@ -120,6 +120,7 @@ public class CharacterView extends JPanel {
         // ANIMATIONS
         // Work out the image sprite to show above when 'paintComponent()' is evaluated
         // This sets g2d_image, g2d_imageDirection, and g2d_imageFrame which corresponds to an image in a 3D array
+        moveWorld();
         if(!(model.walking ||
              (model.attackDagger || attackSlashAnimation) ||
              (model.attackBow || attackBowAnimation) ||
@@ -192,9 +193,10 @@ public class CharacterView extends JPanel {
         repaint();
     }
 
-    public void moveWorld(int newX, int newY) {
-        if(model != null)
-            this.setLocation(model.baseTranform.x + newX, model.baseTranform.y + newY);
+    public void moveWorld() {
+        if(model != null) {
+            this.setLocation(model.baseTransform.x, model.baseTransform.y);
+        }
     }
 
     public Point getPos() {

@@ -15,16 +15,16 @@ public class EnemyAIController {
         if(!canAttack(attackDistance, height)){
             return new Vector2(0, 0);
         }
-        float x = (player.x - enemy.x);
-        float y = (player.y - enemy.y);
+        float x = (player.getX() - enemy.getX());
+        float y = (player.getY() - enemy.getY());
         x = x != 0?Math.signum(x):0f;
         y = y != 0?Math.signum(y):0f;
         return new Vector2(x, y);
     }
 
     public Point attackDir(){
-        float x = (player.x - enemy.x);
-        float y = (player.y - enemy.y);
+        float x = (player.getX() - enemy.getX());
+        float y = (player.getY() - enemy.getY());
 
         if(Math.abs(x) > Math.abs(y)){
             return new Point((int) Math.signum(x), 0);
@@ -36,8 +36,8 @@ public class EnemyAIController {
     public boolean canAttack(int attackDistance, int height){
 
         if(height == player.height || (height == -1 || player.health == -1)) {
-            float x = (player.x - enemy.x);
-            float y = (player.y - enemy.y);
+            float x = (player.getX() - enemy.getX());
+            float y = (player.getY() - enemy.getY());
             if (Math.sqrt(x * x + y * y) < attackDistance) {
                 return true;
             }

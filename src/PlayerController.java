@@ -1,4 +1,3 @@
-import javax.lang.model.util.Elements;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +24,7 @@ public class PlayerController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new PlayerView(model.baseTranform, model);
+                    view = new PlayerView(model.baseTransform, model);
                 }
             });
         } catch (Exception e) {
@@ -46,6 +45,8 @@ public class PlayerController extends CharacterController {
     //Moves playerModel based on key inputs
     //delta is equal to newPosition - oldPosition so if 0 the playerModel will stand still
     public void update() {
+        deltaX = 0;
+        deltaY = 0;
         if(!model.dead) {
             groundMovement();
             attackDetection();
@@ -74,7 +75,6 @@ public class PlayerController extends CharacterController {
                 timer.start();
             }
         }
-        System.out.println(model.x + "-" + model.y);
 
         // Update the character animations
         view.deltaTime = deltaTime;
@@ -83,7 +83,7 @@ public class PlayerController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view.moveWorld((int) model.x, (int) model.y);
+                    model.moveWorld(deltaX, deltaY);
                 }
             });
         } catch (Exception e) {
@@ -110,7 +110,6 @@ public class PlayerController extends CharacterController {
     }
 
     public void groundMovement(){
-        double deltaX = 0, deltaY = 0;
         if (KeyStates.moveRightKey.keyState())
             deltaX = deltaTime * speed;
         if (KeyStates.moveLeftKey.keyState())
@@ -120,9 +119,9 @@ public class PlayerController extends CharacterController {
         if (KeyStates.moveBackwardsKey.keyState())
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
-        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController);
-        model.x += v.x;
-        model.y += v.y;
+        Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), model.getTransform(), boxController);
+        deltaX = v.x;
+        deltaY = v.y;
     }
 
     int attackX;
@@ -173,12 +172,13 @@ public class PlayerController extends CharacterController {
         //System.out.println(attackX +"," + getMoveDirection(playerModel.direction)[0] +"," + attackY +"," + getMoveDirection(playerModel.direction)[1]);
         //System.out.println(attackController[0].getWidth() + ":" + attackController[0].getHeight());
         //System.out.println(leftAttackPosition[0] + ":" + leftAttackPosition[1] + "_" + attackX + ":" + attackY + "_" + rightAttackPosition[0] + ":" + rightAttackPosition[1]);
-        Rectangle centreRectangle = new Rectangle((int)(view.getBounds().x + centreAttackPosition[0] * view.getBounds().height * distanceFactor + (view.getBounds().height - attackController[0].getHeight())/2),
-                (int) (view.getBounds().y - centreAttackPosition[1] * view.getBounds().width * distanceFactor + (view.getBounds().width - attackController[0].getWidth())/2), attackController[0].getWidth(), attackController[0].getHeight());
-        Rectangle leftRectangle = new Rectangle((int)(view.getBounds().x + leftAttackPosition[0] * view.getBounds().height * distanceFactor + (view.getBounds().height - attackController[1].getHeight())/2),
-                (int) (view.getBounds().y - leftAttackPosition[1] * view.getBounds().height * distanceFactor + (view.getBounds().width - attackController[1].getWidth())/2), attackController[1].getWidth(), attackController[1].getHeight());
-        Rectangle rightRectangle = new Rectangle((int) (view.getBounds().x + rightAttackPosition[0] * view.getBounds().height * distanceFactor + (view.getBounds().height - attackController[2].getHeight())/2),
-                (int) (view.getBounds().y - rightAttackPosition[1] * view.getBounds().height * distanceFactor + (view.getBounds().width - attackController[2].getWidth())/2), attackController[2].getWidth(), attackController[2].getHeight());
+        Rectangle transform = model.getTransform();
+        Rectangle centreRectangle = new Rectangle((int)(transform.x + centreAttackPosition[0] * transform.height * distanceFactor + (transform.height - attackController[0].getHeight())/2),
+                (int) (transform.y - centreAttackPosition[1] * transform.width * distanceFactor + (transform.width - attackController[0].getWidth())/2), attackController[0].getWidth(), attackController[0].getHeight());
+        Rectangle leftRectangle = new Rectangle((int)(transform.x + leftAttackPosition[0] * transform.height * distanceFactor + (transform.height - attackController[1].getHeight())/2),
+                (int) (transform.y - leftAttackPosition[1] * transform.height * distanceFactor + (transform.width - attackController[1].getWidth())/2), attackController[1].getWidth(), attackController[1].getHeight());
+        Rectangle rightRectangle = new Rectangle((int) (transform.x + rightAttackPosition[0] * transform.height * distanceFactor + (transform.height - attackController[2].getHeight())/2),
+                (int) (transform.y - rightAttackPosition[1] * transform.height * distanceFactor + (transform.width - attackController[2].getWidth())/2), attackController[2].getWidth(), attackController[2].getHeight());
 
         leftRectangle.setLocation((centreRectangle.x - leftRectangle.x)/2 + leftRectangle.x, (centreRectangle.y - leftRectangle.y)/2 + leftRectangle.y);
         rightRectangle.setLocation((centreRectangle.x - rightRectangle.x)/2 + rightRectangle.x, (centreRectangle.y - rightRectangle.y)/2 + rightRectangle.y);
@@ -242,7 +242,7 @@ public class PlayerController extends CharacterController {
     }
 
     public void setPos(Point newPos) {
-        view.moveWorld(newPos.x, newPos.y);
+        model.setWorld(newPos.x, newPos.y);
     }
 
     public Point getPos() {

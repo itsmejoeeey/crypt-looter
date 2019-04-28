@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class CharacterController {
     public double deltaTime = 0;
+    double deltaX = 0, deltaY = 0;
 
     protected CharacterView view;
     protected CharacterModel model;
@@ -17,7 +18,6 @@ public class CharacterController {
     }
 
     protected void setDirection(int attackX, int attackY){
-
         if(attackX == 0 && attackY == 1){
             model.direction = 0;
         } else if(attackX == 1 && attackY == 1){
