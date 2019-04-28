@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2019.04.25" orientation="orthogonal" renderorder="right-down" width="35" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="33" nextobjectid="31">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="35" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="33" nextobjectid="31">
  <properties>
   <property name="spawnX" type="int" value="22"/>
   <property name="spawnY" type="int" value="10"/>
  </properties>
- <tileset firstgid="1" source="../../../../../../Desktop/res/maps/tileset.tsx"/>
+ <tileset firstgid="1" source="tilemap.tsx"/>
  <group id="31" name="world">
   <layer id="14" name="world_floor_00" width="35" height="35">
    <data encoding="csv">
