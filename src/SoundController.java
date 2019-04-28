@@ -1,7 +1,5 @@
-import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import javax.sound.sampled.*;
 
 public class SoundController {
     private Clip inGameBackground;
@@ -14,7 +12,7 @@ public class SoundController {
     double footstepTimer = 0;
     private CharacterModel playerModel;
     private MainController parent;
-    
+
     public SoundController(MainController parent, CharacterModel playerModel){
         this.parent = parent;
         this.playerModel = playerModel;

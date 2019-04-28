@@ -34,7 +34,6 @@
   <patternset id="library.patterns">
     <include name="*.war"/>
     <include name="*.swc"/>
-    <include name="*.apk"/>
     <include name="*.zip"/>
     <include name="*.egg"/>
     <include name="*.ane"/>
@@ -55,87 +54,15 @@
   
   <!-- Modules -->
   
-  
-  <!-- Module JavaTest -->
-  
-  <dirname property="module.javatest.basedir" file="${ant.file}"/>
-  
-  
-  
-  <property name="compiler.args.javatest" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
-  
-  <property name="javatest.output.dir" value="${module.javatest.basedir}/out/production/JavaTest"/>
-  <property name="javatest.testoutput.dir" value="${module.javatest.basedir}/out/test/JavaTest"/>
-  
-  <path id="javatest.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-  
-  <path id="javatest.module.production.classpath"/>
-  
-  <path id="javatest.runtime.production.module.classpath">
-    <pathelement location="${javatest.output.dir}"/>
-  </path>
-  
-  <path id="javatest.module.classpath">
-    <pathelement location="${javatest.output.dir}"/>
-  </path>
-  
-  <path id="javatest.runtime.module.classpath">
-    <pathelement location="${javatest.testoutput.dir}"/>
-    <pathelement location="${javatest.output.dir}"/>
-  </path>
-  
-  
-  <patternset id="excluded.from.module.javatest">
-    <patternset refid="ignored.files"/>
-  </patternset>
-  
-  <patternset id="excluded.from.compilation.javatest">
-    <patternset refid="excluded.from.module.javatest"/>
-  </patternset>
-  
-  <path id="javatest.module.sourcepath">
-    <dirset dir="${module.javatest.basedir}">
-      <include name="src"/>
-    </dirset>
-  </path>
-  
-  
-  <target name="compile.module.javatest" depends="compile.module.javatest.production,compile.module.javatest.tests" description="Compile module JavaTest"/>
-  
-  <target name="compile.module.javatest.production" description="Compile module JavaTest; production classes">
-    <mkdir dir="${javatest.output.dir}"/>
-    <javac destdir="${javatest.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
-      <compilerarg line="${compiler.args.javatest}"/>
-      <bootclasspath refid="javatest.module.bootclasspath"/>
-      <classpath refid="javatest.module.production.classpath"/>
-      <src refid="javatest.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.javatest"/>
-    </javac>
-    
-    <copy todir="${javatest.output.dir}">
-      <fileset dir="${module.javatest.basedir}/src">
-        <patternset refid="compiler.resources"/>
-        <type type="file"/>
-      </fileset>
-    </copy>
-  </target>
-  
-  <target name="compile.module.javatest.tests" depends="compile.module.javatest.production" description="compile module JavaTest; test classes" unless="skip.tests"/>
-  
-  <target name="clean.module.javatest" description="cleanup module">
-    <delete dir="${javatest.output.dir}"/>
-    <delete dir="${javatest.testoutput.dir}"/>
-  </target>
+  <import file="${basedir}/module_crypt_looter.xml"/>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.javatest" description="cleanup all"/>
+  <target name="clean" depends="clean.module.crypt_looter" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.javatest" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.crypt_looter" description="build all modules"/>
   
   <target name="all" depends="build.modules" description="build all"/>
 </project>
