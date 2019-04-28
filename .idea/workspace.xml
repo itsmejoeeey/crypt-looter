@@ -2,58 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c864c14-54d6-4a84-b5f4-742507c7c28c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/2019-Java-Group5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Crypt Looter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/module_game.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypt_looter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module_crypt_looter.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/icons/app_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/icons/app_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/icons/bow_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/icons/bow_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/icons/dagger_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/icons/dagger_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/icons/heart_black.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/icons/heart_black.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/icons/heart_red.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/icons/heart_red.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/demomap.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/maps/demomap.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/demomap1.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/maps/demomap1.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/demomap2.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/maps/demomap2.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/tilemap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/maps/tilemap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/tileset.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/maps/tileset.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/coins.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/coins.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/footstep01.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/footstep01.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/monster01.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/monster01.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/monster02.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/monster02.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/monster03.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/monster03.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/music_background.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/music_background.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/sounds/sword.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/sounds/sword.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/arrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/arrow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/boss_hurt.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/boss_hurt.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/boss_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/boss_slash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/boss_walkcycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/boss_walkcycle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/bow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/bow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/coin.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/coin.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/enemy_hurt.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/enemy_hurt.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/enemy_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/enemy_slash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/enemy_walkcycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/enemy_walkcycle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/fireball.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/fireball.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/man_bow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/man_bow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/man_hurt.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/man_hurt.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/man_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/man_slash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/man_walkcycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/man_walkcycle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/potions.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/potions.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/sword.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/sword.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/tileset.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/tileset.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/textures/treasure_chest.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/textures/treasure_chest.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ui/main_menu.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/ui/main_menu.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crypt_looter/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/crypt_looter/MapReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MapReader.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,15 +11,58 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.properties">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/2019-Java-Group5.iml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/module_2019-java-group5.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -120,7 +113,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="build" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -158,15 +151,11 @@
   <component name="ToolWindowManager">
     <frame x="-5" y="32" width="2570" height="1413" extended-state="6" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24980111" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25179" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
+      <window_info id="Designer" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3296875" />
@@ -174,12 +163,16 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -187,6 +180,31 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/module_2019-java-group5.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/2019-Java-Group5.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
@@ -229,6 +247,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
+          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
