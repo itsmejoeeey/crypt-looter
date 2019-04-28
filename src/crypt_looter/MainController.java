@@ -1,5 +1,6 @@
 package crypt_looter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -79,6 +80,18 @@ public class MainController {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setLayout(null);
+
+        // Set frame icon
+        BufferedImage iconImage;
+        try {
+            iconImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("icons/app_icon.png"));
+        } catch (IOException ex) {
+            return;
+        }
+        frame.setIconImage(iconImage);
+
+        // Set frame title
+        frame.setTitle("Crypt Looter");
 
         // Set frame background (visible when using maps smaller than screen size)
         frame.getContentPane().setBackground(Color.BLACK);
@@ -280,11 +293,6 @@ public class MainController {
         hud = new HUDController(this, playerModel);
         enemyManager = new EnemyManager(world, map, character.boxController, boxManager, sound, projectileManager);
         itemManager = new ItemManager(world, map, boxManager, playerModel, enemyManager.getBossModels());
-
-        ImageIcon icon = new ImageIcon("icons/app_icon.png");
-        frame.setIconImage(icon.getImage());
-
-        frame.setTitle("Crypt Looter");
 
         camera = new CameraController(map, world, character, screenSize);
 
