@@ -21,6 +21,9 @@ public class MapReader {
     private int mapWidth;
     private int mapTileSize;
 
+    private int spawnX;
+    private int spawnY;
+
     private boolean[][] collisions;
     private boolean[][] death;
     private int[][] mapFloor;
@@ -81,9 +84,50 @@ public class MapReader {
 
         XPath xpath = XPathFactory.newInstance().newXPath();
 
+        // >> Parse the 'spawn' layer
+        // This layer of the map only contains properties for the spawn location of the character
+        NodeList world;
+        try {
+            world = (NodeList) xpath.compile("/map/layer[@name='spawn']/properties").evaluate(mapXML, XPathConstants.NODESET);
+        } catch(XPathExpressionException ex) {
+            // Compulsory to handle invalid XPath expression exception
+            throw new InvalidMapException();
+        }
+        // Ensure there is one result for the XPath expression
+        if (world.getLength() != 1) {
+            throw new InvalidMapException();
+        }
+        world = world.item(0).getChildNodes();
+        for(int i = 0; i < world.getLength(); i++) {
+            Element element;
+            // As outputted by 'Tiled' - even-entries are simply newlines
+            if(i % 2 == 1) {
+                element = (Element) world.item(i);
+            } else {
+                continue;
+            }
+            if(element.getNodeName() == "property" &&
+                    element.hasAttribute("name") &&
+                    element.hasAttribute("type") && element.getAttribute("type").equals("int") &&
+                    element.hasAttribute("value")) {
+
+                int value = Integer.parseInt(element.getAttribute("value").toString());
+
+                if(element.getAttribute("name").equals("spawnX")) {
+                    spawnX = value;
+                }
+                if(element.getAttribute("name").equals("spawnY")) {
+                    spawnY = value;
+                }
+            } else {
+                throw new InvalidMapException();
+            }
+        }
+
+
         // >> Parse the 'world_floor_XX' levels
         // This layer of the map is all underneath the character. Multiple layers are used to differentiate heights
-        // (i.e. so the player cannot walk off the edge of a ledge, etc)
+        // (i.e. so the playerModel cannot walk off the edge of a ledge, etc)
         for(int i = 0; i < 5; i++) {
             NodeList worldLevelNode;
             try {
@@ -199,7 +243,7 @@ public class MapReader {
 
 
         // >> Parse the 'death' layer
-        // This layer represents tiles that quickly inflicts damage to kill the player
+        // This layer represents tiles that quickly inflicts damage to kill the playerModel
         NodeList deathNode;
         try {
             deathNode = (NodeList) xpath.compile("/map/layer[@name='death']").evaluate(mapXML, XPathConstants.NODESET);
@@ -365,6 +409,9 @@ public class MapReader {
 
     // This takes care of extracting and cleaning all values before outputting back to the passed in 2D array
     // The NodeList passed in is of a <layer name="world_XXXXXXXX"> node in the map XML
+    //
+    // TODO Be aware that this will throw an exception if any world layer has properties - this is not ideal and would
+    // be a priority to fix in future versions of this codebase
     private void mapLevelExtractor(Node layerNode, int[][] map) throws InvalidMapException {
         Element layerElement = (Element) layerNode;
 
@@ -408,8 +455,12 @@ public class MapReader {
 
     public World getWorld() {
         World world = new World();
+
         world.mapSize = new Dimension(mapWidth, mapHeight);
         world.mapTileSize = mapTileSize;
+        world.spawnX = spawnX;
+        world.spawnY = spawnY;
+
         world.collisions = collisions;
         world.death = death;
         world.mapFloor = mapFloor;

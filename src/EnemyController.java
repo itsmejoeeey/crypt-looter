@@ -11,9 +11,9 @@ public class EnemyController extends CharacterController {
     public AttackController attackController;
     protected CharacterModel playerModel;
 
-    public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel) {
+    public EnemyController(Point spawnPos, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel) {
         super(spawnPos, _soundController, _boxManager);
-        //view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        //view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), playerModel);
         initView(spawnPos);
         this.playerModel = playerModel;
         boxController = new BoxController(model, view);
@@ -21,7 +21,7 @@ public class EnemyController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    aiController = new EnemyAIController(boxController, player);
+                    aiController = new EnemyAIController(model, playerModel);
                     attackController = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
                     model.direction = 4;
                     boxManager.entities.add(boxController);
@@ -40,7 +40,7 @@ public class EnemyController extends CharacterController {
     public void update() {
         if(!model.dead) {
             if (stunTimer <= 0) {
-                groundMovement();
+                //groundMovement();
                 attackDetection();
             } else {
                 stunTimer = stunTimer - deltaTime / 1000;
@@ -73,7 +73,7 @@ public class EnemyController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view.moveWorld((int) x, (int) y);
+                    model.moveWorld(deltaX, deltaY);
                 }
             });
         } catch (Exception e) {
@@ -87,10 +87,12 @@ public class EnemyController extends CharacterController {
 
     void groundMovement(){
         double delta = deltaTime * speed;
+        deltaX = 0;
+        deltaY = 0;
         Vector2 aiVector = aiController.move(model.height);
-        Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
-        x += moveVector.x * delta;
-        y += moveVector.y * delta;
+        Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), model.getTransform(), boxController);
+        deltaX += moveVector.x * delta;
+        deltaY += moveVector.y * delta;
         if(moveVector.x > 0 || moveVector.y > 0){
             model.walking = true;
         } else {
@@ -106,7 +108,8 @@ public class EnemyController extends CharacterController {
 
         setDirection(attackX, -attackY);
 
-        Rectangle attackRectangle = new Rectangle(new Rectangle(view.getBounds().x + attackX * view.getBounds().height + (view.getBounds().height - attackController.getHeight())/2, view.getBounds().y + attackY * view.getBounds().width + (view.getBounds().width - attackController.getWidth())/2, attackController.getWidth(), attackController.getHeight()));
+        Rectangle transform = model.getTransform();
+        Rectangle attackRectangle = new Rectangle(new Rectangle(transform.x + attackX * transform.height + (transform.height - attackController.getHeight())/2, transform.y + attackY * transform.width + (transform.width - attackController.getWidth())/2, attackController.getWidth(), attackController.getHeight()));
         attackController.updateHitBox(attackRectangle, 0);
         attackController.attackHeight = model.height;
 

@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class BossController extends EnemyController {
     private ProjectileManager projectileManager;
-    public BossController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel, ProjectileManager projectileManager){
-        super(spawnPos, player, _boxManager, _soundController, playerModel);
+    public BossController(Point spawnPos, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel, ProjectileManager projectileManager){
+        super(spawnPos, _boxManager, _soundController, playerModel);
         this.projectileManager = projectileManager;
         model.maxHealth = 6;
         model.health = 6;
@@ -19,7 +19,7 @@ public class BossController extends EnemyController {
     public void update(){
         super.update();
         if(model.health != model.maxHealth){
-            aiController.attackDistance = 10000;
+            //aiController.attackDistance = 10000;
         }
     }
 

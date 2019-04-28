@@ -1,3 +1,5 @@
+import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 
 //Simple class with a CharacterModel view
@@ -6,6 +8,7 @@ public class BoxController {
     private Rectangle rect;
     private CharacterModel model;
     private CharacterView view;
+    private BoxView boxView;
     public boolean useView = true;
 
     public BoxController(CharacterModel model, CharacterView view){
@@ -14,34 +17,34 @@ public class BoxController {
         useView = false;
     }
 
-    public BoxController(Rectangle rect, int height, boolean addView) {
+    public BoxController(Rectangle rect, WorldController worldController, int height, boolean addView) {
         this.rect =  rect;
         model = new CharacterModel(rect, height);
         useView = addView;
         if(addView) {
-            view = new CharacterView(rect, model);
+            boxView = new BoxView(rect);
             switch (height){
                 case 0:
-                    view.setBackground(Color.BLACK);
+                    boxView.setBackground(Color.BLACK);
                     break;
                 case 1:
-                    view.setBackground(Color.RED);
+                    boxView.setBackground(Color.RED);
                     break;
                 case 2:
-                    view.setBackground(Color.WHITE);
+                    boxView.setBackground(Color.WHITE);
                     break;
                 default:
-                    view.setBackground(Color.GREEN);
+                    boxView.setBackground(Color.GREEN);
                     break;
             }
-
-            view.model = model;
+            //view.model = model;
+            worldController.getView().add(boxView);
         }
     }
 
     public Rectangle getRect(){
         if(view != null){
-            return view.getBounds();
+            return model.getTransform();
         }
         return rect;
     }
@@ -51,7 +54,7 @@ public class BoxController {
     }
 
     public Rectangle getCenter(){
-        Rectangle center = view.getBounds();
+        Rectangle center = model.getTransform();
         center.setLocation((int) center.getCenterX(), (int) center.getCenterY());
         return center;
     }
@@ -63,16 +66,12 @@ public class BoxController {
         return view;
     }
 
-    public void setViewEnable(boolean enable){
-        view.setEnabled(enable);
-    }
-
     public int getHeight(){
         return model.height;
     }
 
     public void update() {
-        if(view != null && useView)
-            view.moveWorld(0, 0);
+        if(model != null && useView)
+            model.moveWorld(0, 0);
     }
 }
