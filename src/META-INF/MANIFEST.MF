@@ -1,0 +1,1 @@
+Main-Class: crypt_looter.Main

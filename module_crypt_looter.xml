@@ -66,27 +66,27 @@
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.crypt_looter.basedir}/src/res">
+      <fileset dir="/">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.crypt_looter.basedir}/src/res/icons">
+      <fileset dir="//icons">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.crypt_looter.basedir}/src/res/sounds">
+      <fileset dir="//sounds">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.crypt_looter.basedir}/src/res/textures">
+      <fileset dir="//textures">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.crypt_looter.basedir}/src/res/ui">
+      <fileset dir="//ui">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.crypt_looter.basedir}/src/res/maps">
+      <fileset dir="//maps">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>

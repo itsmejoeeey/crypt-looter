@@ -34,6 +34,7 @@
   <patternset id="library.patterns">
     <include name="*.war"/>
     <include name="*.swc"/>
+    <include name="*.apk"/>
     <include name="*.zip"/>
     <include name="*.egg"/>
     <include name="*.ane"/>
@@ -54,15 +55,15 @@
   
   <!-- Modules -->
   
-  <import file="${basedir}/module_crypt_looter.xml"/>
+  <import file="${basedir}/.idea/module_game.xml"/>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.crypt_looter" description="cleanup all"/>
+  <target name="clean" depends="clean.module.game" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.crypt_looter" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.game" description="build all modules"/>
   
   <target name="all" depends="build.modules" description="build all"/>
 </project>

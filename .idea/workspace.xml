@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dfc788a1-e4c1-401b-96f5-f60c91a21a79" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Game.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/META-INF/Game.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/AttackController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/BossController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/BossView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Bow$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Bow.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/BowView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/BoxController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/BoxManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/BoxView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/CameraController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/CharacterController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/CharacterModel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/CharacterView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Coin$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Coin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/CoinView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Dagger$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Dagger.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/DaggerView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/EnemyAIController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/EnemyController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/EnemyController$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/EnemyController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/EnemyManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/EnemyView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/FinalChest$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/FinalChest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/FinalChestView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/HUDController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/HUDController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/HUDView$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/HUDView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/HighScoreController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/InvalidMapException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ItemController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ItemManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ItemView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Key.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/KeyController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/KeyStates.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/LargeHealthPotion$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/LargeHealthPotion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/LargeHealthPotionView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MainController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MainController$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MainController$GameState_t.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MainController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MapReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuEscapeController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuEscapeView$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuEscapeView$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuEscapeView$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuEscapeView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuGameoverController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuGameoverView$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuGameoverView$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuGameoverView$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuGameoverView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuHighScoreController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuHighScoreView$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuHighScoreView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuMainView$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuMainView$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuMainView$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuMainView$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuMainView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuPauseController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/MenuPauseView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Origins.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/PlayerController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/PlayerController$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/PlayerController$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/PlayerController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/PlayerView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ProjectileController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ProjectileController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ProjectileManager$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ProjectileManager$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ProjectileManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/ProjectileView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/SmallHealthPotion$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/SmallHealthPotion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/SmallHealthPotionView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/SoundController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/Vector2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/World.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/WorldController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/WorldController$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/WorldController$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/WorldController$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/WorldController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/crypt_looter/WorldView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/icons/app_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/icons/bow_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/icons/dagger_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/icons/heart_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/icons/heart_red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/maps/demomap.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/maps/demomap1.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/maps/demomap2.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sounds/coins.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sounds/footstep01.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sounds/monster01.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sounds/monster02.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sounds/monster03.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sounds/music_background.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/sword.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/boss_hurt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/boss_slash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/boss_walkcycle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/bow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/coin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/enemy_hurt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/enemy_slash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/enemy_walkcycle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/fireball.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/man_bow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/man_hurt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/man_slash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/man_walkcycle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/potions.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/textures/sword.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/tilemap.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/tileset.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/tileset.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/treasure_chest.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Game/ui/main_menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/icons/app_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/icons/bow_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/icons/dagger_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/icons/heart_black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/icons/heart_red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/maps/demomap.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/maps/demomap1.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/maps/demomap2.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/maps/tilemap.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/maps/tileset.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/coins.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/footstep01.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/monster01.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/monster02.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/monster03.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/music_background.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/sword.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/boss_hurt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/boss_slash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/boss_walkcycle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/bow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/coin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/enemy_hurt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/enemy_slash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/enemy_walkcycle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/fireball.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/man_bow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/man_hurt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/man_slash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/man_walkcycle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/potions.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/sword.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/tileset.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/treasure_chest.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/ui/main_menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_crypt_looter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module_crypt_looter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AttackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/AttackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BossController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/BossController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BossView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/BossView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Bow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BowView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/BowView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/BoxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoxManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/BoxManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoxView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/BoxView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CameraController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/CameraController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CharacterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/CharacterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CharacterModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/CharacterModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CharacterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/CharacterView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Coin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Coin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CoinView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/CoinView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dagger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Dagger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DaggerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/DaggerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EnemyAIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/EnemyAIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EnemyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/EnemyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EnemyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/EnemyManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EnemyView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/EnemyView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FinalChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/FinalChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FinalChestView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/FinalChestView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HUDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/HUDController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HUDView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/HUDView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HighScoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/HighScoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InvalidMapException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/InvalidMapException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/ItemManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/ItemView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Key.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KeyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/KeyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KeyStates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/KeyStates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LargeHealthPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/LargeHealthPotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LargeHealthPotionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/LargeHealthPotionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MapReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MapReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuEscapeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuEscapeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuEscapeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuEscapeView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuGameoverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuGameoverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuGameoverView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuGameoverView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuHighScoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuHighScoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuHighScoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuHighScoreView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuMainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuMainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuPauseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuPauseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MenuPauseView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/MenuPauseView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Origins.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Origins.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/PlayerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/ProjectileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/ProjectileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProjectileView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/ProjectileView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SmallHealthPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/SmallHealthPotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SmallHealthPotionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/SmallHealthPotionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/SoundController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vector2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/Vector2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WorldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/WorldController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WorldView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypt_looter/WorldView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/icons/app_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/app_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/icons/bow_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/bow_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/icons/dagger_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/dagger_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/icons/heart_black.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/heart_black.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/icons/heart_red.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/heart_red.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/maps/demomap.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/demomap.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/maps/demomap1.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/demomap1.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/maps/demomap2.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/demomap2.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/maps/tilemap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/maps/tilemap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/maps/tileset.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/maps/tileset.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/coins.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/coins.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/footstep01.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/footstep01.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/monster01.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/monster01.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/monster02.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/monster02.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/monster03.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/monster03.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/music_background.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/music_background.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/sounds/sword.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/sounds/sword.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/arrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/arrow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/boss_hurt.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/boss_hurt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/boss_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/boss_slash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/boss_walkcycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/boss_walkcycle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/bow.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/bow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/coin.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/coin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/enemy_hurt.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/enemy_hurt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/enemy_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/enemy_slash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/enemy_walkcycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/enemy_walkcycle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/fireball.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/fireball.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/man_bow.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/man_bow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/man_hurt.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/man_hurt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/man_slash.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/man_slash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/man_walkcycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/man_walkcycle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/potions.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/potions.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/sword.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/sword.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/tileset.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/textures/tileset.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/textures/treasure_chest.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/textures/treasure_chest.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/ui/main_menu.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Game/main_menu.png" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/ProjectileView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/SmallHealthPotionView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/SoundController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-302">
+              <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/Vector2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/World.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/WorldController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/crypt_looter/WorldView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-135">
+              <caret line="58" column="84" selection-start-line="58" selection-start-column="84" selection-end-line="58" selection-end-column="84" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crypt_looter.iml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.properties">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/crypt_looter/MenuMainView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/BossView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/BowView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/CoinView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/DaggerView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/EnemyView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/FinalChestView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/HUDView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/LargeHealthPotionView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/MainController.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/PlayerView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/ProjectileView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/SmallHealthPotionView.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/SoundController.java" />
+        <option value="$PROJECT_DIR$/src/crypt_looter/WorldView.java" />
+        <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        <option value="$PROJECT_DIR$/build.properties" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="767" />
+    <option name="y" value="36" />
+    <option name="width" value="1400" />
+    <option name="height" value="1035" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="2019-Java-Group5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="2019-Java-Group5" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="2019-Java-Group5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="2019-Java-Group5" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="2019-Java-Group5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="2019-Java-Group5" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="build" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="crypt_looter" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="crypt_looter.Main" />
+      <module name="Crypt Looter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Crypt Looter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="Crypt Looter" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <module name="Crypt Looter" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dfc788a1-e4c1-401b-96f5-f60c91a21a79" name="Default Changelist" comment="" />
+      <created>1556443981724</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556443981724</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-5" y="32" width="2570" height="1413" extended-state="6" />
+    <layout>
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24980111" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.3296875" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3296875" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3296875" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/HUDController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MenuGameoverController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/Dagger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jrt:///usr/lib/jvm/java-11-openjdk!/java.desktop/javax/imageio/ImageIO.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/AttackController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/BossController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MenuPauseView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MenuMainView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="28" column="91" selection-start-line="28" selection-start-column="91" selection-end-line="28" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/BossView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/BowView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/BoxView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/CharacterView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1335">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/CoinView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/DaggerView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/EnemyAIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/EnemyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/EnemyManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/EnemyView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/FinalChestView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/HUDView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="48" column="92" selection-start-line="48" selection-start-column="92" selection-end-line="48" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/ItemView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/ItemManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/KeyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/KeyStates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/LargeHealthPotion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/LargeHealthPotionView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MapReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1530">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MenuEscapeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MenuEscapeView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-797">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/MenuGameoverView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/Origins.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/PlayerView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/ProjectileView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/SmallHealthPotionView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/SoundController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-302">
+          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/Vector2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/WorldController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/crypt_looter/WorldView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-135">
+          <caret line="58" column="84" selection-start-line="58" selection-start-column="84" selection-end-line="58" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crypt_looter.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Crypt Looter</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
