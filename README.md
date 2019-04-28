@@ -21,7 +21,7 @@ ant
 ### To run
 Ensure you follow the build instructions above prior then execute:
 ```
-java -classpath out/production/2019-Java-Group5 crypt_looter.main
+java -classpath out/production/2019-Java-Group5 crypt_looter.Main
 ```
   
 ### To create and run a jar
