@@ -39,6 +39,7 @@ public class MainController {
 
     public boolean defaultMapLoaded;
     public String mapToLoad;
+    private boolean mapExternalOrigin;
 
     public static String[] defaultMaps = {
             "maps/outdoorlevel.tmx",
@@ -227,18 +228,20 @@ public class MainController {
     private void init_customgame() {
         defaultMapLoaded = false;
         playerModel = new CharacterModel(new Rectangle(20, 20, 50, 50), 2);
+        mapExternalOrigin = true;
     }
 
     private void init_normalgame() {
         defaultMapLoaded = true;
         playerModel = new CharacterModel(new Rectangle(20, 20, 50, 50), 2);
         mapToLoad = defaultMaps[0];
+        mapExternalOrigin = false;
     }
 
     private void init_game() {
         MapReader mapReader;
         try {
-            mapReader = new MapReader(mapToLoad);
+            mapReader = new MapReader(mapToLoad, mapExternalOrigin);
         } catch (IOException | InvalidMapException ex) {
             // Invalid (or incorrect path to) map
             System.out.println("INVALID_MAP_LOADED");
