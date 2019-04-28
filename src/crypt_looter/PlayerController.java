@@ -155,12 +155,6 @@ public class PlayerController extends CharacterController {
             attackY += -1;
             model.walking = true;
         }
-        if (KeyStates.attackKey.keyState()){
-            parent.previousLevel();
-        }
-        if (KeyStates.projKey.keyState()){
-            parent.nextLevel();
-        }
 
         setDirection(attackX, attackY);
 

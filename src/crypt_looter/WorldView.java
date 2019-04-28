@@ -56,7 +56,7 @@ public class WorldView extends JPanel {
         this.setLayout(null);
 
         try {
-            tileset = ImageIO.read(getClass().getClassLoader().getResourceAsStream("textures/tileset.png"));
+            tileset = ImageIO.read(getClass().getClassLoader().getResourceAsStream("textures/tilemap.png"));
         } catch (IOException ex) {
             // Invalid image file path;
             return;

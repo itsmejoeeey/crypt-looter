@@ -40,7 +40,7 @@ public class MainController {
     public String mapToLoad;
 
     public static String[] defaultMaps = {
-            "maps/demomap.tmx",
+            "maps/outdoorlevel.tmx",
             "maps/demomap1.tmx",
             "maps/demomap2.tmx"
 
@@ -48,7 +48,7 @@ public class MainController {
 
     int currentMap = 0;
     final Point[][] levelControl = {
-            {null,                  new Point(25,10)},
+            {null,                  new Point(28,1)},
             {new Point(24,10),  new Point(30,10)},
             {new Point(35,5),  null}
     };
@@ -366,6 +366,9 @@ public class MainController {
             frame.repaint();
             frame.revalidate();
 
+            if(sound != null){
+                sound.stopAll();
+            }
             init_game();
         }
 
@@ -381,6 +384,9 @@ public class MainController {
             frame.repaint();
             frame.revalidate();
 
+            if(sound != null){
+                sound.stopAll();
+            }
             init_game();
             character.setPos(prevLevelSpawn[currentMap]);
         }

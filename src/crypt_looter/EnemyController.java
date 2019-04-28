@@ -40,6 +40,8 @@ public class EnemyController extends CharacterController {
     }
 
     public void update() {
+        deltaX = 0;
+        deltaY = 0;
         if(!model.dead) {
             if (stunTimer <= 0) {
                 groundMovement();
@@ -49,12 +51,12 @@ public class EnemyController extends CharacterController {
                 model.walking = false;
             }
             if (boxManager.detectPlayerAttackCollision(boxController)) {
-                stunTimer = 2;
+                stunTimer = stunTime;
                 soundController.playEnemyHit();
                 model.decreaseHealth(1);
             }
             if (boxManager.detectPlayerProjectileCollision(boxController)) {
-                stunTimer = 1;
+                stunTimer = stunTime / 2;
                 soundController.playEnemyHit();
                 model.decreaseHealth(1);
             }
@@ -115,12 +117,10 @@ public class EnemyController extends CharacterController {
         attackController.updateHitBox(attackRectangle, 0);
         attackController.attackHeight = model.height;
 
-        if(model.attackTimer <= 0 && aiController.canAttack(60, model.height)) {
+        if(model.attackTimer <= 0 && aiController.canAttack(70, model.height)) {
             attackController.active = true;
             model.attackDagger = true;
-            if(model.attackDagger){
-                model.attackTimer = attackTime;
-            }
+            model.attackTimer = attackTime;
         } else {
             model.attackDagger = false;
             attackController.active = false;

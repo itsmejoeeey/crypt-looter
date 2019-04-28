@@ -63,6 +63,25 @@ public class ItemManager {
             totalItems++;
         }
 
+        MainController mainController = worldController.parent;
+        if(mainController.currentMap < 2) {
+            items.add(
+                    new NextLevel(
+                            (new Rectangle(mainController.levelControl[mainController.currentMap][1].x * world.tileSize, (mainController.levelControl[mainController.currentMap][1].y * world.tileSize), 50, 50)),
+                            worldController.parent)
+            );
+            totalItems++;
+        }
+
+        if(mainController.currentMap > 0) {
+            items.add(
+                    new PreviousLevel(
+                            (new Rectangle(mainController.levelControl[mainController.currentMap][0].x * world.tileSize, (mainController.levelControl[mainController.currentMap][1].y * world.tileSize), 50, 50)),
+                            worldController.parent)
+            );
+            totalItems++;
+        }
+
         finalChestIndex = totalItems;
         for (int i = 0; i < world.itemsFinalChest.size(); i++){
             items.add(
