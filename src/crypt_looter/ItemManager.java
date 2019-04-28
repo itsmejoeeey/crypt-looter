@@ -76,7 +76,7 @@ public class ItemManager {
         if(mainController.currentMap > 0) {
             items.add(
                     new PreviousLevel(
-                            (new Rectangle(mainController.levelControl[mainController.currentMap][0].x * world.tileSize, (mainController.levelControl[mainController.currentMap][1].y * world.tileSize), 50, 50)),
+                            (new Rectangle(mainController.levelControl[mainController.currentMap][0].x * world.tileSize, (mainController.levelControl[mainController.currentMap][0].y * world.tileSize), 50, 50)),
                             worldController.parent)
             );
             totalItems++;

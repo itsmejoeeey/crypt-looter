@@ -42,19 +42,19 @@ public class MainController {
 
     public static String[] defaultMaps = {
             "maps/outdoorlevel.tmx",
-            "maps/demomap1.tmx",
-            "maps/demomap2.tmx"
+            "maps/cryptlevel.tmx",
+            "maps/bosslevel.tmx"
 
     };
 
     int currentMap = 0;
     final Point[][] levelControl = {
             {null,                  new Point(28,1)},
-            {new Point(24,10),  new Point(30,10)},
-            {new Point(35,5),  null}
+            {new Point(17,34),  new Point(17,2)},
+            {new Point(17,34),  null}
     };
     final Point[] prevLevelSpawn = {
-            new Point(10, 10), new Point(20, 5)
+            new Point(28, 2), new Point(17, 3)
     };
 
     enum GameState_t {
@@ -262,10 +262,12 @@ public class MainController {
         blackScreen.setSize(new Dimension(frame.getWidth(), frame.getHeight()));
         blackScreen.setBackground(Color.BLACK);
         frame.getLayeredPane().add(blackScreen, new Integer(99));
+        playerModel.canMove = false;
         //
         Timer loadingTimer = new Timer(1500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playerModel.canMove = true;
                 frame.getLayeredPane().remove(blackScreen);
 
                 // Hide cursor
@@ -396,7 +398,8 @@ public class MainController {
                 sound.stopAll();
             }
             init_game();
-            character.setPos(prevLevelSpawn[currentMap]);
+
+            character.setPos(new Point(prevLevelSpawn[currentMap].x * world.world.tileSize, prevLevelSpawn[currentMap].y * world.world.tileSize));
         }
     }
 }

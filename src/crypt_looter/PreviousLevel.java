@@ -22,7 +22,7 @@ public class PreviousLevel extends ItemController{
 
     @Override
     public void triggerItem(){
-        mainController.previousLevel();
+        mainController.nextLevel();
     }
 
     @Override

@@ -14,6 +14,7 @@ public class CharacterModel {
     public boolean bowEquipped = false;
     public boolean walking = false;
     public boolean dead = false;
+    public boolean canMove = true;
 
     public double attackTimer = 0;
     public double projectileTimer = 0;

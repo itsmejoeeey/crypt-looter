@@ -118,9 +118,13 @@ public class EnemyController extends CharacterController {
         attackController.attackHeight = model.height;
 
         if(model.attackTimer <= 0 && aiController.canAttack(70, model.height)) {
-            attackController.active = true;
-            model.attackDagger = true;
-            model.attackTimer = attackTime;
+            if(model.attackTimer < 0.2) {
+                attackController.active = true;
+                model.attackDagger = true;
+                model.attackTimer = attackTime;
+            } else {
+                model.attackTimer += deltaTime/1000;
+            }
         } else {
             model.attackDagger = false;
             attackController.active = false;

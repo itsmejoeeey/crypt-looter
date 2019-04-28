@@ -50,9 +50,11 @@ public class PlayerController extends CharacterController {
         deltaX = 0;
         deltaY = 0;
         if(!model.dead) {
-            groundMovement();
-            attackDetection();
-            fireBow();
+            if(model.canMove){
+                groundMovement();
+                attackDetection();
+                fireBow();
+            }
             if(boxManager.detectEnemyAttackCollision(boxController)){
                 model.decreaseHealth(1);
             }
