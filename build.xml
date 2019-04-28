@@ -56,7 +56,89 @@
   
   <!-- Modules -->
   
-  <import file="${basedir}/.idea/module_2019-java-group5.xml"/>
+  
+  <!-- Module 2019-Java-Group5 -->
+  
+  <dirname property="module.2019-java-group5.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.2019-java-group5" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="2019-java-group5.output.dir" value="${module.2019-java-group5.basedir}/out/production/2019-Java-Group5"/>
+  <property name="2019-java-group5.testoutput.dir" value="${module.2019-java-group5.basedir}/out/test/2019-Java-Group5"/>
+  
+  <path id="2019-java-group5.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="2019-java-group5.module.production.classpath"/>
+  
+  <path id="2019-java-group5.runtime.production.module.classpath">
+    <pathelement location="${2019-java-group5.output.dir}"/>
+  </path>
+  
+  <path id="2019-java-group5.module.classpath">
+    <pathelement location="${2019-java-group5.output.dir}"/>
+  </path>
+  
+  <path id="2019-java-group5.runtime.module.classpath">
+    <pathelement location="${2019-java-group5.testoutput.dir}"/>
+    <pathelement location="${2019-java-group5.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.2019-java-group5">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.2019-java-group5">
+    <patternset refid="excluded.from.module.2019-java-group5"/>
+  </patternset>
+  
+  <path id="2019-java-group5.module.sourcepath">
+    <dirset dir="${module.2019-java-group5.basedir}">
+      <include name="src"/>
+      <include name="src/META-INF"/>
+      <include name="src/res"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.2019-java-group5" depends="compile.module.2019-java-group5.production,compile.module.2019-java-group5.tests" description="Compile module 2019-Java-Group5"/>
+  
+  <target name="compile.module.2019-java-group5.production" description="Compile module 2019-Java-Group5; production classes">
+    <mkdir dir="${2019-java-group5.output.dir}"/>
+    <javac destdir="${2019-java-group5.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.2019-java-group5}"/>
+      <bootclasspath refid="2019-java-group5.module.bootclasspath"/>
+      <classpath refid="2019-java-group5.module.production.classpath"/>
+      <src refid="2019-java-group5.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.2019-java-group5"/>
+    </javac>
+    
+    <copy todir="${2019-java-group5.output.dir}">
+      <fileset dir="${module.2019-java-group5.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.2019-java-group5.basedir}/src/META-INF">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.2019-java-group5.basedir}/src/res">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.2019-java-group5.tests" depends="compile.module.2019-java-group5.production" description="compile module 2019-Java-Group5; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.2019-java-group5" description="cleanup module">
+    <delete dir="${2019-java-group5.output.dir}"/>
+    <delete dir="${2019-java-group5.testoutput.dir}"/>
+  </target>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->

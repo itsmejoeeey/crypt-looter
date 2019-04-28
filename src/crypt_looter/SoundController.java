@@ -1,5 +1,6 @@
 package crypt_looter;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import javax.sound.sampled.*;
 
@@ -20,34 +21,34 @@ public class SoundController {
         this.playerModel = playerModel;
         try {
             String backgroundPath = "sounds/music_background.wav";
-            AudioInputStream backgroundAudioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(backgroundPath));
+            AudioInputStream backgroundAudioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(backgroundPath)));
             System.out.println(backgroundAudioStream.getFormat());
             inGameBackground = AudioSystem.getClip();
             inGameBackground.open(backgroundAudioStream);
 
 
             String footstepPath = "sounds/footstep01.wav";
-            AudioInputStream footstepAudioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(footstepPath));
+            AudioInputStream footstepAudioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(footstepPath)));
             playerFootstep = AudioSystem.getClip();
             playerFootstep.open(footstepAudioStream);
 
             String swordSlashPath = "sounds/sword.wav";
-            AudioInputStream slashAudioStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(swordSlashPath));
+            AudioInputStream slashAudioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(swordSlashPath)));
             slashEffect = AudioSystem.getClip();
             slashEffect.open(slashAudioStream);
 
             String enemy1HitPath = "sounds/monster01.wav";
-            AudioInputStream enemyHit1Stream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(enemy1HitPath));
+            AudioInputStream enemyHit1Stream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(enemy1HitPath)));
             enemyHit1 = AudioSystem.getClip();
             enemyHit1.open(enemyHit1Stream);
 
             String enemy2HitPath = "sounds/monster02.wav";
-            AudioInputStream enemyHit2Stream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(enemy2HitPath));
+            AudioInputStream enemyHit2Stream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(enemy2HitPath)));
             enemyHit2 = AudioSystem.getClip();
             enemyHit2.open(enemyHit2Stream);
 
             String enemy3HitPath = "sounds/monster03.wav";
-            AudioInputStream enemyHit3Stream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream(enemy3HitPath));
+            AudioInputStream enemyHit3Stream = AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(enemy3HitPath)));
             enemyHit3 = AudioSystem.getClip();
             enemyHit3.open(enemyHit3Stream);
 
