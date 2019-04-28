@@ -19,12 +19,13 @@ ant
 ```
 
 ### To run
-Ensure you follow the build instructions above prior then execute
+Ensure you follow the build instructions above prior then execute:
 ```
 java -classpath out/production/2019-Java-Group5 crypt_looter.main
 ```
-
+  
 ### To create and run a jar
+Ensure you follow the build instructions above prior then execute:
 ```
 # Create the jar
 jar cmf out/production/2019-Java-Group5/MANIFEST.MF CryptLooter.jar -C out/production/2019-Java-Group5 *
