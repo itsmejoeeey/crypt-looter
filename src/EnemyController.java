@@ -11,9 +11,9 @@ public class EnemyController extends CharacterController {
     public AttackController attackController;
     protected CharacterModel playerModel;
 
-    public EnemyController(Point spawnPos, BoxController player, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel) {
+    public EnemyController(Point spawnPos, BoxManager _boxManager, SoundController _soundController, CharacterModel playerModel) {
         super(spawnPos, _soundController, _boxManager);
-        //view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+        //view = new EnemyView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), playerModel);
         initView(spawnPos);
         this.playerModel = playerModel;
         boxController = new BoxController(model, view);
@@ -21,7 +21,7 @@ public class EnemyController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    aiController = new EnemyAIController(boxController, player);
+                    aiController = new EnemyAIController(model, playerModel);
                     attackController = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
                     model.direction = 4;
                     boxManager.entities.add(boxController);
@@ -73,7 +73,7 @@ public class EnemyController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view.moveWorld((int) x, (int) y);
+                    view.moveWorld((int) model.x, (int) model.y);
                 }
             });
         } catch (Exception e) {
@@ -89,8 +89,8 @@ public class EnemyController extends CharacterController {
         double delta = deltaTime * speed;
         Vector2 aiVector = aiController.move(model.height);
         Vector2 moveVector = boxManager.move(new Vector2(aiVector.x, aiVector.y), view.getBounds(), boxController);
-        x += moveVector.x * delta;
-        y += moveVector.y * delta;
+        model.x += moveVector.x * delta;
+        model.y += moveVector.y * delta;
         if(moveVector.x > 0 || moveVector.y > 0){
             model.walking = true;
         } else {

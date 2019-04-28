@@ -6,6 +6,9 @@ public class World {
     public Dimension mapSize;
     public int mapTileSize;
 
+    public int spawnX;
+    public int spawnY;
+
     public boolean[][] collisions;
     public boolean[][] death;
 

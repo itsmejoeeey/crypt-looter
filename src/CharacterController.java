@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CharacterController {
-    protected float x = 0;
-    protected float y = 0;
     public double deltaTime = 0;
 
     protected CharacterView view;

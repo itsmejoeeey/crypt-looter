@@ -6,6 +6,9 @@ import java.io.IOException;
 
 public class CharacterModel {
     public Rectangle baseTranform;
+
+    public float x = 0;
+    public float y = 0;
     public int direction = 4;
     public boolean attackDagger = false;
     public boolean daggerEquipped = false;

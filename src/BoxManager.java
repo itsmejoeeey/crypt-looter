@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
-//BoxManager class checks collisions between the player and other box controllers
-//Will be responsible for checking collisions for everything not just between player and box
+//BoxManager class checks collisions between the playerModel and other box controllers
+//Will be responsible for checking collisions for everything not just between playerModel and box
 
 public class BoxManager {
     public World world;

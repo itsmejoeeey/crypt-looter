@@ -41,7 +41,9 @@ public class BoxController {
 
     public Rectangle getRect(){
         if(view != null){
-            return view.getBounds();
+            Rectangle transform = new Rectangle(model.baseTranform);
+            transform.setLocation((int) (model.baseTranform.x + model.x), (int)(model.baseTranform.y + model.y));
+            return transform;
         }
         return rect;
     }

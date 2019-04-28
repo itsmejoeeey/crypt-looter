@@ -14,7 +14,7 @@ public class EnemyView extends CharacterView {
 
         charTexNormalFilepath = "src/res/textures/enemy_walkcycle.png";
         charTexSlashFilepath = "src/res/textures/enemy_slash.png";
-        // No enemy bow textures, but CharacterView requires one so we will reuse the player texture
+        // No enemy bow textures, but CharacterView requires one so we will reuse the playerModel texture
         charTexBowFilepath = "src/res/textures/man_bow.png";
         charTexHurtFilepath = "src/res/textures/enemy_hurt.png";
 

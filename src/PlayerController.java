@@ -16,16 +16,16 @@ public class PlayerController extends CharacterController {
     public AttackController[] attackController = new AttackController[3];
     private ProjectileManager projectileManager;
 
-    public PlayerController(MainController parent, Point spawnPos, BoxManager _boxManager, SoundController soundController, ProjectileManager projectileManager) {
-        super(spawnPos, soundController, _boxManager);
-
+    public PlayerController(MainController parent, Point spawnPoint, BoxManager _boxManager, SoundController soundController, ProjectileManager projectileManager, CharacterModel model) {
+        super(spawnPoint, soundController, _boxManager);
+        this.model = model;
         this.parent = parent;
 
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view = new PlayerView(new Rectangle(spawnPos.x, spawnPos.y, 50, 50), model);
+                    view = new PlayerView(model.baseTranform, model);
                 }
             });
         } catch (Exception e) {
@@ -33,9 +33,9 @@ public class PlayerController extends CharacterController {
         }
 
         boxController = new BoxController(model, view);
-        attackController[0] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
-        attackController[1] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
-        attackController[2] = new AttackController(new Rectangle(spawnPos.x, spawnPos.y, 20,20));
+        attackController[0] = new AttackController(new Rectangle(0, 0, 20,20));
+        attackController[1] = new AttackController(new Rectangle(0, 0, 20,20));
+        attackController[2] = new AttackController(new Rectangle(0, 0, 20,20));
         model.direction = 4;
         boxManager.entities.add(boxController);
         boxManager.playerAttacks = attackController;
@@ -43,8 +43,8 @@ public class PlayerController extends CharacterController {
         this.projectileManager = projectileManager;
     }
 
-    //Moves player based on key inputs
-    //delta is equal to newPosition - oldPosition so if 0 the player will stand still
+    //Moves playerModel based on key inputs
+    //delta is equal to newPosition - oldPosition so if 0 the playerModel will stand still
     public void update() {
         if(!model.dead) {
             groundMovement();
@@ -74,7 +74,7 @@ public class PlayerController extends CharacterController {
                 timer.start();
             }
         }
-        //System.out.println(model.dead);
+        System.out.println(model.x + "-" + model.y);
 
         // Update the character animations
         view.deltaTime = deltaTime;
@@ -83,7 +83,7 @@ public class PlayerController extends CharacterController {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    view.moveWorld((int) x, (int) y);
+                    view.moveWorld((int) model.x, (int) model.y);
                 }
             });
         } catch (Exception e) {
@@ -121,8 +121,8 @@ public class PlayerController extends CharacterController {
             deltaY = deltaTime * speed;
         //Checks with the box manager if it will hit a box and returns movement vector based on collisions
         Vector2 v = boxManager.move(new Vector2((float) deltaX, (float) deltaY), view.getBounds(), boxController);
-        x += v.x;
-        y += v.y;
+        model.x += v.x;
+        model.y += v.y;
     }
 
     int attackX;
@@ -154,6 +154,12 @@ public class PlayerController extends CharacterController {
             attackY += -1;
             model.walking = true;
         }
+        if (KeyStates.attackKey.keyState()){
+            parent.previousLevel();
+        }
+        if (KeyStates.projKey.keyState()){
+            parent.nextLevel();
+        }
 
         setDirection(attackX, attackY);
 
@@ -164,7 +170,7 @@ public class PlayerController extends CharacterController {
 
         double distanceFactor = 0.8;
 
-        //System.out.println(attackX +"," + getMoveDirection(model.direction)[0] +"," + attackY +"," + getMoveDirection(model.direction)[1]);
+        //System.out.println(attackX +"," + getMoveDirection(playerModel.direction)[0] +"," + attackY +"," + getMoveDirection(playerModel.direction)[1]);
         //System.out.println(attackController[0].getWidth() + ":" + attackController[0].getHeight());
         //System.out.println(leftAttackPosition[0] + ":" + leftAttackPosition[1] + "_" + attackX + ":" + attackY + "_" + rightAttackPosition[0] + ":" + rightAttackPosition[1]);
         Rectangle centreRectangle = new Rectangle((int)(view.getBounds().x + centreAttackPosition[0] * view.getBounds().height * distanceFactor + (view.getBounds().height - attackController[0].getHeight())/2),
@@ -182,7 +188,7 @@ public class PlayerController extends CharacterController {
 
         attackController[0].attackHeight = model.height;
 
-        //System.out.println(model.attackDagger);
+        //System.out.println(playerModel.attackDagger);
         if(model.attackTimer <= 0 && model.daggerEquipped) {
             attackController[0].active = (KeyStates.attackKey.changedSinceLastChecked() && KeyStates.attackKey.keyState());
             model.attackDagger = attackController[0].active;
@@ -233,6 +239,10 @@ public class PlayerController extends CharacterController {
                 return directions;
         }
         return directions;
+    }
+
+    public void setPos(Point newPos) {
+        view.moveWorld(newPos.x, newPos.y);
     }
 
     public Point getPos() {

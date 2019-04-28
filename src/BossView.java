@@ -30,7 +30,7 @@ public class BossView extends CharacterView{
 
         // Default rectangle
 //        g2.setColor(Color.black);
-//        g2.fillRect(model.baseTranform.x, model.baseTranform.y, model.baseTranform.width, model.baseTranform.height);
+//        g2.fillRect(playerModel.baseTranform.x, playerModel.baseTranform.y, playerModel.baseTranform.width, playerModel.baseTranform.height);
 
         g2.drawImage(charTexFrames[g2d_image][g2d_imageDirection][g2d_imageFrame], 0, -10, 64, 64, null);
 

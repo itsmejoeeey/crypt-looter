@@ -14,6 +14,8 @@ public class MainController {
 
     JFrame frame;
 
+    CharacterModel playerModel;
+
     // World objects
     WorldController world;
     CameraController camera;
@@ -35,6 +37,16 @@ public class MainController {
 
     public boolean defaultMapLoaded;
     public File mapToLoad;
+
+    int currentMap = 0;
+    final Point[][] levelControl = {
+            {null,                  new Point(25,10)},
+            {new Point(24,10),  new Point(30,10)},
+            {new Point(35,5),  null}
+    };
+    final Point[] prevLevelSpawn = {
+            new Point(10, 10), new Point(20, 5)
+    };
 
     enum GameState_t {
         PAUSED, INIT_MAIN_MENU, MAIN_MENU, NORMAL_GAME, INIT_NORMAL_GAME, ESCAPE, GAME_OVER, HIGH_SCORES, INIT_CUSTOM_GAME
@@ -186,11 +198,12 @@ public class MainController {
 
     private void init_customgame() {
         defaultMapLoaded = false;
+        playerModel = new CharacterModel(new Rectangle(20, 20, 50, 50), 2);
     }
 
     private void init_normalgame() {
         defaultMapLoaded = true;
-
+        playerModel = new CharacterModel(new Rectangle(20, 20, 50, 50), 2);
         mapToLoad = new File("src/maps/demomap.tmx");
     }
 
@@ -240,22 +253,26 @@ public class MainController {
 
         frame.addKeyListener(new KeyController());
 
+        World map = mapReader.getWorld();
 
-        world = new WorldController(this, mapReader.getWorld());
-        boxManager = new BoxManager(mapReader.getWorld());
-        projectileManager = new ProjectileManager(world, boxManager, new Dimension(mapReader.getWorld().mapSize.width * mapReader.getWorld().tileSize, mapReader.getWorld().mapSize.height * mapReader.getWorld().tileSize));
-        character = new PlayerController(this, new Point(1100,500), boxManager, sound, projectileManager);
-        sound = new SoundController(this, character.model);
-        hud = new HUDController(this, character.model);
-        enemyManager = new EnemyManager(world, mapReader.getWorld(), character.boxController, boxManager, sound, projectileManager);
-        itemManager = new ItemManager(world, mapReader.getWorld(), boxManager, character.model, enemyManager.getBossModels());
+        playerModel.baseTranform.x = map.spawnX;
+        playerModel.baseTranform.y = map.spawnY;
+
+        world = new WorldController(this, map);
+        boxManager = new BoxManager(map);
+        projectileManager = new ProjectileManager(world, boxManager, new Dimension(map.mapSize.width * map.tileSize, map.mapSize.height * map.tileSize));
+        character = new PlayerController(this, playerModel.baseTranform.getLocation(), boxManager, sound, projectileManager, playerModel);
+        sound = new SoundController(this, playerModel);
+        hud = new HUDController(this, playerModel);
+        enemyManager = new EnemyManager(world, map, character.boxController, boxManager, sound, projectileManager);
+        itemManager = new ItemManager(world, map, boxManager, playerModel, enemyManager.getBossModels());
 
         ImageIcon icon = new ImageIcon("src/res/icons/app_icon.png");
         frame.setIconImage(icon.getImage());
 
         frame.setTitle("Crypt Looter");
 
-        camera = new CameraController(mapReader.getWorld(), world, character, screenSize);
+        camera = new CameraController(map, world, character, screenSize);
 
         frame.add(world.getView());
         world.getView().add(character.getView());
@@ -264,8 +281,8 @@ public class MainController {
         world.getView().add(character.attackController[1]);
         world.getView().add(character.attackController[2]);
 
-        for(int x = 0; x < mapReader.getWorld().mapSize.width; x++){
-            for (int y = 0; y < mapReader.getWorld().mapSize.height; y++) {
+        for(int x = 0; x < map.mapSize.width; x++){
+            for (int y = 0; y < map.mapSize.height; y++) {
                 try {
                     world.getView().add(boxManager.colliders[x][y].getView());
                 } catch (NullPointerException e){
@@ -317,5 +334,60 @@ public class MainController {
         frame.setCursor(defaultCursor);
 
         escapeMenu.update();
+    }
+
+
+
+    /*
+        Only deals with manipulating teleporting levels for the default included maps
+     */
+    public void nextLevel() {
+        if(currentMap < 2) {
+            currentMap++;
+
+            //CharacterModel prevCharacterModel = character.model;
+
+            switch(currentMap) {
+                case 1:
+                    mapToLoad = new File("src/maps/demomap1.tmx");
+                    break;
+                case 2:
+                    mapToLoad = new File("src/maps/demomap2.tmx");
+                    break;
+            }
+            frame.getLayeredPane().remove(hud.getView());
+            frame.getContentPane().removeAll();
+            frame.repaint();
+            frame.revalidate();
+
+            init_game();
+            //character.model = prevCharacterModel;
+        }
+
+    }
+    public void previousLevel() {
+        if(currentMap > 0) {
+            currentMap--;
+
+            //CharacterModel prevCharacterModel = character.model;
+
+            switch(currentMap) {
+                case 0:
+                    mapToLoad = new File("src/maps/demomap.tmx");
+                    break;
+                case 1:
+                    mapToLoad = new File("src/maps/demomap1.tmx");
+                    break;
+            }
+
+            frame.getLayeredPane().remove(hud.getView());
+            frame.getContentPane().removeAll();
+            frame.repaint();
+            frame.revalidate();
+
+            init_game();
+            //character.model = prevCharacterModel;
+            character.setPos(prevLevelSpawn[currentMap]);
+        }
     }
 }

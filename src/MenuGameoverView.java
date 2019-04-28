@@ -42,7 +42,7 @@ public class MenuGameoverView extends JPanel {
         buttonContainer.add(scoreText);
 
         // Buttons
-        JButton buttonSetName = new JButton("Set player name");
+        JButton buttonSetName = new JButton("Set playerModel name");
         buttonSetName.setFocusable(false);
         buttonSetName.setOpaque(true);
         buttonSetName.setContentAreaFilled(false);
@@ -141,7 +141,7 @@ public class MenuGameoverView extends JPanel {
             }
         } catch(IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this,
-                    "Invalid player name input.\n" +
+                    "Invalid playerModel name input.\n" +
                     "Name must contain only characters. Maximum name size 6 characters.",
                     "Invalid Input",
                     JOptionPane.ERROR_MESSAGE);
