@@ -64,11 +64,11 @@ public class CharacterModel {
     }
 
     public int getX(){
-        return (int) (baseTransform.x + x);
+        return (int) (x);
     }
 
     public int getY(){
-        return (int) (baseTransform.y + y);
+        return (int) (y);
     }
 
 

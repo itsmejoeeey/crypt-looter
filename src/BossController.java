@@ -8,7 +8,7 @@ public class BossController extends EnemyController {
         model.maxHealth = 6;
         model.health = 6;
         speed = 0.03;
-        aiController.attackDistance = 100;
+        aiController.attackDistance = 200;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class BossController extends EnemyController {
     public void update(){
         super.update();
         if(model.health != model.maxHealth){
-            //aiController.attackDistance = 10000;
+            aiController.attackDistance = 10000;
         }
     }
 
@@ -35,7 +35,8 @@ public class BossController extends EnemyController {
             for(int i =0; i < 8; i++){
                 double x = Math.cos(segmentAngle * i) * 2;
                 double y = Math.sin(segmentAngle * i) * 2;
-                projectileManager.spawnProjectile(new Point(getView().getX(), getView().getY()), new Vector2(Math.signum((int)x), Math.signum((int)y)), boxController, false);
+                Rectangle transform = model.getTransform();
+                projectileManager.spawnProjectile(new Point((int) (transform.x + transform.getWidth()/2), (int) (transform.y + transform.getHeight()/2)), new Vector2(Math.signum((int)x), Math.signum((int)y)), boxController, false);
             }
             model.attackBow = true;
             model.attackTimer = attackTime;

@@ -38,10 +38,14 @@ public class BoxManager {
         int tileY = Math.floorMod(((arrow.y + arrow.width / 2) / world.tileSize) , world.mapSize.width);
         int tileX = Math.floorMod(((arrow.x + arrow.height / 2) / world.tileSize), world.mapSize.height);
 
-        int minX =  Math.floorMod((tileX - arrow.height / world.tileSize * 2), world.mapSize.height);
-        int maxX =  Math.floorMod((tileX + arrow.height / world.tileSize * 2 + 1), world.mapSize.height);
-        int minY =  Math.floorMod((tileY - arrow.width / world.tileSize * 2) , world.mapSize.width);
-        int maxY =  Math.floorMod((tileY + arrow.width / world.tileSize * 2 + 1) , world.mapSize.width);
+        int minX =  (tileX - arrow.height / world.tileSize * 2) % world.mapSize.height;
+        int maxX =  (tileX + arrow.height / world.tileSize * 2 + 1) % world.mapSize.height;
+        int minY =  (tileY - arrow.width / world.tileSize * 2 % world.mapSize.width);
+        int maxY =  (tileY + arrow.width / world.tileSize * 2 + 1) % world.mapSize.width;
+
+        minX = minX < 0 ? 0 : minX;
+        minY = minY < 0 ? 0 : minY;
+
         for(int x = minX; x < maxX; x++) {
             for (int y = minY; y < maxY; y++) {
                 if(height != -1){

@@ -255,7 +255,7 @@ public class MainController {
 
         World map = mapReader.getWorld();
 
-        //playerModel.setWorld(map.spawnX, map.spawnY);
+        playerModel.setWorld(map.spawnX * map.tileSize, map.spawnY * map.tileSize);
 
         world = new WorldController(this, map);
         boxManager = new BoxManager(map, world);

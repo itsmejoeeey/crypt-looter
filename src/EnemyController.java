@@ -40,7 +40,7 @@ public class EnemyController extends CharacterController {
     public void update() {
         if(!model.dead) {
             if (stunTimer <= 0) {
-                //groundMovement();
+                groundMovement();
                 attackDetection();
             } else {
                 stunTimer = stunTimer - deltaTime / 1000;

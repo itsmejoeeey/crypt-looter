@@ -48,6 +48,6 @@ public class ProjectileView extends JPanel {
     }
 
     public void moveWorld(int newX, int newY) {
-        this.setLocation(origin.x + newX, origin.y + newY);
+        setLocation(newX, newY);
     }
 }

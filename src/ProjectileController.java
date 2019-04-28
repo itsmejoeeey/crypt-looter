@@ -28,13 +28,12 @@ public class ProjectileController {
                 @Override
                 public void run() {
                     view = new ProjectileView(spawnRect, getDirection((int) Math.signum(direction.x), -(int) Math.signum(direction.y)), player);
-                    //view.getBounds(spawnRect);
                 }
             });
         } catch (Exception e) {
             // Required to catch potential exception
         }
-
+        view.setLocation((int) x,(int) y);
     }
     public void update(double deltaTime){
         if(boxManager.projectileMove(new Rectangle((int) x, (int) y, view.getWidth(), view.getHeight()), height)){
@@ -43,7 +42,7 @@ public class ProjectileController {
         x += deltaX * deltaTime * speed / 1000;
         y += deltaY * deltaTime * speed / 1000;
         if(x < 0 || y < 0 || x > mapSize.width || y > mapSize.height){
-            projectileManager.destroyProjectile(this);
+            hitWorld();
         } else {
             view.moveWorld((int) x, (int) y);
         }

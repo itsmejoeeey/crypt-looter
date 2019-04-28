@@ -43,7 +43,7 @@ public class ProjectileManager {
                 }
             });
         } catch (InterruptedException | InvocationTargetException ex) {
-
+            System.out.println(ex);
         }
     }
 
